@@ -1,11 +1,11 @@
 HELP.md
 target/
-/mvnw.cmd
-mvnw
-.mvn
 !**/src/main/**/target/
 /src/test/**/target/
-
+/.mvn
+/test
+/mvnw
+/mvnw.cmd
 ### STS ###
 .apt_generated
 .classpath
