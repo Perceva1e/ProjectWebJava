@@ -34,7 +34,7 @@ public class  TextController {
     {
         return service.findByText(text);
     }
-    @DeleteMapping("delete_text/{text}")
+    @DeleteMapping("delete_text/{id}")
     public void deleteText(@PathVariable Long id)
     {
         service.deleteText(id);

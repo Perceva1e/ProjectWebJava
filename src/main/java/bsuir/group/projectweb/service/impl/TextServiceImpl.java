@@ -1,18 +1,18 @@
-package bsuir.group.projectweb.service.Impl;
+package bsuir.group.projectweb.service.impl;
 
 import bsuir.group.projectweb.model.Text;
 import bsuir.group.projectweb.repository.InMemoryDAO;
 import bsuir.group.projectweb.repository.TextRepository;
 import bsuir.group.projectweb.service.TextService;
 import lombok.AllArgsConstructor;
-import org.springframework.context.annotation.Primary;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 @Service
 @AllArgsConstructor
-@Primary
+
 public class TextServiceImpl implements TextService {
     private final TextRepository repository;
     private final InMemoryDAO repositoryDao;

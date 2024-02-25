@@ -4,9 +4,6 @@ import bsuir.group.projectweb.model.Text;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.IntStream;
 @Repository
 public class InMemoryDAO {
 
@@ -26,7 +23,7 @@ public class InMemoryDAO {
         return i;
     }
 
-    public boolean CheckNumber(String stringForCompare, int firstIndex) {
+    public boolean checkNumber(String stringForCompare, int firstIndex) {
         int countForArray = 0;
         char[] charArray;
         charArray = stringForCompare.toCharArray();
@@ -44,7 +41,7 @@ public class InMemoryDAO {
         return false;
     }
 
-    public boolean CheckEmail(String stringForCompare, int firstIndex) {
+    public boolean checkEmail(String stringForCompare, int firstIndex) {
         int countForArray = 0;
         char[] charArray;
         String domainEmail = "gmail.com";
@@ -71,7 +68,7 @@ public class InMemoryDAO {
         int firstIndex = 0;
         while (!checkForPlus) {
             firstIndex = stringForCompare.indexOf('+', firstIndex + 1);
-            checkForPlus = CheckNumber(stringForCompare, firstIndex);
+            checkForPlus = checkNumber(stringForCompare, firstIndex);
             if (firstIndex == -1) {
                 return information;
             }
@@ -98,7 +95,7 @@ public class InMemoryDAO {
         int firstIndexAt = 0;
         while (!checkForAt) {
             firstIndexAt = stringForCompare.indexOf('@', firstIndexAt + 1);
-            checkForAt = CheckEmail(stringForCompare, firstIndexAt);
+            checkForAt = checkEmail(stringForCompare, firstIndexAt);
             if (firstIndexAt == -1) {
                 return information;
             }
