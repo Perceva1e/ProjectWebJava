@@ -34,14 +34,9 @@ public class  TextController {
     {
         return service.findByText(text);
     }
-    @PutMapping("update_text")
-    public Text updateText(Text text)
-    {
-        return service.updateText(text);
-    }
     @DeleteMapping("delete_text/{text}")
-    public void deleteText(@PathVariable String text)
+    public void deleteText(@PathVariable Long id)
     {
-        service.deleteText(text);
+        service.deleteText(id);
     }
 }

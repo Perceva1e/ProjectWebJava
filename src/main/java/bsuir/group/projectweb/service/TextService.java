@@ -9,7 +9,6 @@ public interface TextService {
     public List<Text> findAllText() ;
     public Text saveText(Text information) ;
     public Text findByText(String information) ;
-    public Text updateText(Text information);
-    public void deleteText(String information);
+    public void deleteText(Long id);
     public Text findNumberPhoneAndEmail(Text information);
 }
