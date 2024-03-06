@@ -11,5 +11,5 @@ public class Salary {
     @GeneratedValue
     private Long id;
     @Column
-    private Integer salary;
+    private Integer price;
 }
