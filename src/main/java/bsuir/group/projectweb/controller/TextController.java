@@ -1,5 +1,7 @@
 package bsuir.group.projectweb.controller;
 
+import bsuir.group.projectweb.model.Author;
+import bsuir.group.projectweb.model.Salary;
 import bsuir.group.projectweb.model.Text;
 import bsuir.group.projectweb.service.TextService;
 import lombok.AllArgsConstructor;
@@ -17,17 +19,32 @@ public class  TextController {
     {
         return service.findAllText();
     }
-    @PostMapping("/save_information")
-    public String saveText(@RequestBody Text information )
+    @PostMapping("/save_people")
+    public String saveAuthor(@RequestBody Author author)
     {
-        service.saveText(information);
+        service.savePerson(author);
         return "information is a save";
     }
-    @PostMapping("/find_phone_number_email")
-    public String findNumberPhoneAndEmail(@RequestBody Text information)
+    @PostMapping("/save_salary")
+    public String saveSalary(@RequestBody Salary salary)
     {
-        service.findNumberPhoneAndEmail(information);
+        service.saveSalary(salary);
         return "information is a save";
+    }
+    @PostMapping("/save_information")
+    public Text saveText(@RequestBody Text information )
+    {
+        return service.saveText(information);
+    }
+    @PostMapping("/find_phone_number_email")
+    public Text findNumberPhoneAndEmail(@RequestBody Text information)
+    {
+        return service.findNumberPhoneAndEmail(information);
+    }
+    @PutMapping("change")
+    public Text changeText(@RequestBody Text information)
+    {
+        return service.changeText(information);
     }
     @GetMapping("/{text}")
     public Text findByText(@PathVariable String text)
