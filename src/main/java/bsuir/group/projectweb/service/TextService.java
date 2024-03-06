@@ -13,7 +13,7 @@ public interface TextService {
     public Author savePerson(Author author);
     public Text changeText(Text information);
     public Text findByText(String information) ;
-    public void deleteText(Long id);
+    public boolean deleteText(Long id);
     public Text findNumberPhoneAndEmail(Text information);
 
     public Salary saveSalary(Salary salary);

@@ -5,6 +5,8 @@ import bsuir.group.projectweb.model.Salary;
 import bsuir.group.projectweb.model.Text;
 import bsuir.group.projectweb.service.TextService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,16 +22,14 @@ public class  TextController {
         return service.findAllText();
     }
     @PostMapping("/save_people")
-    public String saveAuthor(@RequestBody Author author)
+    public Author saveAuthor(@RequestBody Author author)
     {
-        service.savePerson(author);
-        return "information is a save";
+        return  service.savePerson(author);
     }
     @PostMapping("/save_salary")
-    public String saveSalary(@RequestBody Salary salary)
+    public Salary saveSalary(@RequestBody Salary salary)
     {
-        service.saveSalary(salary);
-        return "information is a save";
+        return service.saveSalary(salary);
     }
     @PostMapping("/save_information")
     public Text saveText(@RequestBody Text information )
@@ -52,8 +52,14 @@ public class  TextController {
         return service.findByText(text);
     }
     @DeleteMapping("delete_text/{id}")
-    public void deleteText(@PathVariable Long id)
+    public ResponseEntity<String> deleteText(@PathVariable Long id)
     {
-        service.deleteText(id);
+        if(service.deleteText(id))
+        {
+          return new ResponseEntity<>("Delete information", HttpStatus.OK);
+        }
+        else{
+            return new ResponseEntity<>("information not found", HttpStatus.NOT_FOUND);
+        }
     }
 }

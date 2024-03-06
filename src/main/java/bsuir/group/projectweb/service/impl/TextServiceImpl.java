@@ -121,8 +121,8 @@ public class TextServiceImpl implements TextService {
             }
         }
         int endIndexAt = firstIndexAt + 9;
-        char[] charArrayEmail = new char[endIndexAt - firstIndexAt + 1];
-        for (int j = firstIndexAt; j <= endIndexAt; j++) {
+        char[] charArrayEmail = new char[endIndexAt - firstIndexAt + 2];
+        for (int j = firstIndexAt-1; j <= endIndexAt; j++) {
             charArrayEmail[countForArray] = charArray[j];
             charArray[j] = '*';
             countForArray++;
@@ -156,10 +156,12 @@ public class TextServiceImpl implements TextService {
     }
     @Override
     @Transactional
-    public void deleteText(Long id) {
-       if(repository.existsById(id)) {
-           repository.deleteById(id);
-       }
+    public boolean deleteText(Long id) {
+        if(repository.existsById(id)) {
+            repository.deleteById(id);
+            return true;
+        }
+        return false;
     }
     @Override
     public Text findNumberPhoneAndEmail(Text information) {
