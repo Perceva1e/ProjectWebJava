@@ -22,3 +22,5 @@ ____
 ____
 ## Анализатор кода
 [Sonar Cloud](https://sonarcloud.io/summary/overall?id=Perceva1e_projectWebJava)
+## Swagger
+[Swagger](http://localhost:8080/swagger-ui/index.html#/)
