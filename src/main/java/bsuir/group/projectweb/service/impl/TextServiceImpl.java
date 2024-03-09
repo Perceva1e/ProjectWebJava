@@ -16,6 +16,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -152,17 +153,50 @@ public class TextServiceImpl implements TextService {
     }
 
     @Override
-    public Text changeText(final Text information) {
-        return repositoryText.save(information);
+    public  Boolean addAuthorInText(String informationExist,Author authorAdd){
+        if(repositoryText.existsByInformation(informationExist))
+        {
+            Text informationChange=repositoryText.findByInformation(informationExist);
+            Set<Author> authors = informationChange.getAuthors();
+            repositorySalary.save(authorAdd.getSalaries());
+            authors.add(authorAdd);
+            informationChange.setAuthors(authors);
+            repositoryText.save(informationChange);
+            return true;
+        }
+        else { return false; }
+    }
+
+    @Override
+    public Boolean changeSalaryById(Long id, Integer price) {
+        if(repositoryAuthor.existsById(id))
+        {
+            Author authorChange = repositoryAuthor.findAuthorById(id);
+            Salary salaryChange = authorChange.getSalaries();
+            salaryChange.setPrice(price);
+            authorChange.setSalaries(salaryChange);
+            repositorySalary.save(salaryChange);
+            repositoryAuthor.save(authorChange);
+            return true;
+        }
+        else { return false; }
+    }
+
+    @Override
+    public Boolean changeByText(final String informationExist,final String information) {
+        if(repositoryText.existsByInformation(informationExist))
+        {
+            Text informationChange=repositoryText.findByInformation(informationExist);
+            informationChange.setInformation(information);
+            repositoryText.save(informationChange);
+            return true;
+        }
+        else { return false; }
     }
 
     @Override
     public boolean existByText(final String information) {
-        if (repositoryText.existsByInformation(information)) {
-            return true;
-        } else {
-            return false;
-        }
+        return repositoryText.existsByInformation(information);
     }
 
     @Override
@@ -174,7 +208,42 @@ public class TextServiceImpl implements TextService {
     @Transactional
     public boolean deleteText(final Long id) {
         if (repositoryText.existsById(id)) {
+            Text text = repositoryText.findTextById(id);
+            Set<Author> authors;
+            authors = text.getAuthors();
+            List<Author> authorsList = authors.stream().toList();
+            for (Author author : authorsList) {
+                repositorySalary.delete(author.getSalaries());
+            }
             repositoryText.deleteById(id);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean deleteAuthor(Long id) {
+        if (repositoryAuthor.existsById(id)) {
+            Author authorDelete = repositoryAuthor.findAuthorById(id);
+            Text text = repositoryText.findTextByAuthors(authorDelete);
+            Set<Author> authors = text.getAuthors();
+            List<Author> authorsList = new java.util.ArrayList<>(authors.stream().toList());
+            authorsList.remove(authorDelete);
+            text.setAuthors(new HashSet<>(authorsList));
+            repositoryText.save(text);
+            repositoryAuthor.delete(authorDelete);
+            return true;
+        }
+        return false;
+    }
+    @Override
+    public boolean deleteSalary(Long id) {
+        if (repositorySalary.existsById(id)) {
+            Salary salary = repositorySalary.findSalariesById(id);
+            Author author = repositoryAuthor.findAuthorBySalaries(salary);
+            author.setSalaries(null);
+            repositoryAuthor.save(author);
+            repositorySalary.delete(salary);
             return true;
         }
         return false;
