@@ -1,5 +1,6 @@
 package bsuir.group.projectweb.service.impl;
 
+import bsuir.group.projectweb.controller.TextController;
 import bsuir.group.projectweb.model.Author;
 import bsuir.group.projectweb.model.Salary;
 import bsuir.group.projectweb.model.Text;
@@ -7,13 +8,14 @@ import bsuir.group.projectweb.repository.AuthorRepositoryDAO;
 import bsuir.group.projectweb.repository.SalaryRepositoryDAO;
 import bsuir.group.projectweb.repository.TextRepositoryDAO;
 import bsuir.group.projectweb.service.TextService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
-
-import org.jetbrains.annotations.NotNull;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -21,17 +23,21 @@ import java.util.Set;
 @AllArgsConstructor
 
 public class TextServiceImpl implements TextService {
-    private final TextRepositoryDAO repository;
+    static final Logger logger = LogManager.getLogger(TextController.class);
+    private final TextRepositoryDAO repositoryText;
     private final AuthorRepositoryDAO repositoryAuthor;
     private final SalaryRepositoryDAO repositorySalary;
+
     @Override
     public List<Text> findAllText() {
-        return repository.findAll();
+        return repositoryText.findAll();
     }
-    public boolean ifNumber(char number) {
+
+    public boolean ifNumber(final char number) {
         return (number >= '0') && (number <= '9');
     }
-    public int endFindIndex(@NotNull String stringForCompare, int firstFindIndex) {
+
+    public int endFindIndex(final String stringForCompare, final int firstFindIndex) {
         char[] charArray;
         int i;
         charArray = stringForCompare.toCharArray();
@@ -43,7 +49,7 @@ public class TextServiceImpl implements TextService {
         return i;
     }
 
-    public boolean checkNumber(String stringForCompare, int firstIndex) {
+    public boolean checkNumber(final String stringForCompare, final int firstIndex) {
         int countForArray = 0;
         char[] charArray;
         charArray = stringForCompare.toCharArray();
@@ -61,7 +67,7 @@ public class TextServiceImpl implements TextService {
         return false;
     }
 
-    public boolean checkEmail(String stringForCompare, int firstIndex) {
+    public boolean checkEmail(final String stringForCompare, final int firstIndex) {
         int countForArray = 0;
         char[] charArray;
         String domainEmail = "gmail.com";
@@ -77,10 +83,10 @@ public class TextServiceImpl implements TextService {
                 return true;
             }
         }
-        return countForArray == 9;
+        return false;
     }
 
-    public Text findNumberPhone(String stringForCompare, Text information) {
+    public Text findNumberPhone(final String stringForCompare, final Text information) {
         char[] charArray;
         charArray = stringForCompare.toCharArray();
         int countForArray = 0;
@@ -107,7 +113,7 @@ public class TextServiceImpl implements TextService {
         return information;
     }
 
-    public Text findEmail(String stringForCompare, Text information) {
+    public Text findEmail(final String stringForCompare, final Text information) {
         char[] charArray;
         charArray = stringForCompare.toCharArray();
         int countForArray = 0;
@@ -122,7 +128,7 @@ public class TextServiceImpl implements TextService {
         }
         int endIndexAt = firstIndexAt + 9;
         char[] charArrayEmail = new char[endIndexAt - firstIndexAt + 2];
-        for (int j = firstIndexAt-1; j <= endIndexAt; j++) {
+        for (int j = firstIndexAt - 1; j <= endIndexAt; j++) {
             charArrayEmail[countForArray] = charArray[j];
             charArray[j] = '*';
             countForArray++;
@@ -135,34 +141,45 @@ public class TextServiceImpl implements TextService {
     }
 
     @Override
-    public Text saveText(Text information) {
-        return repository.save(information);
+    public Text saveText(final Text information) {
+        return repositoryText.save(information);
     }
 
     @Override
-    public Author savePerson(Author author) {
+    public Author savePerson(final Author author) {
         repositorySalary.save(author.getSalaries());
         return repositoryAuthor.save(author);
     }
 
     @Override
-    public Text changeText(Text information) {
-        return repository.save(information);
+    public Text changeText(final Text information) {
+        return repositoryText.save(information);
     }
 
     @Override
-    public Text findByText(String information) {
-        return repository.findByInformation(information);
+    public boolean existByText(final String information) {
+        if (repositoryText.existsByInformation(information)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public Text findByText(final String information)
+    {
+        return repositoryText.findByInformation(information);
     }
     @Override
     @Transactional
-    public boolean deleteText(Long id) {
-        if(repository.existsById(id)) {
-            repository.deleteById(id);
+    public boolean deleteText(final Long id) {
+        if (repositoryText.existsById(id)) {
+            repositoryText.deleteById(id);
             return true;
         }
         return false;
     }
+
     @Override
     public Text findNumberPhoneAndEmail(Text information) {
         String stringForCompare;
@@ -170,18 +187,31 @@ public class TextServiceImpl implements TextService {
         information = findNumberPhone(stringForCompare, information);
         stringForCompare = information.getInformation();
         information = findEmail(stringForCompare, information);
-        Set<Author> authors = new HashSet<>();
+        Set<Author> authors;
         authors = information.getAuthors();
         Author authorTemp;
         List<Author> authorsList = authors.stream().toList();
-        for(int i=0;i<authorsList.size();i++) {
-            authorTemp = authorsList.get(i);
+        for (Author author : authorsList) {
+            authorTemp = author;
             repositorySalary.save(authorTemp.getSalaries());
         }
-        return repository.save(information);
+        return repositoryText.save(information);
     }
+
     @Override
-    public Salary saveSalary(Salary salaries) {
+    public Salary saveSalary(final Salary salaries) {
         return repositorySalary.save(salaries);
+    }
+
+    @Override
+    public List<Author> findAuthorByParameters(String lastName, List<String> nameList) {
+        return repositoryAuthor.findAuthorByParameters(lastName, nameList);
+    }
+
+    @Override
+    @Cacheable("text")
+    public Text getText(Long id) {
+        logger.info("getting user by id: {}", id);
+        return repositoryText.findById(id).orElseThrow(() -> new EntityNotFoundException("User not found by id " + id));
     }
 }

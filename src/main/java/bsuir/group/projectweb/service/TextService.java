@@ -15,6 +15,8 @@ public interface TextService {
     public Text findByText(String information) ;
     public boolean deleteText(Long id);
     public Text findNumberPhoneAndEmail(Text information);
-
+    List<Author> findAuthorByParameters(String lastName, List<String> nameList);
     public Salary saveSalary(Salary salary);
+    Text getText(Long id);
+    boolean existByText(final String information);
 }
