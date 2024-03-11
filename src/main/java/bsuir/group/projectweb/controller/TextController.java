@@ -58,7 +58,8 @@ public class  TextController {
     @PutMapping("change_information/{informationExist}/{information}")
     public ResponseEntity<String> changeByText(@PathVariable final String informationExist, @PathVariable String information) {
         loggerMain.info("start change a text");
-        if (service.changeByText(informationExist,information)) {
+        boolean checkError =service.changeByText(informationExist,information);
+        if (checkError) {
             return new ResponseEntity<>("change a text", HttpStatus.OK); }
         else {
             loggerMain.error("text not found");
@@ -101,7 +102,7 @@ public class  TextController {
             return new ResponseEntity<>("Delete information", HttpStatus.OK); }
         else {
             loggerMain.error("text not found by id");
-            return new ResponseEntity<>("information not found", HttpStatus.NOT_FOUND); }
+            return new ResponseEntity<>("information for delete not found", HttpStatus.NOT_FOUND); }
     }
     @DeleteMapping("delete_author/{id}")
     public ResponseEntity<String> deleteAuthor(@PathVariable final Long id) {
