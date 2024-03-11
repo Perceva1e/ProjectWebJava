@@ -23,7 +23,7 @@ import java.util.Set;
 @AllArgsConstructor
 
 public class TextServiceImpl implements TextService {
-    static final Logger logger = LogManager.getLogger(TextService.class);
+    static final Logger logger = LogManager.getLogger(TextServiceImpl.class);
     private final TextRepositoryDAO repositoryText;
     private final AuthorRepositoryDAO repositoryAuthor;
     private final SalaryRepositoryDAO repositorySalary;
