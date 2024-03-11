@@ -68,7 +68,8 @@ public class  TextController {
     @PutMapping("add_author_text/{informationExist}")
     public ResponseEntity<String> addAuthorInText(@PathVariable final String informationExist, @RequestBody Author authorAdd) {
         loggerMain.info("start add author in text");
-        if (service.addAuthorInText(informationExist,authorAdd)) {
+        boolean checkError =service.addAuthorInText(informationExist,authorAdd);
+        if (checkError) {
             return new ResponseEntity<>("add author in text", HttpStatus.OK); }
         else {
             loggerMain.error("text not found");
@@ -77,7 +78,8 @@ public class  TextController {
     @PutMapping("change_salary/{id}/{price}")
     public ResponseEntity<String> changeSalaryById(@PathVariable final Long id, @PathVariable Integer price) {
         loggerMain.info("start change salary");
-        if (service.changeSalaryById(id,price)) {
+        boolean checkError =service.changeSalaryById(id,price);
+        if (checkError) {
             return new ResponseEntity<>("salary is change", HttpStatus.OK); }
         else {
             loggerMain.error("id not find");

@@ -1,6 +1,5 @@
 package bsuir.group.projectweb.service.impl;
 
-import bsuir.group.projectweb.controller.TextController;
 import bsuir.group.projectweb.model.Author;
 import bsuir.group.projectweb.model.Salary;
 import bsuir.group.projectweb.model.Text;
@@ -24,7 +23,7 @@ import java.util.Set;
 @AllArgsConstructor
 
 public class TextServiceImpl implements TextService {
-    static final Logger logger = LogManager.getLogger(TextController.class);
+    static final Logger logger = LogManager.getLogger(TextService.class);
     private final TextRepositoryDAO repositoryText;
     private final AuthorRepositoryDAO repositoryAuthor;
     private final SalaryRepositoryDAO repositorySalary;
