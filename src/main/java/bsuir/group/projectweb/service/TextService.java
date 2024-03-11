@@ -23,4 +23,5 @@ public interface TextService {
     Salary saveSalary(Salary salary);
     Text getText(Long id);
     boolean existByText(final String information);
+    boolean deleteAuthorConnection(Long idAuthor,Long idText);
 }

@@ -199,6 +199,26 @@ public class TextServiceImpl implements TextService {
     }
 
     @Override
+    public boolean deleteAuthorConnection(Long idAuthor,Long idText) {
+        if (repositoryAuthor.existsById(idAuthor)) {
+            Text text = repositoryText.findTextById(idText);
+            Set<Author> authors = text.getAuthors();
+            List<Author> authorsList = new java.util.ArrayList<>(authors.stream().toList());
+            for (Author author : authorsList) {
+                if(author.getId() == idAuthor)
+                {
+                    authorsList.remove(author);
+                    break;
+                }
+            }
+            text.setAuthors(new HashSet<>(authorsList));
+            repositoryText.save(text);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
     public Text findByText(final String information)
     {
         return repositoryText.findByInformation(information);
@@ -206,15 +226,15 @@ public class TextServiceImpl implements TextService {
     @Override
     @Transactional
     public boolean deleteText(final Long id) {
-        if (repositoryText.existsById(id)) {
-            Text text = repositoryText.findTextById(id);
-            Set<Author> authors;
-            authors = text.getAuthors();
-            List<Author> authorsList = authors.stream().toList();
-            for (Author author : authorsList) {
-                repositorySalary.delete(author.getSalaries());
-            }
-            repositoryText.deleteById(id);
+        if (repositoryAuthor.existsById(id)) {
+            Author authorDelete = repositoryAuthor.findAuthorById(id);
+            Text text = repositoryText.findTextByAuthors(authorDelete);
+            Set<Author> authors = text.getAuthors();
+            List<Author> authorsList = new java.util.ArrayList<>(authors.stream().toList());
+            authorsList.remove(authorDelete);
+            text.setAuthors(new HashSet<>(authorsList));
+            repositoryText.save(text);
+            repositoryAuthor.delete(authorDelete);
             return true;
         }
         return false;

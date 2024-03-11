@@ -115,6 +115,15 @@ public class  TextController {
             loggerMain.error("author not found by id");
             return new ResponseEntity<>("author not found", HttpStatus.NOT_FOUND); }
     }
+    @DeleteMapping("delete_author_connection/{idAuthor}/{idText}")
+    public ResponseEntity<String> deleteAuthorConnection(@PathVariable final Long idAuthor,@PathVariable final Long idText) {
+        loggerMain.info("start delete author");
+        if (service.deleteAuthorConnection(idAuthor,idText)) {
+            return new ResponseEntity<>("Delete author", HttpStatus.OK); }
+        else {
+            loggerMain.error("author not found by id");
+            return new ResponseEntity<>("author not found", HttpStatus.NOT_FOUND); }
+    }
     @DeleteMapping("delete_salary/{id}")
     public ResponseEntity<String> deleteSalary(@PathVariable final Long id) {
         loggerMain.info("start delete salary");
