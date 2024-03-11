@@ -16,7 +16,6 @@ public interface TextService {
     Boolean changeByText(final String informationExist, final String information);
     Text findByText(String information) ;
     boolean deleteText(Long id);
-    boolean deleteAuthor(Long id);
     boolean deleteSalary(Long id);
     Text findNumberPhoneAndEmail(Text information);
     List<Author> findAuthorByParameters(String lastName, List<String> nameList);

@@ -150,7 +150,6 @@ public class TextServiceImpl implements TextService {
         repositorySalary.save(author.getSalaries());
         return repositoryAuthor.save(author);
     }
-
     @Override
     public  Boolean addAuthorInText(String informationExist,Author authorAdd){
         if(repositoryText.existsByInformation(informationExist))
@@ -239,22 +238,6 @@ public class TextServiceImpl implements TextService {
         }
         return false;
     }
-
-    @Override
-    public boolean deleteAuthor(Long id) {
-        if (repositoryAuthor.existsById(id)) {
-            Author authorDelete = repositoryAuthor.findAuthorById(id);
-            Text text = repositoryText.findTextByAuthors(authorDelete);
-            Set<Author> authors = text.getAuthors();
-            List<Author> authorsList = new java.util.ArrayList<>(authors.stream().toList());
-            authorsList.remove(authorDelete);
-            text.setAuthors(new HashSet<>(authorsList));
-            repositoryText.save(text);
-            repositoryAuthor.delete(authorDelete);
-            return true;
-        }
-        return false;
-    }
     @Override
     public boolean deleteSalary(Long id) {
         if (repositorySalary.existsById(id)) {
@@ -295,7 +278,6 @@ public class TextServiceImpl implements TextService {
     public List<Author> findAuthorByParameters(String lastName, List<String> nameList) {
         return repositoryAuthor.findAuthorByParameters(lastName, nameList);
     }
-
     @Override
     @Cacheable("text")
     public Text getText(Long id) {
