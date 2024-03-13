@@ -343,10 +343,7 @@ public class TextServiceImpl implements TextService {
      */
     public boolean checkId(final Text firstText, final Text textForCompare)
     {
-        if (!textForCompare.getId().equals(firstText.getId())) {
-            return true;
-        }
-        return false;
+        return !textForCompare.getId().equals(firstText.getId());
     }
     /**
      * This method demonstrates javadoc format.
