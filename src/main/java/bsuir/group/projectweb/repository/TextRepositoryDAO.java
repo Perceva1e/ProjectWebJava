@@ -26,4 +26,14 @@ public interface TextRepositoryDAO extends JpaRepository<Text, Long> {
     *@return restore text after find
     */
    boolean existsByInformation(String information);
+   /**This method demonstrates javadoc format.
+    *@param information is a string for find
+    *@return restore first text after find
+    */
+   Text findFirstByInformation(String information);
+   /**This method demonstrates javadoc format.
+    *@param information is a string for find
+    *@return restore last text after find
+    */
+   Text findLastByInformation(String information);
 }

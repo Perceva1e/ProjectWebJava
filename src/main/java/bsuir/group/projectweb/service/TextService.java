@@ -48,7 +48,7 @@ public interface TextService {
     /**
      * This method demonstrates javadoc format.
      * @param informationExist is an existing information
-     * @param information      is information for change
+     * @param information is information for change
      * @return true is ok, false is error
      */
     Boolean changeByText(String informationExist, String information);
@@ -56,9 +56,9 @@ public interface TextService {
     /**
      * This method demonstrates javadoc format.
      * @param information is information for find
-     * @return restore text find by information
+     * @return restore true is ok, else false
      */
-    Text findByText(String information);
+    boolean findByText(String information);
 
     /**
      * This method demonstrates javadoc format.

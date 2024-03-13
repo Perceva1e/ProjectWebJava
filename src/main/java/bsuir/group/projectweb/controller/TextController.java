@@ -86,14 +86,14 @@ public class  TextController {
     public ResponseEntity<String> findByInformation(
             @PathVariable final String information) {
         LOGGER.info("start find information");
-        if (service.existByText(information)) {
-            service.findByText(information);
+        if (service.findByText(information)) {
             return new ResponseEntity<>("information is find", HttpStatus.OK);
         }
         else {
             LOGGER.error("information not found");
             return new ResponseEntity<>(
-                    "information not found", HttpStatus.NOT_FOUND); }
+                    "information not found",
+                    HttpStatus.INTERNAL_SERVER_ERROR); }
     }
     /**This method demonstrates javadoc format.
      *@param id is an id of entity for delete
