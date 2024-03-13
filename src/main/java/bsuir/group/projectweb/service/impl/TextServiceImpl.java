@@ -334,26 +334,37 @@ public class TextServiceImpl implements TextService {
         }
         return false;
     }
-
     /**
      * This method demonstrates javadoc format.
      *
-     * @param information is an id of entity for delete
-     * @return restore text after find
+     * @param firstText is an entity for compare
+     * @param textForCompare is an entity for compare
+     * @return restore true if same, else false
+     */
+    public boolean checkId(final Text firstText, final Text textForCompare)
+    {
+        if (!textForCompare.getId().equals(firstText.getId())) {
+            return true;
+        }
+        return false;
+    }
+    /**
+     * This method demonstrates javadoc format.
+     *
+     * @param information is an id of entity for find
+     * @return restore true if ok, else false
      */
     @Override
     public boolean findByText(final String information) {
-        boolean checkInformation = false;
+        boolean checkError = false;
         List<Text> textList = repositoryText.findAll();
         Text firstText = repositoryText.findFirstByInformation(information);
         for (Text text : textList) {
             if (text.getInformation().equals(firstText.getInformation())) {
-                if (!text.getId().equals(firstText.getId())) {
-                    return false;
-                }
+                checkError = checkId(firstText, text);
             }
         }
-        return true;
+        return !checkError;
     }
 
     /**
