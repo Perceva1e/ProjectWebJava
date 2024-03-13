@@ -16,59 +16,97 @@ import org.apache.logging.log4j.LogManager;
 @RequestMapping("/api/v1/text")
 @AllArgsConstructor
 public class  TextController {
+    /**This method demonstrates javadoc format.
+     *  is a server
+     */
     private TextService service;
-    static final Logger loggerMain = LogManager.getLogger(TextController.class);
+    /**This method demonstrates javadoc format.
+     * logger for info
+     */
+    static final Logger LOGGER = LogManager.getLogger(TextController.class);
+    /**This method demonstrates javadoc format.
+     *@return restore list of text
+     */
     @GetMapping
     public List<Text> findAllText() {
-        loggerMain.info("display all text");
+        LOGGER.info("display all text");
         return service.findAllText();
     }
+    /**This method demonstrates javadoc format.
+     *@param id is an id of entity for get
+     *@return restore text after get
+     */
     @GetMapping("/getText/{id}")
-    public Text getText(@PathVariable Long id) {
-        loggerMain.info("get text: {}",id);
+    public Text getText(@PathVariable final Long id) {
+        LOGGER.info("get text: {}", id);
         return service.getText(id);
     }
+    /**This method demonstrates javadoc format.
+     *@param information is an entity for save
+     *@return restore text after save
+     */
     @PostMapping("/save_information")
     public Text saveText(@RequestBody final Text information) {
-        loggerMain.info("start sava a text");
+        LOGGER.info("start sava a text");
         return service.saveText(information);
     }
+    /**This method demonstrates javadoc format.
+     *@param information is an entity for hard code
+     *@return restore text after hard code
+     */
     @PostMapping("/find_phone_number_email")
     public Text findNumberPhoneAndEmail(@RequestBody final Text information) {
-        loggerMain.info("start find telephone and email");
+        LOGGER.info("start find telephone and email");
         return service.findNumberPhoneAndEmail(information);
     }
+    /**This method demonstrates javadoc format.
+     *@param informationExist is a string for existing
+     *@param information is a string for change
+     *@return restore http status
+     */
     @PutMapping("change_information/{informationExist}/{information}")
-    public ResponseEntity<String> changeByText(@PathVariable final String informationExist, @PathVariable String information) {
-        loggerMain.info("start change a text");
-        boolean checkError =service.changeByText(informationExist,information);
+    public ResponseEntity<String> changeByText(
+            @PathVariable final String informationExist,
+            @PathVariable final String information) {
+        LOGGER.info("start change a text");
+        boolean checkError = service.changeByText(
+                informationExist, information);
         if (checkError) {
             return new ResponseEntity<>("change a text", HttpStatus.OK); }
         else {
-            loggerMain.error("text not found");
-            return new ResponseEntity<>("change a text not complete", HttpStatus.NOT_FOUND); }
+            LOGGER.error("text not found");
+            return new ResponseEntity<>(
+                    "change a text not complete", HttpStatus.NOT_FOUND); }
     }
+    /**This method demonstrates javadoc format.
+     *@param information is a string for find
+     *@return restore http status
+     */
     @GetMapping("/{information}")
-    public ResponseEntity<String> findByInformation(@PathVariable final String information) {
-        loggerMain.info("start find information");
+    public ResponseEntity<String> findByInformation(
+            @PathVariable final String information) {
+        LOGGER.info("start find information");
         if (service.existByText(information)) {
             service.findByText(information);
             return new ResponseEntity<>("information is find", HttpStatus.OK);
         }
         else {
-            loggerMain.error("information not found");
-            return new ResponseEntity<>("information not found", HttpStatus.NOT_FOUND); }
-
+            LOGGER.error("information not found");
+            return new ResponseEntity<>(
+                    "information not found", HttpStatus.NOT_FOUND); }
     }
+    /**This method demonstrates javadoc format.
+     *@param id is an id of entity for delete
+     *@return restore http status
+     */
     @DeleteMapping("delete_text/{id}")
     public ResponseEntity<String> deleteText(@PathVariable final Long id) {
-        loggerMain.info("start delete text");
+        LOGGER.info("start delete text");
         if (service.deleteText(id)) {
             return new ResponseEntity<>("Delete information", HttpStatus.OK); }
         else {
-            loggerMain.error("text not found by id");
-            return new ResponseEntity<>("information for delete not found", HttpStatus.NOT_FOUND); }
+            LOGGER.error("text not found by id");
+            return new ResponseEntity<>(
+                    "information for delete not found", HttpStatus.NOT_FOUND); }
     }
-
-
 }

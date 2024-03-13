@@ -11,7 +11,6 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,21 +22,43 @@ import java.util.Set;
 @AllArgsConstructor
 
 public class TextServiceImpl implements TextService {
-    static final Logger logger = LogManager.getLogger(TextServiceImpl.class);
+    /**This method demonstrates javadoc format.
+     *@param LOGGER is a server
+     */
+    static final Logger LOGGER = LogManager.getLogger(TextServiceImpl.class);
+    /**This method demonstrates javadoc format.
+     * is a repository of entity text
+     */
     private final TextRepositoryDAO repositoryText;
+    /**This method demonstrates javadoc format.
+     * is a repository of entity author
+     */
     private final AuthorRepositoryDAO repositoryAuthor;
+    /**This method demonstrates javadoc format.
+     * is a repository of entity salary
+     */
     private final SalaryRepositoryDAO repositorySalary;
-
+    /**This method demonstrates javadoc format.
+     *@return restore list of text
+     */
     @Override
     public List<Text> findAllText() {
         return repositoryText.findAll();
     }
-
+    /**This method demonstrates javadoc format.
+     *@param number is a char number
+     *@return restore true if a number, else false
+     */
     public boolean ifNumber(final char number) {
         return (number >= '0') && (number <= '9');
     }
-
-    public int endFindIndex(final String stringForCompare, final int firstFindIndex) {
+    /**This method demonstrates javadoc format.
+     *@param stringForCompare is a string for compare
+     *@param firstFindIndex is an index of
+     *@return restore index
+     */
+    public int endFindIndex(final String stringForCompare,
+                            final int firstFindIndex) {
         char[] charArray;
         int i;
         charArray = stringForCompare.toCharArray();
@@ -48,8 +69,13 @@ public class TextServiceImpl implements TextService {
         }
         return i;
     }
-
-    public boolean checkNumber(final String stringForCompare, final int firstIndex) {
+    /**This method demonstrates javadoc format.
+     *@param stringForCompare is a string for compare
+     *@param firstIndex is an index of start email
+     *@return restore true if a number, else false
+     */
+    public boolean checkNumber(final String stringForCompare,
+                               final int firstIndex) {
         int countForArray = 0;
         char[] charArray;
         charArray = stringForCompare.toCharArray();
@@ -66,8 +92,13 @@ public class TextServiceImpl implements TextService {
         }
         return false;
     }
-
-    public boolean checkEmail(final String stringForCompare, final int firstIndex) {
+    /**This method demonstrates javadoc format.
+     *@param stringForCompare is a string for compare
+     *@param firstIndex is an index of start email
+     *@return restore true if a email, else false
+     */
+    public boolean checkEmail(final String stringForCompare,
+                              final int firstIndex) {
         int countForArray = 0;
         char[] charArray;
         String domainEmail = "gmail.com";
@@ -85,8 +116,13 @@ public class TextServiceImpl implements TextService {
         }
         return false;
     }
-
-    public Text findNumberPhone(final String stringForCompare, final Text information) {
+    /**This method demonstrates javadoc format.
+     *@param stringForCompare is a string for compare
+     *@param information is an entity of text
+     *@return restore text after hard code
+     */
+    public Text findNumberPhone(final String stringForCompare,
+                                final Text information) {
         char[] charArray;
         charArray = stringForCompare.toCharArray();
         int countForArray = 0;
@@ -112,8 +148,13 @@ public class TextServiceImpl implements TextService {
         information.setNumberOfPhone(stringForMemory);
         return information;
     }
-
-    public Text findEmail(final String stringForCompare, final Text information) {
+    /**This method demonstrates javadoc format.
+     *@param stringForCompare is a string for compare
+     *@param information is an entity of text
+     *@return restore text after hard code
+     */
+    public Text findEmail(final String stringForCompare,
+                          final Text information) {
         char[] charArray;
         charArray = stringForCompare.toCharArray();
         int countForArray = 0;
@@ -139,22 +180,34 @@ public class TextServiceImpl implements TextService {
         information.setEmail(stringForMemory);
         return information;
     }
-
+    /**This method demonstrates javadoc format.
+     *@param information is an entity of text for save
+     *@return restore text after save
+     */
     @Override
     public Text saveText(final Text information) {
         return repositoryText.save(information);
     }
-
+    /**This method demonstrates javadoc format.
+     *@param author is an entity of author for save
+     *@return restore author after save
+     */
     @Override
     public Author savePerson(final Author author) {
         repositorySalary.save(author.getSalaries());
         return repositoryAuthor.save(author);
     }
+    /**This method demonstrates javadoc format.
+     *@param informationExist is a string exists
+     *@param authorAdd is an entity for add
+     *@return restore true if changed, else false
+     */
     @Override
-    public  Boolean addAuthorInText(String informationExist,Author authorAdd){
-        if(repositoryText.existsByInformation(informationExist))
+    public  Boolean addAuthorInText(String informationExist, Author authorAdd){
+        if (repositoryText.existsByInformation(informationExist))
         {
-            Text informationChange=repositoryText.findByInformation(informationExist);
+            Text informationChange = repositoryText.
+                    findByInformation(informationExist);
             Set<Author> authors = informationChange.getAuthors();
             repositorySalary.save(authorAdd.getSalaries());
             authors.add(authorAdd);
@@ -164,10 +217,14 @@ public class TextServiceImpl implements TextService {
         }
         else { return false; }
     }
-
+    /**This method demonstrates javadoc format.
+     *@param id is an id of entity
+     *@param price is a string for changed
+     *@return restore true if changed, else false
+     */
     @Override
-    public Boolean changeSalaryById(Long id, Integer price) {
-        if(repositoryAuthor.existsById(id))
+    public Boolean changeSalaryById(final Long id, final Integer price) {
+        if (repositoryAuthor.existsById(id))
         {
             Author authorChange = repositoryAuthor.findAuthorById(id);
             Salary salaryChange = authorChange.getSalaries();
@@ -179,32 +236,47 @@ public class TextServiceImpl implements TextService {
         }
         else { return false; }
     }
-
+    /**This method demonstrates javadoc format.
+     *@param informationExist is an id of entity exists
+     *@param information is an entity for changed
+     *@return restore true if changed, else false
+     */
     @Override
-    public Boolean changeByText(final String informationExist,final String information) {
-        if(repositoryText.existsByInformation(informationExist))
+    public Boolean changeByText(final String informationExist,
+                                final String information) {
+        if (repositoryText.existsByInformation(informationExist))
         {
-            Text informationChange=repositoryText.findByInformation(informationExist);
+            Text informationChange = repositoryText.
+                    findByInformation(informationExist);
             informationChange.setInformation(information);
             repositoryText.save(informationChange);
             return true;
         }
         else { return false; }
     }
-
+    /**This method demonstrates javadoc format.
+     *@param information is a string for existing
+     *@return restore true if exists, else false
+     */
     @Override
     public boolean existByText(final String information) {
         return repositoryText.existsByInformation(information);
     }
-
+    /**This method demonstrates javadoc format.
+     *@param idAuthor is an id of entity for delete
+     *@param idText is an id of entity for delete
+     *@return restore true if delete, else false
+     */
     @Override
-    public boolean deleteAuthorConnection(Long idAuthor,Long idText) {
+    public boolean deleteAuthorConnection(final Long idAuthor,
+                                          final Long idText) {
         if (repositoryAuthor.existsById(idAuthor)) {
             Text text = repositoryText.findTextById(idText);
             Set<Author> authors = text.getAuthors();
-            List<Author> authorsList = new java.util.ArrayList<>(authors.stream().toList());
+            List<Author> authorsList = new java.util.ArrayList<>(
+                    authors.stream().toList());
             for (Author author : authorsList) {
-                if(author.getId() == idAuthor)
+                if (author.getId().equals(idAuthor))
                 {
                     authorsList.remove(author);
                     break;
@@ -216,12 +288,19 @@ public class TextServiceImpl implements TextService {
         }
         return false;
     }
-
+    /**This method demonstrates javadoc format.
+     *@param information is an id of entity for delete
+     *@return restore text after find
+     */
     @Override
     public Text findByText(final String information)
     {
         return repositoryText.findByInformation(information);
     }
+    /**This method demonstrates javadoc format.
+     *@param id is an id of entity for delete
+     *@return restore true if delete, else false
+     */
     @Override
     @Transactional
     public boolean deleteText(final Long id) {
@@ -229,7 +308,8 @@ public class TextServiceImpl implements TextService {
             Author authorDelete = repositoryAuthor.findAuthorById(id);
             Text text = repositoryText.findTextByAuthors(authorDelete);
             Set<Author> authors = text.getAuthors();
-            List<Author> authorsList = new java.util.ArrayList<>(authors.stream().toList());
+            List<Author> authorsList = new java.util.ArrayList<>(
+                    authors.stream().toList());
             authorsList.remove(authorDelete);
             text.setAuthors(new HashSet<>(authorsList));
             repositoryText.save(text);
@@ -238,8 +318,12 @@ public class TextServiceImpl implements TextService {
         }
         return false;
     }
+    /**This method demonstrates javadoc format.
+     *@param id is an id of entity for delete
+     *@return restore true if delete, else false
+     */
     @Override
-    public boolean deleteSalary(Long id) {
+    public boolean deleteSalary(final Long id) {
         if (repositorySalary.existsById(id)) {
             Salary salary = repositorySalary.findSalariesById(id);
             Author author = repositoryAuthor.findAuthorBySalaries(salary);
@@ -250,7 +334,10 @@ public class TextServiceImpl implements TextService {
         }
         return false;
     }
-
+    /**This method demonstrates javadoc format.
+     *@param information is an entity for hard code
+     *@return restore text after hard code
+     */
     @Override
     public Text findNumberPhoneAndEmail(Text information) {
         String stringForCompare;
@@ -268,20 +355,32 @@ public class TextServiceImpl implements TextService {
         }
         return repositoryText.save(information);
     }
-
+    /**This method demonstrates javadoc format.
+     *@param salaries is an entity for save
+     *@return restore salary after save
+     */
     @Override
     public Salary saveSalary(final Salary salaries) {
         return repositorySalary.save(salaries);
     }
-
+    /**This method demonstrates javadoc format.
+     *@param lastName is a string for find
+     *@param nameList is a list of string for find
+     *@return restore list author after find
+     */
     @Override
-    public List<Author> findAuthorByParameters(String lastName, List<String> nameList) {
+    public List<Author> findAuthorByParameters(final String lastName,
+                                               final List<String> nameList) {
         return repositoryAuthor.findAuthorByParameters(lastName, nameList);
     }
+    /**This method demonstrates javadoc format.
+     *@param id is an id of text
+     *@return restore text after get
+     */
     @Override
-    @Cacheable("text")
-    public Text getText(Long id) {
-        logger.info("getting user by id: {}", id);
-        return repositoryText.findById(id).orElseThrow(() -> new EntityNotFoundException("User not found by id " + id));
+    public Text getText(final Long id) {
+        LOGGER.info("getting user by id: {}", id);
+        return repositoryText.findById(id).orElseThrow(() ->
+                new EntityNotFoundException("User not found by id " + id));
     }
 }
