@@ -5,7 +5,7 @@ import bsuir.group.projectweb.model.Salary;
 public interface SalaryService {
 
     /**
-     * This method demonstrates javadoc format.
+     * This method save Salary.
      *
      * @param salary is an entity for save
      * @return restore salary after save
@@ -13,7 +13,7 @@ public interface SalaryService {
     Salary saveSalary(Salary salary);
 
     /**
-     * This method demonstrates javadoc format.
+     * This method change Salary ById.
      *
      * @param id    is an id of salary
      * @param price is price for change
@@ -22,7 +22,7 @@ public interface SalaryService {
     Boolean changeSalaryById(Long id, Integer price);
 
     /**
-     * This method demonstrates javadoc format.
+     * This method delete Salary.
      *
      * @param id is an id of text for delete
      * @return true is ok, false is error

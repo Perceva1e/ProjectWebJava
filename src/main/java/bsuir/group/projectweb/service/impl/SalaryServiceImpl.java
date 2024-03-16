@@ -13,36 +13,36 @@ import org.springframework.stereotype.Service;
 @Service
 @AllArgsConstructor
 public class SalaryServiceImpl implements SalaryService {
+
     /**
-     * This method demonstrates javadoc format.
+     * This logger.
      *
      * @param LOGGER is a server
      */
     static final Logger LOGGER = LogManager.getLogger(SalaryServiceImpl.class);
     /**
-     * This method demonstrates javadoc format.
-     * is a repository of entity text
+     * This is a repository of entity text.
      */
     private final AuthorRepositoryDAO repositoryAuthor;
     /**
-     * This method demonstrates javadoc format.
-     * is a repository of entity salary
+     * This method is a repository of entity salary.
      */
     private final SalaryRepositoryDAO repositorySalary;
 
     /**
-     * This method demonstrates javadoc format.
+     * This method save Salary.
      *
      * @param salaries is an entity for save
      * @return restore salary after save
      */
     @Override
     public Salary saveSalary(final Salary salaries) {
+        LOGGER.info("save salary");
         return repositorySalary.save(salaries);
     }
 
     /**
-     * This method demonstrates javadoc format.
+     * This method delete Salary.
      *
      * @param id is an id of entity for delete
      * @return restore true if delete, else false
@@ -50,6 +50,7 @@ public class SalaryServiceImpl implements SalaryService {
     @Override
     public boolean deleteSalary(final Long id) {
         if (repositorySalary.existsById(id)) {
+            LOGGER.info("delete salary");
             Salary salary = repositorySalary.findSalariesById(id);
             Author author = repositoryAuthor.findAuthorBySalaries(salary);
             author.setSalaries(null);
@@ -61,7 +62,7 @@ public class SalaryServiceImpl implements SalaryService {
     }
 
     /**
-     * This method demonstrates javadoc format.
+     * This method change Salary By id.
      *
      * @param id    is an id of entity
      * @param price is a string for changed
@@ -70,6 +71,7 @@ public class SalaryServiceImpl implements SalaryService {
     @Override
     public Boolean changeSalaryById(final Long id, final Integer price) {
         if (repositoryAuthor.existsById(id)) {
+            LOGGER.info("change salary by id");
             Author authorChange = repositoryAuthor.findAuthorById(id);
             Salary salaryChange = authorChange.getSalaries();
             salaryChange.setPrice(price);

@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface AuthorRepositoryDAO extends JpaRepository<Author, Long> {
-    /**This method demonstrates javadoc format.
+    /**This method find authors by parameters.
      *@param lastName is a string for find
      *@param nameList is a list of string for find
      *@return restore list of author after find
@@ -19,12 +19,12 @@ public interface AuthorRepositoryDAO extends JpaRepository<Author, Long> {
     List<Author> findAuthorByParameters(
              @Param("lastName") String lastName,
              @Param("nameList") List<String> nameList);
-    /**This method demonstrates javadoc format.
+    /**This method find Author by id.
      *@param id is an id of author for find
      *@return restore author after find
      */
     Author findAuthorById(Long id);
-    /**This method demonstrates javadoc format.
+    /**This method find Author by Salaries.
      *@param salary is an entity for save
      *@return restore author after find
      */

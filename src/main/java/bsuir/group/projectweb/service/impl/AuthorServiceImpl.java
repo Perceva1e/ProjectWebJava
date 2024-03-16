@@ -19,29 +19,26 @@ import java.util.Set;
 @AllArgsConstructor
 public class AuthorServiceImpl implements AuthorService {
     /**
-     * This method demonstrates javadoc format.
+     * This logger.
      *
      * @param LOGGER is a server
      */
     static final Logger LOGGER = LogManager.getLogger(AuthorServiceImpl.class);
     /**
-     * This method demonstrates javadoc format.
-     * is a repository of entity text
+     * This is a repository of entity text.
      */
     private final TextRepositoryDAO repositoryText;
     /**
-     * This method demonstrates javadoc format.
-     * is a repository of entity author
+     * This is a repository of entity author.
      */
     private final AuthorRepositoryDAO repositoryAuthor;
     /**
-     * This method demonstrates javadoc format.
-     * is a repository of entity salary
+     * This is a repository of entity salary.
      */
     private final SalaryRepositoryDAO repositorySalary;
 
     /**
-     * This method demonstrates javadoc format.
+     * This savePerson.
      *
      * @param author is an entity of author for save
      * @return restore author after save
@@ -49,12 +46,13 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public Author savePerson(final Author author) {
+        LOGGER.info("save a person");
         repositorySalary.save(author.getSalaries());
         return repositoryAuthor.save(author);
     }
 
     /**
-     * This method demonstrates javadoc format.
+     * This method delete Author Connection.
      *
      * @param idAuthor is an id of entity for delete
      * @param idText   is an id of entity for delete
@@ -64,6 +62,7 @@ public class AuthorServiceImpl implements AuthorService {
     public boolean deleteAuthorConnection(final Long idAuthor,
                                           final Long idText) {
         if (repositoryAuthor.existsById(idAuthor)) {
+            LOGGER.info("delete author connection");
             Text text = repositoryText.findTextById(idText);
             Set<Author> authors = text.getAuthors();
             List<Author> authorsList = new java.util.ArrayList<>(
@@ -82,7 +81,7 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     /**
-     * This method demonstrates javadoc format.
+     * This method add Author In Text.
      *
      * @param informationExist is a string exists
      * @param authorAdd        is an entity for add
@@ -92,6 +91,7 @@ public class AuthorServiceImpl implements AuthorService {
     public Boolean addAuthorInText(final String informationExist,
                                    final Author authorAdd) {
         if (repositoryText.existsByInformation(informationExist)) {
+            LOGGER.info("add author connection ");
             Text informationChange = repositoryText.
                     findByInformation(informationExist);
             Set<Author> authors = informationChange.getAuthors();
@@ -106,7 +106,7 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     /**
-     * This method demonstrates javadoc format.
+     * This method find Author By Parameters.
      *
      * @param lastName is a string for find
      * @param nameList is a list of string for find
@@ -115,6 +115,7 @@ public class AuthorServiceImpl implements AuthorService {
     @Override
     public List<Author> findAuthorByParameters(final String lastName,
                                                final List<String> nameList) {
+        LOGGER.info("find author by parameters");
         return repositoryAuthor.findAuthorByParameters(lastName, nameList);
     }
 }

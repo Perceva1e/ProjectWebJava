@@ -9,17 +9,34 @@ import java.util.concurrent.ConcurrentHashMap;
 @Component
 @Data
 public class TextDataCache {
+    /**
+     * This initializes hash map.
+     */
     private Map<String, Object> hashMap = new ConcurrentHashMap<>();
 
-    public void put(String key, Object value) {
+    /**
+     * This method save object in hashmap.
+     *
+     * @param key   is a key word for save
+     * @param value is an object which have to save
+     */
+    public void putText(final String key, final Object value) {
         hashMap.put(key, value);
     }
 
-    public Object get(String key) {
+    /**
+     * This method get object from hashmap.
+     *
+     * @param key is a key word for get
+     * @return object by a key word
+     */
+    public Object getText(final String key) {
         return hashMap.get(key);
     }
-
-    public void clear() {
+    /**
+     * This method clear hashmap.
+     */
+    public void clearText() {
         hashMap.clear();
     }
 }

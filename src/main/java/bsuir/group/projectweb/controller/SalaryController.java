@@ -13,11 +13,10 @@ import static bsuir.group.projectweb.controller.TextController.LOGGER;
 @RequestMapping("/api/v1/text")
 @AllArgsConstructor
 public class SalaryController {
-    /**This method demonstrates javadoc format.
-     * is a server
+    /**This is a server.
      */
     private SalaryService service;
-    /**This method demonstrates javadoc format.
+    /**This method delete salary.
      *@param id is an entity for delete
      *@return restore http status
      */
@@ -31,7 +30,7 @@ public class SalaryController {
             return new ResponseEntity<>(
                     "salary not found", HttpStatus.NOT_FOUND); }
     }
-    /**This method demonstrates javadoc format.
+    /**This method change salary by id.
      *@param id is an entity for change
      *@param price is a string for change
      *@return restore http status
@@ -47,7 +46,7 @@ public class SalaryController {
             LOGGER.error("id not find");
             return new ResponseEntity<>("id not find", HttpStatus.NOT_FOUND); }
     }
-    /**This method demonstrates javadoc format.
+    /**This method save salary.
      *@param salary is an entity for save
      *@return restore text after save
      */

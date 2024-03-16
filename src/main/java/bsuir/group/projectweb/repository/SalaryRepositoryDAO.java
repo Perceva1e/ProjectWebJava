@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 
 public interface SalaryRepositoryDAO extends JpaRepository<Salary, Long> {
-    /**This method demonstrates javadoc format.
+    /**This method find salary by id.
      *@param id is an id for find
      *@return restore salary after find
      */

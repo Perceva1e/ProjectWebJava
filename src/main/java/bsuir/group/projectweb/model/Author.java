@@ -8,23 +8,23 @@ import lombok.Data;
 @Entity
 @Table(name = "author")
 public class Author {
-    /**This method demonstrates javadoc format.
+    /**This id of object.
      *@param id is an id of entity
      */
     @Id
     @GeneratedValue
     private Long id;
-    /**This method demonstrates javadoc format.
+    /**This firstname.
      *@param firstName is a name of author
      */
     @Column
     private String firstName;
-    /**This method demonstrates javadoc format.
+    /**This lastname.
      *@param lastName is a lastname of author
      */
     @Column
     private String lastName;
-    /**This method demonstrates javadoc format.
+    /**This may to one with salary.
      *@param salaries is an entity for link
      */
     @ManyToOne

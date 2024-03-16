@@ -16,15 +16,13 @@ import org.apache.logging.log4j.LogManager;
 @RequestMapping("/api/v1/text")
 @AllArgsConstructor
 public class  TextController {
-    /**This method demonstrates javadoc format.
-     *  is a server
+    /**This is a server.
      */
     private TextService service;
-    /**This method demonstrates javadoc format.
-     * logger for info
+    /**This logger for info.
      */
     static final Logger LOGGER = LogManager.getLogger(TextController.class);
-    /**This method demonstrates javadoc format.
+    /**This method find all text.
      *@return restore list of text
      */
     @GetMapping
@@ -32,7 +30,7 @@ public class  TextController {
         LOGGER.info("display all text");
         return service.findAllText();
     }
-    /**This method demonstrates javadoc format.
+    /**This method save text.
      *@param information is an entity for save
      *@return restore text after save
      */
@@ -41,7 +39,7 @@ public class  TextController {
         LOGGER.info("start sava a text");
         return service.saveText(information);
     }
-    /**This method demonstrates javadoc format.
+    /**This method make main task of service.
      *@param information is an entity for hard code
      *@return restore text after hard code
      */
@@ -50,7 +48,7 @@ public class  TextController {
         LOGGER.info("start find telephone and email");
         return service.findNumberPhoneAndEmail(information);
     }
-    /**This method demonstrates javadoc format.
+    /**This method change by text.
      *@param informationExist is a string for existing
      *@param information is a string for change
      *@return restore http status
@@ -69,7 +67,7 @@ public class  TextController {
             return new ResponseEntity<>(
                     "change a text not complete", HttpStatus.NOT_FOUND); }
     }
-    /**This method demonstrates javadoc format.
+    /**This method find by information.
      *@param information is a string for find
      *@return restore http status
      */
@@ -86,7 +84,7 @@ public class  TextController {
                     "information not found",
                     HttpStatus.INTERNAL_SERVER_ERROR); }
     }
-    /**This method demonstrates javadoc format.
+    /**This method delete text.
      *@param id is an id of entity for delete
      *@return restore http status
      */
