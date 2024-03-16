@@ -7,6 +7,8 @@ import bsuir.group.projectweb.repository.SalaryRepositoryDAO;
 import bsuir.group.projectweb.repository.TextRepositoryDAO;
 import bsuir.group.projectweb.service.AuthorService;
 import lombok.AllArgsConstructor;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -16,6 +18,12 @@ import java.util.Set;
 @Service
 @AllArgsConstructor
 public class AuthorServiceImpl implements AuthorService {
+    /**
+     * This method demonstrates javadoc format.
+     *
+     * @param LOGGER is a server
+     */
+    static final Logger LOGGER = LogManager.getLogger(AuthorServiceImpl.class);
     /**
      * This method demonstrates javadoc format.
      * is a repository of entity text

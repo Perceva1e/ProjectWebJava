@@ -18,7 +18,7 @@ public class SalaryServiceImpl implements SalaryService {
      *
      * @param LOGGER is a server
      */
-    static final Logger LOGGER = LogManager.getLogger(TextServiceImpl.class);
+    static final Logger LOGGER = LogManager.getLogger(SalaryServiceImpl.class);
     /**
      * This method demonstrates javadoc format.
      * is a repository of entity text
