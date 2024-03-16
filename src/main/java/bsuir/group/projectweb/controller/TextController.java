@@ -33,15 +33,6 @@ public class  TextController {
         return service.findAllText();
     }
     /**This method demonstrates javadoc format.
-     *@param id is an id of entity for get
-     *@return restore text after get
-     */
-    @GetMapping("/getText/{id}")
-    public Text getText(@PathVariable final Long id) {
-        LOGGER.info("get text: {}", id);
-        return service.getText(id);
-    }
-    /**This method demonstrates javadoc format.
      *@param information is an entity for save
      *@return restore text after save
      */

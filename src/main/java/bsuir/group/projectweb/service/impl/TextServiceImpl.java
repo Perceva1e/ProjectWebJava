@@ -1,18 +1,20 @@
 package bsuir.group.projectweb.service.impl;
 
+import bsuir.group.projectweb.cache.TextDataCache;
 import bsuir.group.projectweb.model.Author;
-import bsuir.group.projectweb.model.Salary;
 import bsuir.group.projectweb.model.Text;
 import bsuir.group.projectweb.repository.AuthorRepositoryDAO;
 import bsuir.group.projectweb.repository.SalaryRepositoryDAO;
 import bsuir.group.projectweb.repository.TextRepositoryDAO;
 import bsuir.group.projectweb.service.TextService;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
+import lombok.SneakyThrows;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.concurrent.TimeUnit;
 
 import java.util.HashSet;
 import java.util.List;
@@ -20,8 +22,10 @@ import java.util.Set;
 
 @Service
 @AllArgsConstructor
-
 public class TextServiceImpl implements TextService {
+
+    private final TextDataCache cache;
+
     /**
      * This method demonstrates javadoc format.
      *
@@ -49,9 +53,19 @@ public class TextServiceImpl implements TextService {
      *
      * @return restore list of text
      */
+    @SneakyThrows
     @Override
     public List<Text> findAllText() {
-        return repositoryText.findAll();
+        List<Text> text = (List<Text>) cache.get("text");
+        if (text == null) {
+            TimeUnit.SECONDS.sleep(5);
+            text = repositoryText.findAll();
+            cache.put("text", text);
+            LOGGER.info("input list in cache");
+        } else {
+            LOGGER.info("text from cache");
+        }
+        return text;
     }
 
     /**
@@ -221,63 +235,6 @@ public class TextServiceImpl implements TextService {
     /**
      * This method demonstrates javadoc format.
      *
-     * @param author is an entity of author for save
-     * @return restore author after save
-     */
-    @Override
-    public Author savePerson(final Author author) {
-        repositorySalary.save(author.getSalaries());
-        return repositoryAuthor.save(author);
-    }
-
-    /**
-     * This method demonstrates javadoc format.
-     *
-     * @param informationExist is a string exists
-     * @param authorAdd        is an entity for add
-     * @return restore true if changed, else false
-     */
-    @Override
-    public Boolean addAuthorInText(String informationExist, Author authorAdd) {
-        if (repositoryText.existsByInformation(informationExist)) {
-            Text informationChange = repositoryText.
-                    findByInformation(informationExist);
-            Set<Author> authors = informationChange.getAuthors();
-            repositorySalary.save(authorAdd.getSalaries());
-            authors.add(authorAdd);
-            informationChange.setAuthors(authors);
-            repositoryText.save(informationChange);
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     * This method demonstrates javadoc format.
-     *
-     * @param id    is an id of entity
-     * @param price is a string for changed
-     * @return restore true if changed, else false
-     */
-    @Override
-    public Boolean changeSalaryById(final Long id, final Integer price) {
-        if (repositoryAuthor.existsById(id)) {
-            Author authorChange = repositoryAuthor.findAuthorById(id);
-            Salary salaryChange = authorChange.getSalaries();
-            salaryChange.setPrice(price);
-            authorChange.setSalaries(salaryChange);
-            repositorySalary.save(salaryChange);
-            repositoryAuthor.save(authorChange);
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     * This method demonstrates javadoc format.
-     *
      * @param informationExist is an id of entity exists
      * @param information      is an entity for changed
      * @return restore true if changed, else false
@@ -299,52 +256,14 @@ public class TextServiceImpl implements TextService {
     /**
      * This method demonstrates javadoc format.
      *
-     * @param information is a string for existing
-     * @return restore true if exists, else false
-     */
-    @Override
-    public boolean existByText(final String information) {
-        return repositoryText.existsByInformation(information);
-    }
-
-    /**
-     * This method demonstrates javadoc format.
-     *
-     * @param idAuthor is an id of entity for delete
-     * @param idText   is an id of entity for delete
-     * @return restore true if delete, else false
-     */
-    @Override
-    public boolean deleteAuthorConnection(final Long idAuthor,
-                                          final Long idText) {
-        if (repositoryAuthor.existsById(idAuthor)) {
-            Text text = repositoryText.findTextById(idText);
-            Set<Author> authors = text.getAuthors();
-            List<Author> authorsList = new java.util.ArrayList<>(
-                    authors.stream().toList());
-            for (Author author : authorsList) {
-                if (author.getId().equals(idAuthor)) {
-                    authorsList.remove(author);
-                    break;
-                }
-            }
-            text.setAuthors(new HashSet<>(authorsList));
-            repositoryText.save(text);
-            return true;
-        }
-        return false;
-    }
-    /**
-     * This method demonstrates javadoc format.
-     *
-     * @param firstText is an entity for compare
+     * @param firstText      is an entity for compare
      * @param textForCompare is an entity for compare
      * @return restore true if same, else false
      */
-    public boolean checkId(final Text firstText, final Text textForCompare)
-    {
+    public boolean checkId(final Text firstText, final Text textForCompare) {
         return !textForCompare.getId().equals(firstText.getId());
     }
+
     /**
      * This method demonstrates javadoc format.
      *
@@ -391,25 +310,6 @@ public class TextServiceImpl implements TextService {
     /**
      * This method demonstrates javadoc format.
      *
-     * @param id is an id of entity for delete
-     * @return restore true if delete, else false
-     */
-    @Override
-    public boolean deleteSalary(final Long id) {
-        if (repositorySalary.existsById(id)) {
-            Salary salary = repositorySalary.findSalariesById(id);
-            Author author = repositoryAuthor.findAuthorBySalaries(salary);
-            author.setSalaries(null);
-            repositoryAuthor.save(author);
-            repositorySalary.delete(salary);
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * This method demonstrates javadoc format.
-     *
      * @param information is an entity for hard code
      * @return restore text after hard code
      */
@@ -429,42 +329,5 @@ public class TextServiceImpl implements TextService {
             repositorySalary.save(authorTemp.getSalaries());
         }
         return repositoryText.save(information);
-    }
-
-    /**
-     * This method demonstrates javadoc format.
-     *
-     * @param salaries is an entity for save
-     * @return restore salary after save
-     */
-    @Override
-    public Salary saveSalary(final Salary salaries) {
-        return repositorySalary.save(salaries);
-    }
-
-    /**
-     * This method demonstrates javadoc format.
-     *
-     * @param lastName is a string for find
-     * @param nameList is a list of string for find
-     * @return restore list author after find
-     */
-    @Override
-    public List<Author> findAuthorByParameters(final String lastName,
-                                               final List<String> nameList) {
-        return repositoryAuthor.findAuthorByParameters(lastName, nameList);
-    }
-
-    /**
-     * This method demonstrates javadoc format.
-     *
-     * @param id is an id of text
-     * @return restore text after get
-     */
-    @Override
-    public Text getText(final Long id) {
-        LOGGER.info("getting user by id: {}", id);
-        return repositoryText.findById(id).orElseThrow(() ->
-                new EntityNotFoundException("User not found by id " + id));
     }
 }

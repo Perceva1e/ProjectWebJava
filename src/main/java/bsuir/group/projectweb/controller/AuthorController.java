@@ -1,6 +1,7 @@
 package bsuir.group.projectweb.controller;
 
 import bsuir.group.projectweb.model.Author;
+import bsuir.group.projectweb.service.AuthorService;
 import bsuir.group.projectweb.service.TextService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,7 +19,7 @@ public class AuthorController {
     /**This method demonstrates javadoc format.
      * is a server
      */
-    private TextService service;
+    private AuthorService service;
     /**This method demonstrates javadoc format.
      *@param lastName is a string for find
      *@param nameList is a list of string for find

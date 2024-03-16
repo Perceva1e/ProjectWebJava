@@ -1,7 +1,7 @@
 package bsuir.group.projectweb.controller;
 
 import bsuir.group.projectweb.model.Salary;
-import bsuir.group.projectweb.service.TextService;
+import bsuir.group.projectweb.service.SalaryService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +16,7 @@ public class SalaryController {
     /**This method demonstrates javadoc format.
      * is a server
      */
-    private TextService service;
+    private SalaryService service;
     /**This method demonstrates javadoc format.
      *@param id is an entity for delete
      *@return restore http status
