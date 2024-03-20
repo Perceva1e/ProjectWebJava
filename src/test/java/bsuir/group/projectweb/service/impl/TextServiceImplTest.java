@@ -116,7 +116,7 @@ class TextServiceImplTest {
         String stringForCompare = "da+375295297796net";
         int firstFindIndex = 2;
         int isEndFindIndex = serviceText.endFindIndex(stringForCompare, firstFindIndex);
-        Assert.assertEquals(isEndFindIndex, 14);
+        Assert.assertEquals(14, isEndFindIndex);
     }
 
     @Test

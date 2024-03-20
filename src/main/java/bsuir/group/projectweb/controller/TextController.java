@@ -48,7 +48,8 @@ public class TextController {
     public ResponseEntity<String> saveText(
             @RequestBody final Text information) {
         LOGGER.info("start sava a text");
-        if (service.saveText(information)) {
+        boolean checkError = service.saveText(information);
+        if (checkError) {
             return new ResponseEntity<>("save a text", HttpStatus.OK);
         } else {
             LOGGER.error("text yet save ");
@@ -102,7 +103,8 @@ public class TextController {
     public ResponseEntity<String> findByInformation(
             @PathVariable final String information) {
         LOGGER.info("start find information");
-        if (service.findByText(information)) {
+        boolean checkError = service.findByText(information);
+        if (checkError) {
             return new ResponseEntity<>("information is find", HttpStatus.OK);
         } else {
             LOGGER.error("information not found");
@@ -121,7 +123,8 @@ public class TextController {
     @DeleteMapping("delete_text/{id}")
     public ResponseEntity<String> deleteText(@PathVariable final Long id) {
         LOGGER.info("start delete text");
-        if (service.deleteText(id)) {
+        boolean checkError = service.deleteText(id);
+        if (checkError) {
             return new ResponseEntity<>("Delete information", HttpStatus.OK);
         } else {
             LOGGER.error("text not found by id");

@@ -27,7 +27,8 @@ public class SalaryController {
     @DeleteMapping("delete_salary/{id}")
     public ResponseEntity<String> deleteSalary(@PathVariable final Long id) {
         LOGGER.info("start delete salary");
-        if (service.deleteSalary(id)) {
+        boolean checkError = service.deleteSalary(id);
+        if (checkError) {
             return new ResponseEntity<>("Delete salary", HttpStatus.OK);
         } else {
             LOGGER.error("salary not found by id");
@@ -63,10 +64,11 @@ public class SalaryController {
      * @return restore text after save
      */
     @PostMapping("/save_salary")
-    public ResponseEntity<String>  saveSalary(
+    public ResponseEntity<String> saveSalary(
             @RequestBody final Salary salary) {
         LOGGER.info("start save a salary");
-        if (service.saveSalary(salary)) {
+        boolean checkError = service.saveSalary(salary);
+        if (checkError) {
             return new ResponseEntity<>("salary is save", HttpStatus.OK);
         } else {
             LOGGER.error("salary is yet save");

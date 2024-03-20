@@ -46,7 +46,8 @@ public class AuthorController {
     @PostMapping("/save_people")
     public ResponseEntity<String> saveAuthor(@RequestBody final Author author) {
         LOGGER.info("start save a author");
-        if (service.savePerson(author)) {
+        boolean checkError = service.savePerson(author);
+        if (checkError) {
             return new ResponseEntity<>("save a author", HttpStatus.OK);
         } else {
             LOGGER.error("author yet save ");
@@ -90,7 +91,8 @@ public class AuthorController {
             @PathVariable final Long idAuthor,
             @PathVariable final Long idText) {
         LOGGER.info("start delete author");
-        if (service.deleteAuthorConnection(idAuthor, idText)) {
+        boolean checkError = service.deleteAuthorConnection(idAuthor, idText);
+        if (checkError) {
             return new ResponseEntity<>("Delete author", HttpStatus.OK);
         } else {
             LOGGER.error("author not found by id");
