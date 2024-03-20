@@ -45,10 +45,15 @@ public class AuthorServiceImpl implements AuthorService {
      */
 
     @Override
-    public Author savePerson(final Author author) {
-        LOGGER.info("save a person");
-        repositorySalary.save(author.getSalaries());
-        return repositoryAuthor.save(author);
+    public Boolean savePerson(final Author author) {
+        if (repositoryAuthor.existsById(author.getId())) {
+            LOGGER.info("author is yet save");
+            return false;
+        } else {
+            LOGGER.info("save a person");
+            repositoryAuthor.save(author);
+            return true;
+        }
     }
 
     /**
@@ -95,6 +100,14 @@ public class AuthorServiceImpl implements AuthorService {
             Text informationChange = repositoryText.
                     findByInformation(informationExist);
             Set<Author> authors = informationChange.getAuthors();
+            if (authors == null) {
+                authors = new HashSet<>();
+                repositorySalary.save(authorAdd.getSalaries());
+                authors.add(authorAdd);
+                informationChange.setAuthors(authors);
+                repositoryText.save(informationChange);
+                return true;
+            }
             repositorySalary.save(authorAdd.getSalaries());
             authors.add(authorAdd);
             informationChange.setAuthors(authors);

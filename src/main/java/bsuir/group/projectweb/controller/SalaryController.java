@@ -63,8 +63,15 @@ public class SalaryController {
      * @return restore text after save
      */
     @PostMapping("/save_salary")
-    public Salary saveSalary(@RequestBody final Salary salary) {
+    public ResponseEntity<String>  saveSalary(
+            @RequestBody final Salary salary) {
         LOGGER.info("start save a salary");
-        return service.saveSalary(salary);
+        if (service.saveSalary(salary)) {
+            return new ResponseEntity<>("salary is save", HttpStatus.OK);
+        } else {
+            LOGGER.error("salary is yet save");
+            return new ResponseEntity<>(
+                    "salary is yet save in bd", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

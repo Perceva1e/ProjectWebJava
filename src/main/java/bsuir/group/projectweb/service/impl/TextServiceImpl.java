@@ -91,7 +91,7 @@ public class TextServiceImpl implements TextService {
         charArray = stringForCompare.toCharArray();
         for (i = firstFindIndex + 1; i < charArray.length; i++) {
             if (!ifNumber(charArray[i])) {
-                return i;
+                return i - 1;
             }
         }
         return i;
@@ -104,7 +104,7 @@ public class TextServiceImpl implements TextService {
      * @param firstIndex       is an index of start email
      * @return restore true if a number, else false
      */
-    public boolean checkNumber(final String stringForCompare,
+    public Boolean checkNumber(final String stringForCompare,
                                final int firstIndex) {
         int countForArray = 0;
         char[] charArray;
@@ -130,7 +130,7 @@ public class TextServiceImpl implements TextService {
      * @param firstIndex       is an index of start email
      * @return restore true if a email, else false
      */
-    public boolean checkEmail(final String stringForCompare,
+    public Boolean checkEmail(final String stringForCompare,
                               final int firstIndex) {
         int countForArray = 0;
         char[] charArray;
@@ -227,10 +227,16 @@ public class TextServiceImpl implements TextService {
      * @return restore text after save
      */
     @Override
-    public Text saveText(final Text information) {
+    public Boolean saveText(final Text information) {
         cache.clearText();
-        LOGGER.info("save text");
-        return repositoryText.save(information);
+        if (repositoryText.existsById(information.getId())) {
+            LOGGER.info("text is yet save");
+            return false;
+        } else {
+            LOGGER.info("save text");
+            repositoryText.save(information);
+            return true;
+        }
     }
 
     /**
@@ -257,13 +263,13 @@ public class TextServiceImpl implements TextService {
     }
 
     /**
-     * This method check Id.
+     * This method check ID.
      *
      * @param firstText      is an entity for compare
      * @param textForCompare is an entity for compare
      * @return restore true if same, else false
      */
-    public boolean checkId(final Text firstText, final Text textForCompare) {
+    public Boolean checkId(final Text firstText, final Text textForCompare) {
         return !textForCompare.getId().equals(firstText.getId());
     }
 
@@ -274,7 +280,7 @@ public class TextServiceImpl implements TextService {
      * @return restore true if ok, else false
      */
     @Override
-    public boolean findByText(final String information) {
+    public Boolean findByText(final String information) {
         LOGGER.info("find by text");
         boolean checkError = false;
         List<Text> textList = repositoryText.findAll();
@@ -295,7 +301,7 @@ public class TextServiceImpl implements TextService {
      */
     @Override
     @Transactional
-    public boolean deleteText(final Long id) {
+    public Boolean deleteText(final Long id) {
         if (repositoryAuthor.existsById(id)) {
             LOGGER.info("delete text");
             Author authorDelete = repositoryAuthor.findAuthorById(id);

@@ -8,9 +8,9 @@ public interface SalaryService {
      * This method save Salary.
      *
      * @param salary is an entity for save
-     * @return restore salary after save
+     * @return true is a save, else false
      */
-    Salary saveSalary(Salary salary);
+    Boolean saveSalary(Salary salary);
 
     /**
      * This method change Salary ById.
@@ -27,5 +27,5 @@ public interface SalaryService {
      * @param id is an id of text for delete
      * @return true is ok, false is error
      */
-    boolean deleteSalary(Long id);
+    Boolean deleteSalary(Long id);
 }

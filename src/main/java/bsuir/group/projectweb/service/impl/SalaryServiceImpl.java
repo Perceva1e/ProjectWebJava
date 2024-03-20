@@ -36,9 +36,16 @@ public class SalaryServiceImpl implements SalaryService {
      * @return restore salary after save
      */
     @Override
-    public Salary saveSalary(final Salary salaries) {
-        LOGGER.info("save salary");
-        return repositorySalary.save(salaries);
+    public Boolean saveSalary(final Salary salaries) {
+
+        if (repositorySalary.existsById(salaries.getId())) {
+            LOGGER.info("salary is yet save");
+            return false;
+        } else {
+            LOGGER.info("save salary");
+            repositorySalary.save(salaries);
+            return true;
+        }
     }
 
     /**
@@ -48,7 +55,7 @@ public class SalaryServiceImpl implements SalaryService {
      * @return restore true if delete, else false
      */
     @Override
-    public boolean deleteSalary(final Long id) {
+    public Boolean deleteSalary(final Long id) {
         if (repositorySalary.existsById(id)) {
             LOGGER.info("delete salary");
             Salary salary = repositorySalary.findSalariesById(id);

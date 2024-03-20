@@ -44,9 +44,15 @@ public class AuthorController {
      * @return restore author after save
      */
     @PostMapping("/save_people")
-    public Author saveAuthor(@RequestBody final Author author) {
+    public ResponseEntity<String> saveAuthor(@RequestBody final Author author) {
         LOGGER.info("start save a author");
-        return service.savePerson(author);
+        if (service.savePerson(author)) {
+            return new ResponseEntity<>("save a author", HttpStatus.OK);
+        } else {
+            LOGGER.error("author yet save ");
+            return new ResponseEntity<>(
+                    "author yet save in db", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     /**

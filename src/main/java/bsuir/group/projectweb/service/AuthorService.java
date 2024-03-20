@@ -8,9 +8,9 @@ public interface AuthorService {
     /**
      * This method save Person.
      * @param author is an entity for save
-     * @return restore an entity Author
+     * @return true is a save, else false
      */
-    Author savePerson(Author author);
+    Boolean savePerson(Author author);
     /**
      * This method add Author in Text.
      * @param informationExist is an existing information

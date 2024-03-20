@@ -1,3 +1,4 @@
+
 package bsuir.group.projectweb.controller;
 
 
@@ -44,9 +45,16 @@ public class TextController {
      * @return restore text after save
      */
     @PostMapping("/save_information")
-    public Text saveText(@RequestBody final Text information) {
+    public ResponseEntity<String> saveText(
+            @RequestBody final Text information) {
         LOGGER.info("start sava a text");
-        return service.saveText(information);
+        if (service.saveText(information)) {
+            return new ResponseEntity<>("save a text", HttpStatus.OK);
+        } else {
+            LOGGER.error("text yet save ");
+            return new ResponseEntity<>(
+                    "text yet save in db", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     /**
