@@ -13,27 +13,35 @@ import static bsuir.group.projectweb.controller.TextController.LOGGER;
 @RequestMapping("/api/v1/text")
 @AllArgsConstructor
 public class SalaryController {
-    /**This is a server.
+    /**
+     * This is a server.
      */
     private SalaryService service;
-    /**This method delete salary.
-     *@param id is an entity for delete
-     *@return restore http status
+
+    /**
+     * This method delete salary.
+     *
+     * @param id is an entity for delete
+     * @return restore http status
      */
     @DeleteMapping("delete_salary/{id}")
     public ResponseEntity<String> deleteSalary(@PathVariable final Long id) {
         LOGGER.info("start delete salary");
         if (service.deleteSalary(id)) {
-            return new ResponseEntity<>("Delete salary", HttpStatus.OK); }
-        else {
+            return new ResponseEntity<>("Delete salary", HttpStatus.OK);
+        } else {
             LOGGER.error("salary not found by id");
             return new ResponseEntity<>(
-                    "salary not found", HttpStatus.NOT_FOUND); }
+                    "salary not found", HttpStatus.NOT_FOUND);
+        }
     }
-    /**This method change salary by id.
-     *@param id is an entity for change
-     *@param price is a string for change
-     *@return restore http status
+
+    /**
+     * This method change salary by id.
+     *
+     * @param id    is an entity for change
+     * @param price is a string for change
+     * @return restore http status
      */
     @PutMapping("change_salary/{id}/{price}")
     public ResponseEntity<String> changeSalaryById(
@@ -41,14 +49,18 @@ public class SalaryController {
         LOGGER.info("start change salary");
         boolean checkError = service.changeSalaryById(id, price);
         if (checkError) {
-            return new ResponseEntity<>("salary is change", HttpStatus.OK); }
-        else {
+            return new ResponseEntity<>("salary is change", HttpStatus.OK);
+        } else {
             LOGGER.error("id not find");
-            return new ResponseEntity<>("id not find", HttpStatus.NOT_FOUND); }
+            return new ResponseEntity<>("id not find", HttpStatus.NOT_FOUND);
+        }
     }
-    /**This method save salary.
-     *@param salary is an entity for save
-     *@return restore text after save
+
+    /**
+     * This method save salary.
+     *
+     * @param salary is an entity for save
+     * @return restore text after save
      */
     @PostMapping("/save_salary")
     public Salary saveSalary(@RequestBody final Salary salary) {
