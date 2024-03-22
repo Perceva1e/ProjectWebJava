@@ -66,12 +66,11 @@ public class TextAspect {
     @Around("PointCuts.changeMethodsText()")
     public Object aroundChangeAdvice(ProceedingJoinPoint joinPoint) {
         MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
-        String text;
         int countForArgs = 0;
         if (methodSignature.getName().equals("changeByText")) {
             Object[] arguments = joinPoint.getArgs();
             for (Object arg : arguments) {
-                if (arg instanceof String) {
+                if (arg instanceof String text) {
                     if (countForArgs == 1) {
                         text = (String) arg;
                         log.info("Try change by text {}", text);
