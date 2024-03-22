@@ -29,7 +29,7 @@ public class AuthorController {
      * @param nameList is a list of string for find
      * @return restore list of author after find
      */
-    @GetMapping("/find_text_lastname/{lastName}/{nameList}")
+    @GetMapping("/find_author_parameters/{lastName}/{nameList}")
     public List<Author> findAuthorByParameters(
             @PathVariable final String lastName,
             @PathVariable final List<String> nameList) {

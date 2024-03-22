@@ -7,8 +7,6 @@ import bsuir.group.projectweb.repository.SalaryRepositoryDAO;
 import bsuir.group.projectweb.repository.TextRepositoryDAO;
 import bsuir.group.projectweb.service.AuthorService;
 import lombok.AllArgsConstructor;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -18,12 +16,6 @@ import java.util.Set;
 @Service
 @AllArgsConstructor
 public class AuthorServiceImpl implements AuthorService {
-    /**
-     * This logger.
-     *
-     * @param LOGGER is a server
-     */
-    static final Logger LOGGER = LogManager.getLogger(AuthorServiceImpl.class);
     /**
      * This is a repository of entity text.
      */
@@ -46,13 +38,12 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public Boolean savePerson(final Author author) {
-        if (repositoryAuthor.existsById(author.getId())) {
-            LOGGER.info("author is yet save");
-            return false;
-        } else {
-            LOGGER.info("save a person");
+        if (author.getId() == null) {
+            repositorySalary.save(author.getSalaries());
             repositoryAuthor.save(author);
             return true;
+        } else {
+            return false;
         }
     }
 
@@ -67,7 +58,6 @@ public class AuthorServiceImpl implements AuthorService {
     public boolean deleteAuthorConnection(final Long idAuthor,
                                           final Long idText) {
         if (repositoryAuthor.existsById(idAuthor)) {
-            LOGGER.info("delete author connection");
             Text text = repositoryText.findTextById(idText);
             Set<Author> authors = text.getAuthors();
             List<Author> authorsList = new java.util.ArrayList<>(
@@ -96,7 +86,6 @@ public class AuthorServiceImpl implements AuthorService {
     public Boolean addAuthorInText(final String informationExist,
                                    final Author authorAdd) {
         if (repositoryText.existsByInformation(informationExist)) {
-            LOGGER.info("add author connection ");
             Text informationChange = repositoryText.
                     findByInformation(informationExist);
             Set<Author> authors = informationChange.getAuthors();
@@ -128,7 +117,6 @@ public class AuthorServiceImpl implements AuthorService {
     @Override
     public List<Author> findAuthorByParameters(final String lastName,
                                                final List<String> nameList) {
-        LOGGER.info("find author by parameters");
         return repositoryAuthor.findAuthorByParameters(lastName, nameList);
     }
 }

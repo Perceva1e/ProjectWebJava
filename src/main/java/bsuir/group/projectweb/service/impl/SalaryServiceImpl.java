@@ -6,20 +6,12 @@ import bsuir.group.projectweb.repository.AuthorRepositoryDAO;
 import bsuir.group.projectweb.repository.SalaryRepositoryDAO;
 import bsuir.group.projectweb.service.SalaryService;
 import lombok.AllArgsConstructor;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
 public class SalaryServiceImpl implements SalaryService {
 
-    /**
-     * This logger.
-     *
-     * @param LOGGER is a server
-     */
-    static final Logger LOGGER = LogManager.getLogger(SalaryServiceImpl.class);
     /**
      * This is a repository of entity text.
      */
@@ -37,14 +29,11 @@ public class SalaryServiceImpl implements SalaryService {
      */
     @Override
     public Boolean saveSalary(final Salary salaries) {
-
-        if (repositorySalary.existsById(salaries.getId())) {
-            LOGGER.info("salary is yet save");
-            return false;
-        } else {
-            LOGGER.info("save salary");
+        if (salaries.getId() == null) {
             repositorySalary.save(salaries);
             return true;
+        } else {
+            return false;
         }
     }
 
@@ -55,11 +44,13 @@ public class SalaryServiceImpl implements SalaryService {
      * @return restore true if delete, else false
      */
     @Override
-    public Boolean deleteSalary(final Long id) {
+    public Boolean deleteSalaryInAuthor(final Long id) {
         if (repositorySalary.existsById(id)) {
-            LOGGER.info("delete salary");
             Salary salary = repositorySalary.findSalariesById(id);
             Author author = repositoryAuthor.findAuthorBySalaries(salary);
+            if (author == null) {
+                return false;
+            }
             author.setSalaries(null);
             repositoryAuthor.save(author);
             repositorySalary.delete(salary);
@@ -78,7 +69,6 @@ public class SalaryServiceImpl implements SalaryService {
     @Override
     public Boolean changeSalaryById(final Long id, final Integer price) {
         if (repositoryAuthor.existsById(id)) {
-            LOGGER.info("change salary by id");
             Author authorChange = repositoryAuthor.findAuthorById(id);
             Salary salaryChange = authorChange.getSalaries();
             salaryChange.setPrice(price);

@@ -9,8 +9,6 @@ import bsuir.group.projectweb.repository.TextRepositoryDAO;
 import bsuir.group.projectweb.service.TextService;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,12 +26,6 @@ public class TextServiceImpl implements TextService {
      */
     private final TextDataCache cache;
 
-    /**
-     * This logger.
-     *
-     * @param LOGGER is a server
-     */
-    static final Logger LOGGER = LogManager.getLogger(TextServiceImpl.class);
     /**
      * This is a repository of entity text.
      */
@@ -60,9 +52,11 @@ public class TextServiceImpl implements TextService {
             TimeUnit.SECONDS.sleep(5);
             text = repositoryText.findAll();
             cache.putText("text", text);
-            LOGGER.info("input list in cache");
         } else {
-            LOGGER.info("text from cache");
+            if (text.size() == 20) {
+                text = repositoryText.findAll();
+                cache.clearText();
+            }
         }
         return text;
     }
@@ -229,13 +223,19 @@ public class TextServiceImpl implements TextService {
     @Override
     public Boolean saveText(final Text information) {
         cache.clearText();
-        if (repositoryText.existsById(information.getId())) {
-            LOGGER.info("text is yet save");
-            return false;
-        } else {
-            LOGGER.info("save text");
+        if (information.getId() == null) {
+            Set<Author> authorSet;
+            authorSet = information.getAuthors();
+            Author authorTemp;
+            List<Author> authorsList = authorSet.stream().toList();
+            for (Author author : authorsList) {
+                authorTemp = author;
+                repositorySalary.save(authorTemp.getSalaries());
+            }
             repositoryText.save(information);
             return true;
+        } else {
+            return false;
         }
     }
 
@@ -250,7 +250,6 @@ public class TextServiceImpl implements TextService {
     public Boolean changeByText(final String informationExist,
                                 final String information) {
         if (repositoryText.existsByInformation(informationExist)) {
-            LOGGER.info("change by text");
             Text informationChange = repositoryText.
                     findByInformation(informationExist);
             informationChange.setInformation(information);
@@ -270,7 +269,7 @@ public class TextServiceImpl implements TextService {
      * @return restore true if same, else false
      */
     public Boolean checkId(final Text firstText, final Text textForCompare) {
-        return !textForCompare.getId().equals(firstText.getId());
+        return !(textForCompare.getId().equals(firstText.getId()));
     }
 
     /**
@@ -280,14 +279,13 @@ public class TextServiceImpl implements TextService {
      * @return restore true if ok, else false
      */
     @Override
-    public Boolean findByText(final String information) {
-        LOGGER.info("find by text");
+    public Boolean findTextByInformation(final String information) {
         boolean checkError = false;
         List<Text> textList = repositoryText.findAll();
         Text firstText = repositoryText.findFirstByInformation(information);
-        for (Text text : textList) {
-            if (text.getInformation().equals(firstText.getInformation())) {
-                checkError = checkId(firstText, text);
+        for (int i = textList.indexOf(firstText) + 1; i < textList.size(); i++) {
+            if (textList.get(i).getInformation().equals(firstText.getInformation())) {
+                checkError = checkId(firstText, textList.get(i));
             }
         }
         return !checkError;
@@ -301,9 +299,8 @@ public class TextServiceImpl implements TextService {
      */
     @Override
     @Transactional
-    public Boolean deleteText(final Long id) {
+    public Boolean deleteAuthorInText(final Long id) {
         if (repositoryAuthor.existsById(id)) {
-            LOGGER.info("delete text");
             Author authorDelete = repositoryAuthor.findAuthorById(id);
             Text text = repositoryText.findTextByAuthors(authorDelete);
             Set<Author> authors = text.getAuthors();
@@ -327,20 +324,13 @@ public class TextServiceImpl implements TextService {
      */
     @Override
     public Text findNumberPhoneAndEmail(Text information) {
-        LOGGER.info("make main task");
+        cache.clearText();
         String stringForCompare;
         stringForCompare = information.getInformation();
         information = findNumberPhone(stringForCompare, information);
         stringForCompare = information.getInformation();
         information = findEmail(stringForCompare, information);
-        Set<Author> authors;
-        authors = information.getAuthors();
-        Author authorTemp;
-        List<Author> authorsList = authors.stream().toList();
-        for (Author author : authorsList) {
-            authorTemp = author;
-            repositorySalary.save(authorTemp.getSalaries());
-        }
-        return repositoryText.save(information);
+        saveText(information);
+        return information;
     }
 }

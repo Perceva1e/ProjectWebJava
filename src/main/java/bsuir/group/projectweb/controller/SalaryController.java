@@ -27,7 +27,7 @@ public class SalaryController {
     @DeleteMapping("delete_salary/{id}")
     public ResponseEntity<String> deleteSalary(@PathVariable final Long id) {
         LOGGER.info("start delete salary");
-        boolean checkError = service.deleteSalary(id);
+        boolean checkError = service.deleteSalaryInAuthor(id);
         if (checkError) {
             return new ResponseEntity<>("Delete salary", HttpStatus.OK);
         } else {
@@ -72,8 +72,7 @@ public class SalaryController {
             return new ResponseEntity<>("salary is save", HttpStatus.OK);
         } else {
             LOGGER.error("salary is yet save");
-            return new ResponseEntity<>(
-                    "salary is yet save in bd", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("salary is yet save in bd", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

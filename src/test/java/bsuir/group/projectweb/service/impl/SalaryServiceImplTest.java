@@ -30,9 +30,6 @@ class SalaryServiceImplTest {
     void saveSalary() {
         Salary salary = new Salary();
         salary.setId(1L);
-        Mockito.doReturn(true)
-                .when(repositorySalary)
-                .existsById(salary.getId());
         boolean isSaveSalary = serviceSalary.saveSalary(salary);
         Assert.assertFalse(isSaveSalary);
     }
@@ -41,17 +38,22 @@ class SalaryServiceImplTest {
     void deleteSalary() {
         Salary salary = new Salary();
         salary.setId(1L);
-    Mockito.doReturn(true)
-            .when(repositorySalary)
-            .existsById(salary.getId());
-    Mockito.doReturn(salary)
-            .when(repositorySalary)
-            .findSalariesById(salary.getId());
-    Mockito.doReturn(new Author())
-            .when(repositoryAuthor)
-            .findAuthorBySalaries(salary);
-    boolean isDeleteSalary = serviceSalary.deleteSalary(salary.getId());
-    Assert.assertTrue(isDeleteSalary);
+        Mockito.doReturn(true)
+                .when(repositorySalary)
+                .existsById(salary.getId());
+        Mockito.doReturn(salary)
+                .when(repositorySalary)
+                .findSalariesById(salary.getId());
+        Mockito.doReturn(new Author())
+                .when(repositoryAuthor)
+                .findAuthorBySalaries(salary);
+        boolean isDeleteSalary = serviceSalary.deleteSalaryInAuthor(salary.getId());
+        Assert.assertTrue(isDeleteSalary);
+        Mockito.doReturn(false)
+                .when(repositorySalary)
+                .existsById(salary.getId());
+        isDeleteSalary = serviceSalary.deleteSalaryInAuthor(salary.getId());
+        Assert.assertFalse(isDeleteSalary);
     }
 
     @Test
@@ -68,7 +70,12 @@ class SalaryServiceImplTest {
         Mockito.doReturn(author)
                 .when(repositoryAuthor)
                 .findAuthorById(author.getId());
-        boolean isChangeSalaryById = serviceSalary.changeSalaryById(author.getId(),salary.getPrice());
+        boolean isChangeSalaryById = serviceSalary.changeSalaryById(author.getId(), salary.getPrice());
         Assert.assertTrue(isChangeSalaryById);
+        Mockito.doReturn(false)
+                .when(repositoryAuthor)
+                .existsById(author.getId());
+        isChangeSalaryById = serviceSalary.changeSalaryById(author.getId(), salary.getPrice());
+        Assert.assertFalse(isChangeSalaryById);
     }
 }

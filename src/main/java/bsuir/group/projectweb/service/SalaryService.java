@@ -27,5 +27,5 @@ public interface SalaryService {
      * @param id is an id of text for delete
      * @return true is ok, false is error
      */
-    Boolean deleteSalary(Long id);
+    Boolean deleteSalaryInAuthor(Long id);
 }

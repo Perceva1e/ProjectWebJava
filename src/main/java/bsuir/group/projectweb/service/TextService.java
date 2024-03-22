@@ -99,15 +99,15 @@ public interface TextService {
      * @param information is information for find
      * @return restore true is ok, else false
      */
-    Boolean findByText(String information);
+    Boolean findTextByInformation(String information);
 
     /**
-     * This method deleteText.
+     * This method deleteAuthorInText.
      *
      * @param id is an id of text for delete
      * @return true is ok, false is error
      */
-    Boolean deleteText(Long id);
+    Boolean deleteAuthorInText(Long id);
 
     /**
      * This method find Number Phone and Email.

@@ -1,4 +1,3 @@
-
 package bsuir.group.projectweb.controller;
 
 
@@ -34,7 +33,7 @@ public class TextController {
      */
     @GetMapping
     public List<Text> findAllText() {
-        LOGGER.info("display all text");
+        LOGGER.info("start display all text");
         return service.findAllText();
     }
 
@@ -47,7 +46,7 @@ public class TextController {
     @PostMapping("/save_information")
     public ResponseEntity<String> saveText(
             @RequestBody final Text information) {
-        LOGGER.info("start sava a text");
+        LOGGER.info("start save a text");
         boolean checkError = service.saveText(information);
         if (checkError) {
             return new ResponseEntity<>("save a text", HttpStatus.OK);
@@ -100,10 +99,10 @@ public class TextController {
      * @return restore http status
      */
     @GetMapping("/{information}")
-    public ResponseEntity<String> findByInformation(
+    public ResponseEntity<String> findTextByInformation(
             @PathVariable final String information) {
         LOGGER.info("start find information");
-        boolean checkError = service.findByText(information);
+        boolean checkError = service.findTextByInformation(information);
         if (checkError) {
             return new ResponseEntity<>("information is find", HttpStatus.OK);
         } else {
@@ -121,9 +120,9 @@ public class TextController {
      * @return restore http status
      */
     @DeleteMapping("delete_text/{id}")
-    public ResponseEntity<String> deleteText(@PathVariable final Long id) {
+    public ResponseEntity<String> deleteAuthorInText(@PathVariable final Long id) {
         LOGGER.info("start delete text");
-        boolean checkError = service.deleteText(id);
+        boolean checkError = service.deleteAuthorInText(id);
         if (checkError) {
             return new ResponseEntity<>("Delete information", HttpStatus.OK);
         } else {

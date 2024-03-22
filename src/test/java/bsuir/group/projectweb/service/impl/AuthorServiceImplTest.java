@@ -35,12 +35,9 @@ class AuthorServiceImplTest {
     @Test
     void savePerson() {
         Author author = new Author();
-        author.setId(1L);
         author.setFirstName("denis");
         author.setLastName("shagun");
-        Mockito.doReturn(true)
-                .when(repositoryAuthor)
-                .existsById(author.getId());
+        author.setId(1L);
         boolean isSavePerson = serviceAuthor.savePerson(author);
         Assert.assertFalse(isSavePerson);
     }
@@ -69,6 +66,11 @@ class AuthorServiceImplTest {
                 .findTextById(textForCheck.getId());
         boolean isDeleteAuthorConnection = serviceAuthor.deleteAuthorConnection(author.getId(),textForCheck.getId());
         Assert.assertTrue(isDeleteAuthorConnection);
+        Mockito.doReturn(false)
+                .when(repositoryAuthor)
+                .existsById(author.getId());
+        isDeleteAuthorConnection = serviceAuthor.deleteAuthorConnection(author.getId(),textForCheck.getId());
+        Assert.assertFalse(isDeleteAuthorConnection);
     }
 
     @Test
@@ -92,5 +94,10 @@ class AuthorServiceImplTest {
                 .findByInformation(textForCheck.getInformation());
         boolean isAddAuthorInText = serviceAuthor.addAuthorInText(textForCheck.getInformation(), author);
         Assert.assertTrue(isAddAuthorInText);
+        Mockito.doReturn(false)
+                .when(repositoryText)
+                .existsByInformation(textForCheck.getInformation());
+        isAddAuthorInText = serviceAuthor.addAuthorInText(textForCheck.getInformation(), author);
+        Assert.assertFalse(isAddAuthorInText);
     }
 }
