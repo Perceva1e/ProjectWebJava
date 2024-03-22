@@ -23,6 +23,7 @@ public class AuthorAspect {
             for (Object arg : arguments) {
                 if (arg instanceof Long id) {
                     if (countArg == 1) {
+                        id = (Long) arg;
                         log.info("Try delete connection author in text with id {}", id);
                         break;
                     }
