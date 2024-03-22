@@ -97,24 +97,23 @@ public class TextAspect {
     public Object aroundFindAdvice(ProceedingJoinPoint joinPoint) {
         MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
         String informations = null;
-        if (methodSignature.getName().equals("findAllText")) {
-            log.info("Try get all information");
-        }
-        if (methodSignature.getName().equals("findTextByInformation")) {
-            Object[] arguments = joinPoint.getArgs();
-            for (Object arg : arguments) {
-                if (arg instanceof String information) {
-                    informations = information;
-                    log.info("Try find text by information {}", information);
+        switch (methodSignature.getName()) {
+            case "findAllText" -> log.info("Try get all information");
+            case "findTextByInformation" -> {
+                Object[] arguments = joinPoint.getArgs();
+                for (Object arg : arguments) {
+                    if (arg instanceof String information) {
+                        informations = information;
+                        log.info("Try find text by information {}", information);
+                    }
                 }
             }
-
-        }
-        if (methodSignature.getName().equals("findNumberPhoneAndEmail")) {
-            Object[] arguments = joinPoint.getArgs();
-            for (Object arg : arguments) {
-                if (arg instanceof Text text) {
-                    log.info("Try find Number Phone And Email with information {}", text.getInformation());
+            case "findNumberPhoneAndEmail" -> {
+                Object[] argument = joinPoint.getArgs();
+                for (Object arg : argument) {
+                    if (arg instanceof Text text) {
+                        log.info("Try find Number Phone And Email with information {}", text.getInformation());
+                    }
                 }
             }
         }
@@ -125,17 +124,15 @@ public class TextAspect {
             log.error(e.getMessage(), e);
             result = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        if (methodSignature.getName().equals("findAllText")) {
-            log.info("All text is get");
-        }
-        if (methodSignature.getName().equals("findTextByInformation")) {
-            log.info("Method find text by information {}", informations);
-        }
-        if (methodSignature.getName().equals("findNumberPhoneAndEmail")) {
-            Object[] arguments = joinPoint.getArgs();
-            for (Object arg : arguments) {
-                if (arg instanceof Text text) {
-                    log.info("Method find Number Phone And Email with information {}", text.getInformation());
+        switch (methodSignature.getName()) {
+            case "findAllText" -> log.info("All text is get");
+            case "findTextByInformation" -> log.info("Method find text by information {}", informations);
+            case "findNumberPhoneAndEmail" -> {
+                Object[] arguments = joinPoint.getArgs();
+                for (Object arg : arguments) {
+                    if (arg instanceof Text text) {
+                        log.info("Method find Number Phone And Email with information {}", text.getInformation());
+                    }
                 }
             }
         }
