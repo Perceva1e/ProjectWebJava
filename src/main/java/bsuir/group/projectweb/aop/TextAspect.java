@@ -97,6 +97,7 @@ public class TextAspect {
     public Object aroundFindAdvice(ProceedingJoinPoint joinPoint) {
         MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
         String informations = null;
+        /* TODO SMELL CODE */
         switch (methodSignature.getName()) {
             case "findAllText" -> log.info("Try get all information");
             case "findTextByInformation" -> {
