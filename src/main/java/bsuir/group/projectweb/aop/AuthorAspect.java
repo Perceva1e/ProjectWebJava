@@ -17,14 +17,12 @@ public class AuthorAspect {
     @Around("PointCuts.deleteMethodsAuthor()")
     public Object aroundDeleteAdvice(ProceedingJoinPoint joinPoint) {
         MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
-        Long id;
         int countArg = 0;
         if (methodSignature.getName().equals("deleteAuthorConnection")) {
             Object[] arguments = joinPoint.getArgs();
             for (Object arg : arguments) {
-                if (arg instanceof Long) {
+                if (arg instanceof Long id) {
                     if (countArg == 1) {
-                        id = (Long) arg;
                         log.info("Try delete connection author in text with id {}", id);
                         break;
                     }

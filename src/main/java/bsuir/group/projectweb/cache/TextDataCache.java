@@ -13,7 +13,7 @@ public class TextDataCache {
      * This initializes hash map.
      */
     private Map<String, Object> hashMap = new ConcurrentHashMap<>();
-    private static final int maxSize = 20;
+    private static final int MAXSIZE = 20;
 
     /**
      * This method save object in hashmap.
@@ -23,7 +23,7 @@ public class TextDataCache {
      */
     public void putText(final String key, final Object value) {
         hashMap.put(key, value);
-        if (hashMap.size() >= maxSize) {
+        if (hashMap.size() >= MAXSIZE) {
             hashMap.clear();
         }
     }
