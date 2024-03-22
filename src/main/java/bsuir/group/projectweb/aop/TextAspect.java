@@ -17,12 +17,12 @@ public class TextAspect {
     @Around("PointCuts.deleteMethodsText()")
     public Object aroundDeleteAdvice(ProceedingJoinPoint joinPoint) {
         MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
-        Long id = null;
+        Long ids = null;
         if (methodSignature.getName().equals("deleteAuthorInText")) {
             Object[] arguments = joinPoint.getArgs();
             for (Object arg : arguments) {
-                if (arg instanceof Long) {
-                    id = (Long) arg;
+                if (arg instanceof Long id) {
+                    ids = id;
                     log.info("Try delete text with id {}", id);
                 }
             }
@@ -34,19 +34,19 @@ public class TextAspect {
             log.error(e.getMessage(), e);
             result = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        log.info("text with id {} delete", id);
+        log.info("text with id {} delete", ids);
         return result;
     }
 
     @Around("PointCuts.saveMethodsText()")
     public Object aroundSaveAdvice(ProceedingJoinPoint joinPoint) {
         MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
-        Text text = null;
+        Text texts = null;
         if (methodSignature.getName().equals("saveText")) {
             Object[] arguments = joinPoint.getArgs();
             for (Object arg : arguments) {
-                if (arg instanceof Text) {
-                    text = (Text) arg;
+                if (arg instanceof Text text) {
+                    texts = text;
                     log.info("Try add text with information {}", text.getInformation());
                 }
             }
@@ -58,8 +58,8 @@ public class TextAspect {
             log.error(e.getMessage(), e);
             result = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        assert text != null;
-        log.info("text with information {} add", text.getInformation());
+        assert texts != null;
+        log.info("text with information {} add", texts.getInformation());
         return result;
     }
 
@@ -97,16 +97,15 @@ public class TextAspect {
     @Around("PointCuts.allFindMethodsText()")
     public Object aroundFindAdvice(ProceedingJoinPoint joinPoint) {
         MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
-        Text text;
-        String information = null;
+        String informations = null;
         if (methodSignature.getName().equals("findAllText")) {
             log.info("Try get all information");
         }
         if (methodSignature.getName().equals("findTextByInformation")) {
             Object[] arguments = joinPoint.getArgs();
             for (Object arg : arguments) {
-                if (arg instanceof String) {
-                    information = (String) arg;
+                if (arg instanceof String information) {
+                    informations = information;
                     log.info("Try find text by information {}", information);
                 }
             }
@@ -115,8 +114,7 @@ public class TextAspect {
         if (methodSignature.getName().equals("findNumberPhoneAndEmail")) {
             Object[] arguments = joinPoint.getArgs();
             for (Object arg : arguments) {
-                if (arg instanceof Text) {
-                    text = (Text) arg;
+                if (arg instanceof Text text) {
                     log.info("Try find Number Phone And Email with information {}", text.getInformation());
                 }
             }
@@ -132,13 +130,12 @@ public class TextAspect {
             log.info("All text is get");
         }
         if (methodSignature.getName().equals("findTextByInformation")) {
-            log.info("Method find text by information {}", information);
+            log.info("Method find text by information {}", informations);
         }
         if (methodSignature.getName().equals("findNumberPhoneAndEmail")) {
             Object[] arguments = joinPoint.getArgs();
             for (Object arg : arguments) {
-                if (arg instanceof Text) {
-                    text = (Text) arg;
+                if (arg instanceof Text text) {
                     log.info("Method find Number Phone And Email with information {}", text.getInformation());
                 }
             }
