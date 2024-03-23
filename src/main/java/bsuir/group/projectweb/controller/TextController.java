@@ -42,7 +42,7 @@ public class TextController {
      * This method save text.
      *
      * @param information is an entity for save
-     * @return restore text after save
+     * @return restore http status
      */
     @PostMapping("/save_information")
     public ResponseEntity<String> saveText(
@@ -133,18 +133,25 @@ public class TextController {
                     "information for delete not found", HttpStatus.NOT_FOUND);
         }
     }
+    /**
+     * This method save several text.
+     *
+     * @param bulkTextRequestDTO is a List of entity Text
+     * @return restore http status
+     */
     @PostMapping("bulk_insert_text")
     public ResponseEntity<String> bulkInsertText(
-            @RequestBody BulkTextRequestDTO bulkTextRequestDTO)
-    {
+            @RequestBody final BulkTextRequestDTO bulkTextRequestDTO) {
         LOGGER.info("start bulk insert text");
         boolean checkError = service.saveBulkText(bulkTextRequestDTO);
         if (checkError) {
-            return new ResponseEntity<>("Bulk insert information", HttpStatus.OK);
+            return new ResponseEntity<>(
+                    "Bulk insert information", HttpStatus.OK);
         } else {
             LOGGER.error("error Bulk insert information");
             return new ResponseEntity<>(
-                    "Bulk insert information not execute", HttpStatus.NOT_FOUND);
+                    "Bulk insert information not execute",
+                    HttpStatus.NOT_FOUND);
         }
     }
 }

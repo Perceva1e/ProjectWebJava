@@ -1,5 +1,6 @@
 package bsuir.group.projectweb.aop;
 
+import bsuir.group.projectweb.dto.BulkTextRequestDTO;
 import bsuir.group.projectweb.model.Text;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -66,6 +67,16 @@ public class TextAspect {
                 }
             }
         }
+        if (methodSignature.getName().equals("saveBulkText")) {
+            Object[] arguments = joinPoint.getArgs();
+            for (Object arg : arguments) {
+                if (arg instanceof BulkTextRequestDTO bulkTextRequestDTO) {
+                    bulkTextRequestDTO.getTexts().forEach(
+                            each -> log.info("Try add text with information {}",
+                                    each.getInformation()));
+                }
+            }
+        }
         Object result;
         try {
             result = joinPoint.proceed();
@@ -73,8 +84,13 @@ public class TextAspect {
             log.error(e.getMessage(), e);
             result = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        assert texts != null;
-        log.info("text with information {} add", texts.getInformation());
+        if (methodSignature.getName().equals("saveText")) {
+            assert texts != null;
+            log.info("Text with information {} add", texts.getInformation());
+        }
+        if (methodSignature.getName().equals("saveBulkText")) {
+            log.info("All text add");
+        }
         return result;
     }
 

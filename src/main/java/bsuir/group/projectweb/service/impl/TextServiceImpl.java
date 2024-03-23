@@ -337,9 +337,14 @@ public class TextServiceImpl implements TextService {
         saveText(information);
         return information;
     }
-
+    /**
+     * This method save several text.
+     *
+     * @param bulkTextRequestDTO is a List of entity Text
+     * @return restore true is ok, else false
+     */
     @Override
-    public boolean saveBulkText(BulkTextRequestDTO bulkTextRequestDTO) {
+    public boolean saveBulkText(final BulkTextRequestDTO bulkTextRequestDTO) {
         if (bulkTextRequestDTO != null) {
             List<Text> texts = new ArrayList<>();
             Set<Author> authors;
@@ -352,14 +357,14 @@ public class TextServiceImpl implements TextService {
                 text.setAuthors(each.getAuthors());
                 texts.add(text);
             });
-            for (int i = 0; i < texts.size(); i++) {
-                authors = texts.get(i).getAuthors();
-                authorsList = new java.util.ArrayList<>(
+            for (Text text : texts) {
+                authors = text.getAuthors();
+                authorsList = new ArrayList<>(
                         authors.stream().toList());
                 for (Author author : authorsList) {
                     repositorySalary.save(author.getSalaries());
                 }
-                repositoryText.save(texts.get(i));
+                repositoryText.save(text);
             }
             return true;
         } else {

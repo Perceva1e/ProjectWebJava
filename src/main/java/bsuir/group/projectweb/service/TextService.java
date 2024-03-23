@@ -117,6 +117,11 @@ public interface TextService {
      * @return restore text after hard code
      */
     Text findNumberPhoneAndEmail(Text information);
-
+    /**
+     * This method save several text.
+     *
+     * @param bulkTextRequestDTO is a List of entity Text
+     * @return restore true is ok, else false
+     */
     boolean saveBulkText(BulkTextRequestDTO bulkTextRequestDTO);
 }
