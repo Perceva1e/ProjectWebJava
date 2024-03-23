@@ -56,9 +56,9 @@ public class TextAspect {
     public Object aroundSaveAdvice(final ProceedingJoinPoint joinPoint) {
         MethodSignature methodSignature =
                 (MethodSignature) joinPoint.getSignature();
+        Object[] arguments = joinPoint.getArgs();
         Text texts = null;
         if (methodSignature.getName().equals("saveText")) {
-            Object[] arguments = joinPoint.getArgs();
             for (Object arg : arguments) {
                 if (arg instanceof Text text) {
                     texts = text;
@@ -68,7 +68,6 @@ public class TextAspect {
             }
         }
         if (methodSignature.getName().equals("saveBulkText")) {
-            Object[] arguments = joinPoint.getArgs();
             for (Object arg : arguments) {
                 if (arg instanceof BulkTextRequestDTO bulkTextRequestDTO) {
                     bulkTextRequestDTO.getTexts().forEach(
@@ -130,7 +129,13 @@ public class TextAspect {
         log.info("Method change text");
         return result;
     }
-
+    /**
+     * This is method logging start find method in Text.
+     *
+     * @param method this is method
+     * @param arguments this is arguments
+     * @return information about text
+     */
     public String checkStartMethod(final String method,
                                    final Object[] arguments) {
         String informations = null;
@@ -159,7 +164,13 @@ public class TextAspect {
         }
         return informations;
     }
-
+    /**
+     * This is method logging end find method in Text.
+     *
+     * @param method this is method
+     * @param arguments this is arguments
+     * @param informations this is information about Text
+     */
     public void checkEndMethod(final String method,
                                final Object[] arguments,
                                final String informations) {
