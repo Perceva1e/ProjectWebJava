@@ -1,5 +1,6 @@
 package bsuir.group.projectweb.service;
 
+import bsuir.group.projectweb.dto.BulkTextRequestDTO;
 import bsuir.group.projectweb.model.Text;
 
 import java.util.List;
@@ -116,4 +117,6 @@ public interface TextService {
      * @return restore text after hard code
      */
     Text findNumberPhoneAndEmail(Text information);
+
+    boolean saveBulkText(BulkTextRequestDTO bulkTextRequestDTO);
 }

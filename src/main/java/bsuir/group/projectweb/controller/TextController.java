@@ -1,6 +1,7 @@
 package bsuir.group.projectweb.controller;
 
 
+import bsuir.group.projectweb.dto.BulkTextRequestDTO;
 import bsuir.group.projectweb.model.Text;
 import bsuir.group.projectweb.service.TextService;
 import lombok.AllArgsConstructor;
@@ -120,7 +121,8 @@ public class TextController {
      * @return restore http status
      */
     @DeleteMapping("delete_text/{id}")
-    public ResponseEntity<String> deleteAuthorInText(@PathVariable final Long id) {
+    public ResponseEntity<String> deleteAuthorInText(
+            @PathVariable final Long id) {
         LOGGER.info("start delete text");
         boolean checkError = service.deleteAuthorInText(id);
         if (checkError) {
@@ -129,6 +131,20 @@ public class TextController {
             LOGGER.error("text not found by id");
             return new ResponseEntity<>(
                     "information for delete not found", HttpStatus.NOT_FOUND);
+        }
+    }
+    @PostMapping("bulk_insert_text")
+    public ResponseEntity<String> bulkInsertText(
+            @RequestBody BulkTextRequestDTO bulkTextRequestDTO)
+    {
+        LOGGER.info("start bulk insert text");
+        boolean checkError = service.saveBulkText(bulkTextRequestDTO);
+        if (checkError) {
+            return new ResponseEntity<>("Bulk insert information", HttpStatus.OK);
+        } else {
+            LOGGER.error("error Bulk insert information");
+            return new ResponseEntity<>(
+                    "Bulk insert information not execute", HttpStatus.NOT_FOUND);
         }
     }
 }

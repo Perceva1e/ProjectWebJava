@@ -72,7 +72,9 @@ public class SalaryController {
             return new ResponseEntity<>("salary is save", HttpStatus.OK);
         } else {
             LOGGER.error("salary is yet save");
-            return new ResponseEntity<>("salary is yet save in bd", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(
+                    "salary is yet save in bd",
+                    HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

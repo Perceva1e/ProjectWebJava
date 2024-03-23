@@ -14,16 +14,24 @@ import org.springframework.stereotype.Component;
 @Aspect
 @Slf4j
 public class AuthorAspect {
+    /**
+     * This is method logging all delete method in Author.
+     *
+     * @param joinPoint this is point of enter
+     * @return result is Object
+     */
     @Around("PointCuts.deleteMethodsAuthor()")
-    public Object aroundDeleteAdvice(ProceedingJoinPoint joinPoint) {
-        MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
+    public Object aroundDeleteAdvice(final ProceedingJoinPoint joinPoint) {
+        MethodSignature methodSignature =
+                (MethodSignature) joinPoint.getSignature();
         int countArg = 0;
         if (methodSignature.getName().equals("deleteAuthorConnection")) {
             Object[] arguments = joinPoint.getArgs();
             for (Object arg : arguments) {
                 if (arg instanceof Long id) {
                     if (countArg == 1) {
-                        log.info("Try delete connection author in text with id {}", id);
+                        log.info("Try delete connection author "
+                                + "in text with id {}", id);
                         break;
                     }
                     log.info("Try delete connection author with id {}", id);
@@ -42,16 +50,24 @@ public class AuthorAspect {
         return result;
     }
 
+    /**
+     * This is method logging all save method in Author.
+     *
+     * @param joinPoint this is point of enter
+     * @return result is Object
+     */
     @Around("PointCuts.saveMethodsAuthor()")
-    public Object aroundSaveAdvice(ProceedingJoinPoint joinPoint) {
-        MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
+    public Object aroundSaveAdvice(final ProceedingJoinPoint joinPoint) {
+        MethodSignature methodSignature =
+                (MethodSignature) joinPoint.getSignature();
         Author authors = null;
         if (methodSignature.getName().equals("savePerson")) {
             Object[] arguments = joinPoint.getArgs();
             for (Object arg : arguments) {
                 if (arg instanceof Author author) {
                     authors = author;
-                    log.info("Try add author with name {}", author.getFirstName());
+                    log.info("Try add author with name {}",
+                            author.getFirstName());
                 }
             }
         }
@@ -67,9 +83,16 @@ public class AuthorAspect {
         return result;
     }
 
+    /**
+     * This is method logging all find method in Author.
+     *
+     * @param joinPoint this is point of enter
+     * @return result is Object
+     */
     @Around("PointCuts.findMethodsAuthor()")
-    public Object aroundFindAdvice(ProceedingJoinPoint joinPoint) {
-        MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
+    public Object aroundFindAdvice(final ProceedingJoinPoint joinPoint) {
+        MethodSignature methodSignature =
+                (MethodSignature) joinPoint.getSignature();
         String informations = null;
         if (methodSignature.getName().equals("findAuthorByParameters")) {
             Object[] arguments = joinPoint.getArgs();
@@ -77,7 +100,8 @@ public class AuthorAspect {
                 if (arg instanceof String information) {
                     information = (String) arg;
                     informations = information;
-                    log.info("Try find all author with lastname {}", information);
+                    log.info("Try find all author with lastname {}",
+                            information);
                 }
             }
 
@@ -95,14 +119,22 @@ public class AuthorAspect {
         return result;
     }
 
+    /**
+     * This is method logging all add method in Author.
+     *
+     * @param joinPoint this is point of enter
+     * @return result is Object
+     */
     @Around("PointCuts.addMethodsAuthor()")
-    public Object aroundAddAdvice(ProceedingJoinPoint joinPoint) {
-        MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
+    public Object aroundAddAdvice(final ProceedingJoinPoint joinPoint) {
+        MethodSignature methodSignature = (
+                MethodSignature) joinPoint.getSignature();
         if (methodSignature.getName().equals("addAuthorInText")) {
             Object[] arguments = joinPoint.getArgs();
             for (Object arg : arguments) {
                 if (arg instanceof Author author) {
-                    log.info("Try add author with name {}", author.getFirstName());
+                    log.info("Try add author with name {}",
+                            author.getFirstName());
                 }
             }
         }

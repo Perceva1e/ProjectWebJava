@@ -13,6 +13,9 @@ public class TextDataCache {
      * This initializes hash map.
      */
     private Map<String, Object> hashMap = new ConcurrentHashMap<>();
+    /**
+     * This max size hash map.
+     */
     private static final int MAXSIZE = 20;
 
     /**

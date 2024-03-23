@@ -1,6 +1,7 @@
 package bsuir.group.projectweb.service.impl;
 
 import bsuir.group.projectweb.cache.TextDataCache;
+import bsuir.group.projectweb.dto.BulkTextRequestDTO;
 import bsuir.group.projectweb.model.Author;
 import bsuir.group.projectweb.model.Text;
 import bsuir.group.projectweb.repository.AuthorRepositoryDAO;
@@ -12,6 +13,7 @@ import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 import java.util.HashSet;
@@ -283,8 +285,10 @@ public class TextServiceImpl implements TextService {
         boolean checkError = false;
         List<Text> textList = repositoryText.findAll();
         Text firstText = repositoryText.findFirstByInformation(information);
-        for (int i = textList.indexOf(firstText) + 1; i < textList.size(); i++) {
-            if (textList.get(i).getInformation().equals(firstText.getInformation())) {
+        for (int i = textList.indexOf(firstText) + 1;
+             i < textList.size(); i++) {
+            if (textList.get(i).getInformation()
+                    .equals(firstText.getInformation())) {
                 checkError = checkId(firstText, textList.get(i));
             }
         }
@@ -332,5 +336,34 @@ public class TextServiceImpl implements TextService {
         information = findEmail(stringForCompare, information);
         saveText(information);
         return information;
+    }
+
+    @Override
+    public boolean saveBulkText(BulkTextRequestDTO bulkTextRequestDTO) {
+        if (bulkTextRequestDTO != null) {
+            List<Text> texts = new ArrayList<>();
+            Set<Author> authors;
+            List<Author> authorsList;
+            bulkTextRequestDTO.getTexts().forEach(each -> {
+                Text text = new Text();
+                text.setInformation(each.getInformation());
+                text.setEmail(each.getEmail());
+                text.setNumberOfPhone(each.getNumberOfPhone());
+                text.setAuthors(each.getAuthors());
+                texts.add(text);
+            });
+            for (int i = 0; i < texts.size(); i++) {
+                authors = texts.get(i).getAuthors();
+                authorsList = new java.util.ArrayList<>(
+                        authors.stream().toList());
+                for (Author author : authorsList) {
+                    repositorySalary.save(author.getSalaries());
+                }
+                repositoryText.save(texts.get(i));
+            }
+            return true;
+        } else {
+            return false;
+        }
     }
 }

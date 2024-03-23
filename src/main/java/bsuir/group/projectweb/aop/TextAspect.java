@@ -14,9 +14,16 @@ import org.springframework.stereotype.Component;
 @Aspect
 @Slf4j
 public class TextAspect {
+    /**
+     * This is method logging all delete method in Text.
+     *
+     * @param joinPoint this is point of enter
+     * @return result is Object
+     */
     @Around("PointCuts.deleteMethodsText()")
-    public Object aroundDeleteAdvice(ProceedingJoinPoint joinPoint) {
-        MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
+    public Object aroundDeleteAdvice(final ProceedingJoinPoint joinPoint) {
+        MethodSignature methodSignature =
+                (MethodSignature) joinPoint.getSignature();
         Long ids = null;
         if (methodSignature.getName().equals("deleteAuthorInText")) {
             Object[] arguments = joinPoint.getArgs();
@@ -38,16 +45,24 @@ public class TextAspect {
         return result;
     }
 
+    /**
+     * This is method logging all save method in Text.
+     *
+     * @param joinPoint this is point of enter
+     * @return result is Object
+     */
     @Around("PointCuts.saveMethodsText()")
-    public Object aroundSaveAdvice(ProceedingJoinPoint joinPoint) {
-        MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
+    public Object aroundSaveAdvice(final ProceedingJoinPoint joinPoint) {
+        MethodSignature methodSignature =
+                (MethodSignature) joinPoint.getSignature();
         Text texts = null;
         if (methodSignature.getName().equals("saveText")) {
             Object[] arguments = joinPoint.getArgs();
             for (Object arg : arguments) {
                 if (arg instanceof Text text) {
                     texts = text;
-                    log.info("Try add text with information {}", text.getInformation());
+                    log.info("Try add text with information {}",
+                            text.getInformation());
                 }
             }
         }
@@ -63,9 +78,16 @@ public class TextAspect {
         return result;
     }
 
+    /**
+     * This is method logging all change method in Text.
+     *
+     * @param joinPoint this is point of enter
+     * @return result is Object
+     */
     @Around("PointCuts.changeMethodsText()")
-    public Object aroundChangeAdvice(ProceedingJoinPoint joinPoint) {
-        MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
+    public Object aroundChangeAdvice(final ProceedingJoinPoint joinPoint) {
+        MethodSignature methodSignature =
+                (MethodSignature) joinPoint.getSignature();
         int countForArgs = 0;
         if (methodSignature.getName().equals("changeByText")) {
             Object[] arguments = joinPoint.getArgs();
@@ -93,9 +115,16 @@ public class TextAspect {
         return result;
     }
 
+    /**
+     * This is method logging all find method in Text.
+     *
+     * @param joinPoint this is point of enter
+     * @return result is Object
+     */
     @Around("PointCuts.allFindMethodsText()")
-    public Object aroundFindAdvice(ProceedingJoinPoint joinPoint) {
-        MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
+    public Object aroundFindAdvice(final ProceedingJoinPoint joinPoint) {
+        MethodSignature methodSignature =
+                (MethodSignature) joinPoint.getSignature();
         String informations = null;
         /* TODO SMELL CODE */
         switch (methodSignature.getName()) {
@@ -105,7 +134,8 @@ public class TextAspect {
                 for (Object arg : arguments) {
                     if (arg instanceof String information) {
                         informations = information;
-                        log.info("Try find text by information {}", information);
+                        log.info("Try find text by information {}",
+                                information);
                     }
                 }
             }
@@ -113,7 +143,8 @@ public class TextAspect {
                 Object[] argument = joinPoint.getArgs();
                 for (Object arg : argument) {
                     if (arg instanceof Text text) {
-                        log.info("Try find Number Phone And Email with information {}", text.getInformation());
+                        log.info("Try find Number Phone And Email "
+                                + "with information {}", text.getInformation());
                     }
                 }
             }
@@ -127,12 +158,14 @@ public class TextAspect {
         }
         switch (methodSignature.getName()) {
             case "findAllText" -> log.info("All text is get");
-            case "findTextByInformation" -> log.info("Method find text by information {}", informations);
+            case "findTextByInformation" -> log.info("Method find text "
+                    + "by information {}", informations);
             case "findNumberPhoneAndEmail" -> {
                 Object[] arguments = joinPoint.getArgs();
                 for (Object arg : arguments) {
                     if (arg instanceof Text text) {
-                        log.info("Method find Number Phone And Email with information {}", text.getInformation());
+                        log.info("Method find Number Phone And Email "
+                                + "with information {}", text.getInformation());
                     }
                 }
             }

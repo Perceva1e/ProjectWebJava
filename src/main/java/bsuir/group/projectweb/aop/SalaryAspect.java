@@ -14,9 +14,16 @@ import org.springframework.stereotype.Component;
 @Aspect
 @Slf4j
 public class SalaryAspect {
+    /**
+     * This is method logging all delete method in Salary.
+     *
+     * @param joinPoint this is point of enter
+     * @return result is Object
+     */
     @Around("PointCuts.deleteMethodsSalary()")
-    public Object aroundDeleteAdvice(ProceedingJoinPoint joinPoint) {
-        MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
+    public Object aroundDeleteAdvice(final ProceedingJoinPoint joinPoint) {
+        MethodSignature methodSignature =
+                (MethodSignature) joinPoint.getSignature();
         Long ids = null;
         if (methodSignature.getName().equals("deleteSalaryInAuthor")) {
             Object[] arguments = joinPoint.getArgs();
@@ -38,9 +45,16 @@ public class SalaryAspect {
         return result;
     }
 
+    /**
+     * This is method logging all save method in Salary.
+     *
+     * @param joinPoint this is point of enter
+     * @return result is Object
+     */
     @Around("PointCuts.saveMethodsSalary()")
-    public Object aroundSaveAdvice(ProceedingJoinPoint joinPoint) {
-        MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
+    public Object aroundSaveAdvice(final ProceedingJoinPoint joinPoint) {
+        MethodSignature methodSignature =
+                (MethodSignature) joinPoint.getSignature();
         Salary salaries = null;
         if (methodSignature.getName().equals("saveSalary")) {
             Object[] arguments = joinPoint.getArgs();
@@ -63,9 +77,16 @@ public class SalaryAspect {
         return result;
     }
 
+    /**
+     * This is method logging all change method in Salary.
+     *
+     * @param joinPoint this is point of enter
+     * @return result is Object
+     */
     @Around("PointCuts.changeMethodsSalary()")
-    public Object aroundChangeAdvice(ProceedingJoinPoint joinPoint) {
-        MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
+    public Object aroundChangeAdvice(final ProceedingJoinPoint joinPoint) {
+        MethodSignature methodSignature =
+                (MethodSignature) joinPoint.getSignature();
         Long id;
         Integer price;
         int countForArgs = 0;
