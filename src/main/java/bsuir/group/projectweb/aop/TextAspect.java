@@ -131,6 +131,54 @@ public class TextAspect {
         return result;
     }
 
+    public String checkStartMethod(final String method,
+                                   final Object[] arguments) {
+        String informations = null;
+        switch (method) {
+            case "findAllText" -> log.info("Try get all information");
+            case "findTextByInformation" -> {
+                for (Object arg : arguments) {
+                    if (arg instanceof String information) {
+                        informations = information;
+                        log.info("Try find text by information {}",
+                                information);
+                    }
+                }
+            }
+            case "findNumberPhoneAndEmail" -> {
+                for (Object arg : arguments) {
+                    if (arg instanceof Text text) {
+                        log.info("Try find Number Phone And Email "
+                                + "with information {}", text.getInformation());
+                    }
+                }
+            }
+            default -> {
+            }
+        }
+        return informations;
+    }
+
+    public void checkEndMethod(final String method,
+                               final Object[] arguments,
+                               final String informations) {
+        switch (method) {
+            case "findAllText" -> log.info("All text is get");
+            case "findTextByInformation" -> log.info("Method find text "
+                    + "by information {}", informations);
+            case "findNumberPhoneAndEmail" -> {
+                for (Object arg : arguments) {
+                    if (arg instanceof Text text) {
+                        log.info("Method find Number Phone And Email "
+                                + "with information {}", text.getInformation());
+                    }
+                }
+            }
+            default -> {
+            }
+        }
+    }
+
     /**
      * This is method logging all find method in Text.
      *
@@ -141,30 +189,10 @@ public class TextAspect {
     public Object aroundFindAdvice(final ProceedingJoinPoint joinPoint) {
         MethodSignature methodSignature =
                 (MethodSignature) joinPoint.getSignature();
-        String informations = null;
-        /* TODO SMELL CODE */
-        switch (methodSignature.getName()) {
-            case "findAllText" -> log.info("Try get all information");
-            case "findTextByInformation" -> {
-                Object[] arguments = joinPoint.getArgs();
-                for (Object arg : arguments) {
-                    if (arg instanceof String information) {
-                        informations = information;
-                        log.info("Try find text by information {}",
-                                information);
-                    }
-                }
-            }
-            case "findNumberPhoneAndEmail" -> {
-                Object[] argument = joinPoint.getArgs();
-                for (Object arg : argument) {
-                    if (arg instanceof Text text) {
-                        log.info("Try find Number Phone And Email "
-                                + "with information {}", text.getInformation());
-                    }
-                }
-            }
-        }
+        String informations;
+        Object[] arguments = joinPoint.getArgs();
+        informations = checkStartMethod(
+                methodSignature.getName(), arguments);
         Object result;
         try {
             result = joinPoint.proceed();
@@ -172,20 +200,7 @@ public class TextAspect {
             log.error(e.getMessage(), e);
             result = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        switch (methodSignature.getName()) {
-            case "findAllText" -> log.info("All text is get");
-            case "findTextByInformation" -> log.info("Method find text "
-                    + "by information {}", informations);
-            case "findNumberPhoneAndEmail" -> {
-                Object[] arguments = joinPoint.getArgs();
-                for (Object arg : arguments) {
-                    if (arg instanceof Text text) {
-                        log.info("Method find Number Phone And Email "
-                                + "with information {}", text.getInformation());
-                    }
-                }
-            }
-        }
+        checkEndMethod(methodSignature.getName(), arguments, informations);
         return result;
     }
 }
