@@ -154,6 +154,7 @@ public class TextAspect {
                 }
             }
             default -> {
+                break;
             }
         }
         return informations;
@@ -175,6 +176,7 @@ public class TextAspect {
                 }
             }
             default -> {
+                break;
             }
         }
     }
