@@ -19,7 +19,7 @@ public interface SalaryService {
      * @param price is price for change
      * @return true is ok, false is error
      */
-    Boolean changeSalaryById(Long id, Integer price);
+    Boolean changeSalaryByIdInAuthor(Long id, Integer price);
 
     /**
      * This method delete Salary.

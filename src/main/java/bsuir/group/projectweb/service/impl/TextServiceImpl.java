@@ -285,6 +285,9 @@ public class TextServiceImpl implements TextService {
         boolean checkError = false;
         List<Text> textList = repositoryText.findAll();
         Text firstText = repositoryText.findFirstByInformation(information);
+        if (firstText == null) {
+            return false;
+        }
         for (int i = textList.indexOf(firstText) + 1;
              i < textList.size(); i++) {
             if (textList.get(i).getInformation()
@@ -337,6 +340,7 @@ public class TextServiceImpl implements TextService {
         saveText(information);
         return information;
     }
+
     /**
      * This method save several text.
      *
@@ -346,6 +350,7 @@ public class TextServiceImpl implements TextService {
     @Override
     public boolean saveBulkText(final BulkTextRequestDTO bulkTextRequestDTO) {
         if (bulkTextRequestDTO != null) {
+            cache.clearText();
             List<Text> texts = new ArrayList<>();
             Set<Author> authors;
             List<Author> authorsList;

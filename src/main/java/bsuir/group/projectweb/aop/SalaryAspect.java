@@ -90,7 +90,7 @@ public class SalaryAspect {
         Long id;
         Integer price;
         int countForArgs = 0;
-        if (methodSignature.getName().equals("changeSalaryById")) {
+        if (methodSignature.getName().equals("changeSalaryByIdInAuthor")) {
             Object[] arguments = joinPoint.getArgs();
             for (Object arg : arguments) {
                 if (arg instanceof Long || arg instanceof Integer) {

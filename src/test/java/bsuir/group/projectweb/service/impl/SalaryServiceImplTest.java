@@ -70,12 +70,12 @@ class SalaryServiceImplTest {
         Mockito.doReturn(author)
                 .when(repositoryAuthor)
                 .findAuthorById(author.getId());
-        boolean isChangeSalaryById = serviceSalary.changeSalaryById(author.getId(), salary.getPrice());
+        boolean isChangeSalaryById = serviceSalary.changeSalaryByIdInAuthor(author.getId(), salary.getPrice());
         Assert.assertTrue(isChangeSalaryById);
         Mockito.doReturn(false)
                 .when(repositoryAuthor)
                 .existsById(author.getId());
-        isChangeSalaryById = serviceSalary.changeSalaryById(author.getId(), salary.getPrice());
+        isChangeSalaryById = serviceSalary.changeSalaryByIdInAuthor(author.getId(), salary.getPrice());
         Assert.assertFalse(isChangeSalaryById);
     }
 }

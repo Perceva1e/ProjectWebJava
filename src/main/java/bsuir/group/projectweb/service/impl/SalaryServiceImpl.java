@@ -1,5 +1,6 @@
 package bsuir.group.projectweb.service.impl;
 
+import bsuir.group.projectweb.cache.TextDataCache;
 import bsuir.group.projectweb.model.Author;
 import bsuir.group.projectweb.model.Salary;
 import bsuir.group.projectweb.repository.AuthorRepositoryDAO;
@@ -11,6 +12,10 @@ import org.springframework.stereotype.Service;
 @Service
 @AllArgsConstructor
 public class SalaryServiceImpl implements SalaryService {
+    /**
+     * This cache for text.
+     */
+    private final TextDataCache cache;
 
     /**
      * This is a repository of entity text.
@@ -30,6 +35,7 @@ public class SalaryServiceImpl implements SalaryService {
     @Override
     public Boolean saveSalary(final Salary salaries) {
         if (salaries.getId() == null) {
+            cache.clearText();
             repositorySalary.save(salaries);
             return true;
         } else {
@@ -46,6 +52,7 @@ public class SalaryServiceImpl implements SalaryService {
     @Override
     public Boolean deleteSalaryInAuthor(final Long id) {
         if (repositorySalary.existsById(id)) {
+            cache.clearText();
             Salary salary = repositorySalary.findSalariesById(id);
             Author author = repositoryAuthor.findAuthorBySalaries(salary);
             if (author == null) {
@@ -67,8 +74,10 @@ public class SalaryServiceImpl implements SalaryService {
      * @return restore true if changed, else false
      */
     @Override
-    public Boolean changeSalaryById(final Long id, final Integer price) {
+    public Boolean changeSalaryByIdInAuthor(
+            final Long id, final Integer price) {
         if (repositoryAuthor.existsById(id)) {
+            cache.clearText();
             Author authorChange = repositoryAuthor.findAuthorById(id);
             Salary salaryChange = authorChange.getSalaries();
             salaryChange.setPrice(price);

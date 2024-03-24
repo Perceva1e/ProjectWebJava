@@ -120,7 +120,7 @@ public class TextController {
      * @param id is an id of entity for delete
      * @return restore http status
      */
-    @DeleteMapping("delete_text/{id}")
+    @DeleteMapping("delete_author_in_text/{id}")
     public ResponseEntity<String> deleteAuthorInText(
             @PathVariable final Long id) {
         LOGGER.info("start delete text");

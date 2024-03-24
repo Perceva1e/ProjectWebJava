@@ -1,5 +1,6 @@
 package bsuir.group.projectweb.service.impl;
 
+import bsuir.group.projectweb.cache.TextDataCache;
 import bsuir.group.projectweb.model.Author;
 import bsuir.group.projectweb.model.Text;
 import bsuir.group.projectweb.repository.AuthorRepositoryDAO;
@@ -11,12 +12,15 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 
 @Service
 @AllArgsConstructor
 public class AuthorServiceImpl implements AuthorService {
+    /**
+     * This cache for text.
+     */
+    private final TextDataCache cache;
     /**
      * This is a repository of entity text.
      */
@@ -59,6 +63,7 @@ public class AuthorServiceImpl implements AuthorService {
     public boolean deleteAuthorConnection(final Long idAuthor,
                                           final Long idText) {
         if (repositoryAuthor.existsById(idAuthor)) {
+            cache.clearText();
             Text text = repositoryText.findTextById(idText);
             Set<Author> authors = text.getAuthors();
             List<Author> authorsList = new java.util.ArrayList<>(
@@ -87,6 +92,7 @@ public class AuthorServiceImpl implements AuthorService {
     public Boolean addAuthorInText(final String informationExist,
                                    final Author authorAdd) {
         if (repositoryText.existsByInformation(informationExist)) {
+            cache.clearText();
             Text informationChange = repositoryText.
                     findByInformation(informationExist);
             Set<Author> authors = informationChange.getAuthors();

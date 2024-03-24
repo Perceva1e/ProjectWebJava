@@ -24,8 +24,9 @@ public class SalaryController {
      * @param id is an entity for delete
      * @return restore http status
      */
-    @DeleteMapping("delete_salary/{id}")
-    public ResponseEntity<String> deleteSalary(@PathVariable final Long id) {
+    @DeleteMapping("delete_salary_in_author/{id}")
+    public ResponseEntity<String> deleteSalaryInAuthor(
+            @PathVariable final Long id) {
         LOGGER.info("start delete salary");
         boolean checkError = service.deleteSalaryInAuthor(id);
         if (checkError) {
@@ -44,11 +45,11 @@ public class SalaryController {
      * @param price is a string for change
      * @return restore http status
      */
-    @PutMapping("change_salary/{id}/{price}")
-    public ResponseEntity<String> changeSalaryById(
+    @PutMapping("change_salary_in_author/{id}/{price}")
+    public ResponseEntity<String> changeSalaryByIdInAuthor(
             @PathVariable final Long id, @PathVariable final Integer price) {
         LOGGER.info("start change salary");
-        boolean checkError = service.changeSalaryById(id, price);
+        boolean checkError = service.changeSalaryByIdInAuthor(id, price);
         if (checkError) {
             return new ResponseEntity<>("salary is change", HttpStatus.OK);
         } else {
