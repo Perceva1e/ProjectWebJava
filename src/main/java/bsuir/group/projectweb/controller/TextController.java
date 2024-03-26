@@ -4,6 +4,7 @@ package bsuir.group.projectweb.controller;
 import bsuir.group.projectweb.dto.BulkTextRequestDTO;
 import bsuir.group.projectweb.model.Text;
 import bsuir.group.projectweb.service.TextService;
+import bsuir.group.projectweb.service.impl.CounterServiceImpl;
 import lombok.AllArgsConstructor;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;
@@ -35,9 +36,11 @@ public class TextController {
     @GetMapping
     public List<Text> findAllText() {
         LOGGER.info("start display all text");
+        CounterServiceImpl.enhanceCounter();
+        int numberOfRequest = CounterServiceImpl.getCounter();
+        LOGGER.info("number of access to service is {}", numberOfRequest);
         return service.findAllText();
     }
-
     /**
      * This method save text.
      *

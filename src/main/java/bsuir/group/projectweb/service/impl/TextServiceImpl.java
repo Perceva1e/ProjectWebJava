@@ -51,7 +51,7 @@ public class TextServiceImpl implements TextService {
     public List<Text> findAllText() {
         List<Text> text = (List<Text>) cache.getText("text");
         if (text == null) {
-            TimeUnit.SECONDS.sleep(5);
+            TimeUnit.SECONDS.sleep(1);
             text = repositoryText.findAll();
             cache.putText("text", text);
         } else {
