@@ -5,11 +5,12 @@ import bsuir.group.projectweb.service.SalaryService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import static bsuir.group.projectweb.controller.TextController.LOGGER;
 
-@RestController
+@Controller
 @RequestMapping("/api/v1/text")
 @AllArgsConstructor
 public class SalaryController {

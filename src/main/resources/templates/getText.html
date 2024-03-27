@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Texts</title>
+</head>
+<body class="container-md">
+<h1>List of texts</h1>
+
+<div class="card" style="width: 18rem;" th:each="text : ${texts}">
+    <div class="card-body">
+        <h5 class="card-title" th:text="${text.id}"> id</h5>
+        <p class="card-text" th:text="${text.information}">Information of text</p>
+        <p class="card-text" th:text="${text.numberOfPhone}">Number of phone</p>
+        <p class="card-text" th:text="${text.email}">Email</p>
+    </div>
+</div>
+<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+</body>
+</html>

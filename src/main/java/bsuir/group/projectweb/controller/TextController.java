@@ -9,13 +9,15 @@ import lombok.AllArgsConstructor;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 
-@RestController
+@Controller
 @RequestMapping("/api/v1/text")
 @AllArgsConstructor
 public class TextController {
@@ -33,13 +35,15 @@ public class TextController {
      *
      * @return restore list of text
      */
-    @GetMapping
-    public List<Text> findAllText() {
+    @GetMapping()
+    public String findAllText(Model model) {
         LOGGER.info("start display all text");
         CounterServiceImpl.enhanceCounter();
         int numberOfRequest = CounterServiceImpl.getCounter();
         LOGGER.info("number of access to service is {}", numberOfRequest);
-        return service.findAllText();
+        List<Text> texts = service.findAllText();
+        model.addAttribute("texts", texts);
+        return "getText";
     }
     /**
      * This method save text.
