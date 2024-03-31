@@ -30,6 +30,7 @@ public class TextDataCache {
             hashMap.clear();
         }
     }
+
     /**
      * This method get object from hashmap.
      *

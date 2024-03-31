@@ -1,7 +1,7 @@
 package bsuir.group.projectweb.controller;
 
-
 import bsuir.group.projectweb.dto.BulkTextRequestDTO;
+import bsuir.group.projectweb.model.Author;
 import bsuir.group.projectweb.model.Text;
 import bsuir.group.projectweb.service.TextService;
 import bsuir.group.projectweb.service.impl.CounterServiceImpl;
@@ -13,7 +13,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.logging.log4j.LogManager;
 
@@ -33,35 +35,57 @@ public class TextController {
     /**
      * This method find all text.
      *
-     * @return restore list of text
+     * @param model model for html
+     * @return restore html page getText
      */
     @GetMapping()
-    public String findAllText(Model model) {
+    public String findAllText(final Model model) {
         LOGGER.info("start display all text");
         CounterServiceImpl.enhanceCounter();
         int numberOfRequest = CounterServiceImpl.getCounter();
         LOGGER.info("number of access to service is {}", numberOfRequest);
         List<Text> texts = service.findAllText();
+        Set<Author> authors = new HashSet<>();
+        model.addAttribute("authors", authors);
         model.addAttribute("texts", texts);
         return "getText";
     }
+
+    /**
+     * This method show html page.
+     *
+     * @param model model for html
+     * @return restore html page saveText
+     */
+    @GetMapping("/save_information")
+    public String showSavePersonForm(final Model model) {
+        Author author = new Author();
+        model.addAttribute("information", new Text());
+        model.addAttribute("author", author);
+        return "saveText";
+    }
+
     /**
      * This method save text.
      *
      * @param information is an entity for save
+     * @param author      is entity for save
      * @return restore http status
      */
     @PostMapping("/save_information")
-    public ResponseEntity<String> saveText(
-            @RequestBody final Text information) {
+    public String saveText(
+            @ModelAttribute final Text information,
+            @ModelAttribute final Author author) {
+        Set<Author> authors = new HashSet<>();
+        authors.add(author);
+        information.setAuthors(authors);
         LOGGER.info("start save a text");
         boolean checkError = service.saveText(information);
         if (checkError) {
-            return new ResponseEntity<>("save a text", HttpStatus.OK);
+            return "successMethod";
         } else {
             LOGGER.error("text yet save ");
-            return new ResponseEntity<>(
-                    "text yet save in db", HttpStatus.INTERNAL_SERVER_ERROR);
+            return "errorMethod";
         }
     }
 
@@ -78,25 +102,37 @@ public class TextController {
     }
 
     /**
+     * This method show html page.
+     *
+     * @param model model for html
+     * @return restore html page updateText
+     */
+    @GetMapping("/change_information")
+    public String showChangeTextForm(final Model model) {
+        model.addAttribute("informationExist", "");
+        model.addAttribute("information", "");
+        return "updateText";
+    }
+
+    /**
      * This method change by text.
      *
      * @param informationExist is a string for existing
      * @param information      is a string for change
      * @return restore http status
      */
-    @PutMapping("change_information/{informationExist}/{information}")
-    public ResponseEntity<String> changeByText(
-            @PathVariable final String informationExist,
-            @PathVariable final String information) {
+    @PutMapping("/change_information")
+    public String changeByText(
+            @RequestParam("informationExist") final String informationExist,
+            @RequestParam("information") final String information) {
         LOGGER.info("start change a text");
         boolean checkError = service.changeByText(
                 informationExist, information);
         if (checkError) {
-            return new ResponseEntity<>("change a text", HttpStatus.OK);
+            return "successMethod";
         } else {
             LOGGER.error("text not found");
-            return new ResponseEntity<>(
-                    "change a text not complete", HttpStatus.NOT_FOUND);
+            return "errorMethod";
         }
     }
 
@@ -122,24 +158,37 @@ public class TextController {
     }
 
     /**
+     * This method show html page.
+     *
+     * @param model model for html
+     * @return restore html page deleteAuthorInText
+     */
+    @GetMapping("/delete_author_in_text")
+    public String showDeleteAuthorInTextForm(final Model model) {
+        Long idAuthor = null;
+        model.addAttribute("idAuthor", idAuthor);
+        return "deleteAuthorInText";
+    }
+
+    /**
      * This method delete text.
      *
-     * @param id is an id of entity for delete
+     * @param idAuthor is an idAuthor of entity for delete
      * @return restore http status
      */
-    @DeleteMapping("delete_author_in_text/{id}")
-    public ResponseEntity<String> deleteAuthorInText(
-            @PathVariable final Long id) {
+    @DeleteMapping("delete_author_in_text")
+    public String deleteAuthorInText(
+            @RequestParam("idAuthor") final Long idAuthor) {
         LOGGER.info("start delete text");
-        boolean checkError = service.deleteAuthorInText(id);
+        boolean checkError = service.deleteAuthorInText(idAuthor);
         if (checkError) {
-            return new ResponseEntity<>("Delete information", HttpStatus.OK);
+            return "successMethod";
         } else {
-            LOGGER.error("text not found by id");
-            return new ResponseEntity<>(
-                    "information for delete not found", HttpStatus.NOT_FOUND);
+            LOGGER.error("text not found by idAuthor");
+            return "errorMethod";
         }
     }
+
     /**
      * This method save several text.
      *

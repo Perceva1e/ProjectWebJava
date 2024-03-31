@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Success operation</title>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        div {
+            color: #008000;
+            font-size: 20px;
+            margin: 20px;
+        }
+
+        a.btn {
+            display: inline-block;
+            padding: 10px 20px;
+            color: #ffffff;
+            background-color: #008000;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 20px;
+        }
+
+        a.btn:hover {
+            background-color: #006400;
+        }
+
+    </style>
+</head>
+<body>
+<div th:text="'Method is success'"></div>
+<a href="http://localhost:8080/api/v1/text" class="btn btn-success">Return to list of article</a>
+</body>
+</html>
