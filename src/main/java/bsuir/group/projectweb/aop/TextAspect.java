@@ -15,58 +15,16 @@ import org.springframework.stereotype.Component;
 @Aspect
 @Slf4j
 public class TextAspect {
-    /**
-     * This is method logging all delete method in Text.
-     *
-     * @param joinPoint this is point of enter
-     * @return result is Object
-     */
+
     @Around("PointCuts.deleteMethodsText()")
     public Object aroundDeleteAdvice(final ProceedingJoinPoint joinPoint) {
-        MethodSignature methodSignature =
-                (MethodSignature) joinPoint.getSignature();
-        Long ids = null;
-        if (methodSignature.getName().equals("deleteAuthorInText")) {
-            Object[] arguments = joinPoint.getArgs();
-            for (Object arg : arguments) {
-                if (arg instanceof Long id) {
-                    ids = id;
-                    log.info("Try delete text with id {}", id);
-                }
-            }
-        }
-        Object result;
-        try {
-            result = joinPoint.proceed();
-        } catch (Throwable e) {
-            log.error(e.getMessage(), e);
-            result = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-        log.info("text with id {} delete", ids);
-        return result;
+        return processMethod(joinPoint, "deleteAuthorInText", "Try delete text with id {}");
     }
-
-    /**
-     * This is method logging all save method in Text.
-     *
-     * @param joinPoint this is point of enter
-     * @return result is Object
-     */
     @Around("PointCuts.saveMethodsText()")
-    public Object aroundSaveAdvice(final ProceedingJoinPoint joinPoint) {
+    public Object aroundSaveBulkTextAdvice(final ProceedingJoinPoint joinPoint) {
         MethodSignature methodSignature =
                 (MethodSignature) joinPoint.getSignature();
         Object[] arguments = joinPoint.getArgs();
-        Text texts = null;
-        if (methodSignature.getName().equals("saveText")) {
-            for (Object arg : arguments) {
-                if (arg instanceof Text text) {
-                    texts = text;
-                    log.info("Try add text with information {}",
-                            text.getInformation());
-                }
-            }
-        }
         if (methodSignature.getName().equals("saveBulkText")) {
             for (Object arg : arguments) {
                 if (arg instanceof BulkTextRequestDTO bulkTextRequestDTO) {
@@ -83,137 +41,40 @@ public class TextAspect {
             log.error(e.getMessage(), e);
             result = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        if (methodSignature.getName().equals("saveText")) {
-            assert texts != null;
-            log.info("Text with information {} add", texts.getInformation());
-        }
         if (methodSignature.getName().equals("saveBulkText")) {
             log.info("All text add");
         }
         return result;
     }
+    @Around("PointCuts.saveMethodsText()")
+    public Object aroundSaveAdvice(final ProceedingJoinPoint joinPoint) {
+        return processMethod(joinPoint, "saveText", "Try add text with information {}");
+    }
 
-    /**
-     * This is method logging all change method in Text.
-     *
-     * @param joinPoint this is point of enter
-     * @return result is Object
-     */
+
     @Around("PointCuts.changeMethodsText()")
     public Object aroundChangeAdvice(final ProceedingJoinPoint joinPoint) {
-        MethodSignature methodSignature =
-                (MethodSignature) joinPoint.getSignature();
-        int countForArgs = 0;
-        if (methodSignature.getName().equals("changeByText")) {
-            Object[] arguments = joinPoint.getArgs();
-            for (Object arg : arguments) {
-                if (arg instanceof String text) {
-                    if (countForArgs == 1) {
-                        text = (String) arg;
-                        log.info("Try change by text {}", text);
-                        break;
-                    }
-                    text = (String) arg;
-                    countForArgs++;
-                    log.info("Try change text {}", text);
-                }
-            }
-        }
-        Object result;
-        try {
-            result = joinPoint.proceed();
-        } catch (Throwable e) {
-            log.error(e.getMessage(), e);
-            result = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-        log.info("Method change text");
-        return result;
-    }
-    /**
-     * This is method logging start find method in Text.
-     *
-     * @param method this is method
-     * @param arguments this is arguments
-     * @return information about text
-     */
-    public String checkStartMethod(final String method,
-                                   final Object[] arguments) {
-        String informations = null;
-        switch (method) {
-            case "findAllText" -> log.info("Try get all information");
-            case "findTextByInformation" -> {
-                for (Object arg : arguments) {
-                    if (arg instanceof String information) {
-                        informations = information;
-                        log.info("Try find text by information {}",
-                                information);
-                    }
-                }
-            }
-            case "findNumberPhoneAndEmail" -> {
-                for (Object arg : arguments) {
-                    if (arg instanceof Text text) {
-                        log.info("Try find Number Phone And Email "
-                                + "with information {}", text.getInformation());
-                    }
-                }
-            }
-            default -> {
-                break;
-            }
-        }
-        return informations;
-    }
-    /**
-     * This is method logging end find method in Text.
-     *
-     * @param method this is method
-     * @param arguments this is arguments
-     * @param informations this is information about Text
-     */
-    public void checkEndMethod(final String method,
-                               final Object[] arguments,
-                               final String informations) {
-        switch (method) {
-            case "findAllText" -> log.info("All text is get");
-            case "findTextByInformation" -> log.info("Method find text "
-                    + "by information {}", informations);
-            case "findNumberPhoneAndEmail" -> {
-                for (Object arg : arguments) {
-                    if (arg instanceof Text text) {
-                        log.info("Method find Number Phone And Email "
-                                + "with information {}", text.getInformation());
-                    }
-                }
-            }
-            default -> {
-                break;
-            }
-        }
+        return processMethod(joinPoint, "changeByText", "Try change by text {}");
     }
 
-    /**
-     * This is method logging all find method in Text.
-     *
-     * @param joinPoint this is point of enter
-     * @return result is Object
-     */
-    @Around("PointCuts.allFindMethodsText()")
-    public Object aroundFindAdvice(final ProceedingJoinPoint joinPoint) {
-        MethodSignature methodSignature =
-                (MethodSignature) joinPoint.getSignature();
-        String informations;
-        Object[] arguments = joinPoint.getArgs();
-        informations = checkStartMethod(
-                methodSignature.getName(), arguments);
+    private Object processMethod(ProceedingJoinPoint joinPoint, String methodName, String logMessage) {
+        MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
         Object result;
         try {
+            if (methodSignature.getName().equals(methodName)) {
+                Object[] arguments = joinPoint.getArgs();
+                for (Object arg : arguments) {
+                    if (arg instanceof Text text) {
+                        log.info(logMessage, text.getInformation());
+                    }
+                }
+            }
             result = joinPoint.proceed();
         } catch (Throwable e) {
             log.error(e.getMessage(), e);
             result = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        checkEndMethod(methodSignature.getName(), arguments, informations);
+        log.info("Method {} processed", methodName);
         return result;
     }
 }
