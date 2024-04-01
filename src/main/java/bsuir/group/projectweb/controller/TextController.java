@@ -13,7 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -24,6 +23,8 @@ import org.apache.logging.log4j.LogManager;
 @RequestMapping("/api/v1/text")
 @AllArgsConstructor
 public class TextController {
+    private static final String ERROR_METHOD = "errorMethod";
+    private static final String SUCCESS_METHOD = "successMethod";
     /**
      * This is a server.
      */
@@ -81,10 +82,10 @@ public class TextController {
         LOGGER.info("start save a text");
         boolean checkError = service.saveText(information);
         if (checkError) {
-            return "successMethod";
+            return SUCCESS_METHOD;
         } else {
             LOGGER.error("text yet save ");
-            return "errorMethod";
+            return ERROR_METHOD;
         }
     }
 
@@ -128,10 +129,10 @@ public class TextController {
         boolean checkError = service.changeByText(
                 informationExist, information);
         if (checkError) {
-            return "successMethod";
+            return SUCCESS_METHOD;
         } else {
             LOGGER.error("text not found");
-            return "errorMethod";
+            return ERROR_METHOD;
         }
     }
 
@@ -181,10 +182,10 @@ public class TextController {
         LOGGER.info("start delete text");
         boolean checkError = service.deleteAuthorInText(idAuthor);
         if (checkError) {
-            return "successMethod";
+            return SUCCESS_METHOD;
         } else {
             LOGGER.error("text not found by idAuthor");
-            return "errorMethod";
+            return ERROR_METHOD;
         }
     }
 

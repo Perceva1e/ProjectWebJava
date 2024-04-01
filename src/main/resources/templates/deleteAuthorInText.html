@@ -61,9 +61,7 @@
 <div class="container">
     <h1>Delete Author in Text</h1>
     <form th:action="@{/api/v1/text/delete_author_in_text}" th:method="POST">
-        <label>
-            <input style="display: none;" name="_method" value="DELETE"/>
-        </label>
+        <input style="display: none;" id="_method" name="_method" value="DELETE"/>
         <label for="idAuthor">Author ID:</label>
         <input type="text" id="idAuthor" name="idAuthor" th:value="${idAuthor}" required>
         <input type="submit" value="Delete Author">
