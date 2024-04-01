@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -45,8 +46,6 @@ public class TextController {
         int numberOfRequest = CounterServiceImpl.getCounter();
         LOGGER.info("number of access to service is {}", numberOfRequest);
         List<Text> texts = service.findAllText();
-        Set<Author> authors = new HashSet<>();
-        model.addAttribute("authors", authors);
         model.addAttribute("texts", texts);
         return "getText";
     }

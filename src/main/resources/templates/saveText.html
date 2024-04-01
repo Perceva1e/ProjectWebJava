@@ -2,42 +2,47 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Save Information</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
+            background-color: #f8f9fa;
             padding: 20px;
         }
-        h1 {
-            color: #333;
-            text-align: center;
-        }
-        form {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 5px;
+        .container {
             max-width: 500px;
             margin: 0 auto;
-            box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 5px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #007bff;
+            text-align: center;
+            margin-bottom: 20px;
         }
         label {
             display: block;
-            margin-bottom: 5px;
+            margin-top: 20px;
         }
         input[type="text"] {
-            width: 90%;
+            width: 100%;
             padding: 10px;
-            margin-bottom: 20px;
-            border-radius: 5px;
+            margin-top: 5px;
             border: 1px solid #ccc;
+            border-radius: 3px;
         }
         button {
-            padding: 10px 20px;
-            background-color: #007BFF;
+            display: block;
+            width: 100%;
+            background-color: #007bff;
             color: #fff;
             border: none;
-            border-radius: 5px;
+            border-radius: 3px;
+            padding: 10px 20px;
             cursor: pointer;
+            margin-top: 20px;
         }
         button:hover {
             background-color: #0056b3;
@@ -45,21 +50,24 @@
     </style>
 </head>
 <body>
-<h1>Save Information</h1>
-<form th:action="@{/api/v1/text/save_information}" th:method="POST">
-    <label for="information">Article:</label><br>
-    <input type="text" id="information" th:field="${information.information}" required><br>
-    <label for="email">Email:</label><br>
-    <input type="text" id="email" th:field="${information.email}" required><br>
-    <label for="numberOfPhone">Number of phone:</label><br>
-    <input type="text" id="numberOfPhone" th:field="${information.numberOfPhone}" required><br>
-    <label for="authorName">Author name:</label><br>
-    <input type="text" id="authorName" th:field="${author.firstName}" required><br>
-    <label for="authorLastName">Author last name:</label><br>
-    <input type="text" id="authorLastName" th:field="${author.lastName}" required><br>
-    <label for="priceAuthor">Author price:</label><br>
-    <input type="text" id="priceAuthor" th:field="${author.salaries.price}" required><br>
-    <button type="submit">Save Text</button>
-</form>
+<div class="container">
+    <h1>Save Information</h1>
+    <form th:action="@{/api/v1/text/save_information}" th:method="POST">
+        <label for="information">Article:</label>
+        <input type="text" id="information" th:field="${information.information}" required>
+        <label for="email">Email:</label>
+        <input type="text" id="email" th:field="${information.email}" required>
+        <label for="numberOfPhone">Number of phone:</label>
+        <input type="text" id="numberOfPhone" th:field="${information.numberOfPhone}" required>
+        <label for="authorName">Author name:</label>
+        <input type="text" id="authorName" th:field="${author.firstName}" required>
+        <label for="authorLastName">Author last name:</label>
+        <input type="text" id="authorLastName" th:field="${author.lastName}" required>
+        <label for="priceAuthor">Author price:</label>
+        <input type="text" id="priceAuthor" th:field="${author.salaries.price}" required>
+        <button type="submit">Save Text</button>
+    </form>
+</div>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 </html>

@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Change Text</title>
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
+            background-color: #f8f9fa;
             margin: 0;
             padding: 0;
         }
@@ -19,32 +19,39 @@
             padding: 20px;
             background-color: #ffffff;
             border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
 
         h1 {
-            color: #333;
+            color: #007bff;
+            text-align: center;
+            margin-bottom: 20px;
         }
 
         label {
             font-weight: bold;
+            display: block;
+            margin-top: 20px;
         }
 
         input[type="text"] {
             width: 100%;
             padding: 10px;
-            margin-bottom: 20px;
+            margin-top: 5px;
             border: 1px solid #ccc;
             border-radius: 3px;
         }
 
         button {
+            display: block;
+            width: 100%;
             background-color: #007bff;
             color: #fff;
             border: none;
             border-radius: 3px;
             padding: 10px 20px;
             cursor: pointer;
+            margin-top: 20px;
         }
 
         button:hover {
@@ -59,12 +66,12 @@
     <div class="container">
         <h1>Change Text</h1>
         <label for="informationExist">Input exists text:</label>
-        <input type="text" id="informationExist" name="informationExist" th:value="${informationExist}" required><br>
+        <input type="text" id="informationExist" name="informationExist" th:value="${informationExist}" required>
         <label for="information">Input new text:</label>
-        <input type="text" id="information" name="information" th:value="${information}" required><br>
+        <input type="text" id="information" name="information" th:value="${information}" required>
         <button type="submit">Change Text</button>
     </div>
 </form>
-<script src="/js/bootstrap.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 </html>

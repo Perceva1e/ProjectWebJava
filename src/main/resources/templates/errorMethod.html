@@ -3,51 +3,47 @@
 <head>
     <title>Error operation</title>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f0f0f0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-
-        div {
-            color: #ff0000;
-            font-size: 20px;
-            text-align: center;
-        }
-
-        a.btn {
-            display: inline-block;
-            padding: 10px 20px;
-            color: #ffffff;
-            background-color: #ff0000;
-            text-decoration: none;
-            border-radius: 5px;
-            margin-top: 20px;
-            text-align: center;
-        }
-
-        a.btn:hover {
-            background-color: #cc0000;
-        }
-
-        .container {
-            background-color: #fff;
+            background-color: #f8f9fa;
             padding: 20px;
+        }
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
             border-radius: 5px;
-            box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #dc3545;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        a.btn {
+            display: block;
+            width: 100%;
+            background-color: #dc3545;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            padding: 10px 20px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        a.btn:hover {
+            background-color: #c82333;
         }
     </style>
 </head>
 <body>
 <div class="container">
-    <div th:text="'Method is Error'"></div>
-    <a href="http://localhost:8080/api/v1/text" class="btn btn-danger">Return to list of article</a>
+    <h1>Method is Error</h1>
+    <a href="http://localhost:8080/api/v1/text" class="btn">Return to list of article</a>
 </div>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 </html>
