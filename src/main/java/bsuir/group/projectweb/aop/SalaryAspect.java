@@ -1,4 +1,5 @@
 package bsuir.group.projectweb.aop;
+
 import bsuir.group.projectweb.model.Salary;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -13,24 +14,58 @@ import org.springframework.stereotype.Component;
 @Aspect
 @Slf4j
 public class SalaryAspect {
-
+    /**
+     * This is aspect of all salary method delete.
+     *
+     * @param joinPoint point of enter
+     * @return restore object
+     */
     @Around("PointCuts.deleteMethodsSalary()")
     public Object aroundDeleteAdvice(final ProceedingJoinPoint joinPoint) {
-        return processMethod(joinPoint, "deleteSalaryInAuthor", "Try delete salary with id {}");
+        return processMethod(joinPoint,
+                "deleteSalaryInAuthor",
+                "Try delete salary with id {}");
     }
 
+    /**
+     * This is aspect of all salary method save.
+     *
+     * @param joinPoint point of enter
+     * @return restore object
+     */
     @Around("PointCuts.saveMethodsSalary()")
     public Object aroundSaveAdvice(final ProceedingJoinPoint joinPoint) {
-        return processMethod(joinPoint, "saveSalary", "Try add salary with price {}");
+        return processMethod(joinPoint,
+                "saveSalary",
+                "Try add salary with price {}");
     }
 
+    /**
+     * This is aspect of all salary method change.
+     *
+     * @param joinPoint point of enter
+     * @return restore object
+     */
     @Around("PointCuts.changeMethodsSalary()")
     public Object aroundChangeAdvice(final ProceedingJoinPoint joinPoint) {
-        return processMethod(joinPoint, "changeSalaryByIdInAuthor", "Try change salary price {}");
+        return processMethod(joinPoint,
+                "changeSalaryByIdInAuthor",
+                "Try change salary price {}");
     }
 
-    private Object processMethod(ProceedingJoinPoint joinPoint, String methodName, String logMessage) {
-        MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
+    /**
+     * This is method of process.
+     *
+     * @param joinPoint  point of enter
+     * @param logMessage log message
+     * @param methodName name method for
+     * @return restore result
+     */
+    private Object processMethod(final ProceedingJoinPoint joinPoint,
+                                 final String methodName,
+                                 final String logMessage) {
+        MethodSignature methodSignature =
+                (MethodSignature) joinPoint.getSignature();
         Object result;
         try {
             if (methodSignature.getName().equals(methodName)) {

@@ -15,17 +15,38 @@ import org.springframework.stereotype.Component;
 @Aspect
 @Slf4j
 public class TextAspect {
-
+    /**
+     * This is aspect of all text method delete.
+     * @param joinPointDelete  point of enter
+     * @return restore object
+     */
     @Around("PointCuts.deleteMethodsText()")
-    public Object aroundDeleteAdvice(final ProceedingJoinPoint joinPointDelete) {
-        return processMethod(joinPointDelete, "deleteAuthorInText", "Try delete text with id {}");
+    public Object aroundDeleteAdvice(
+            final ProceedingJoinPoint joinPointDelete) {
+        return processMethod(joinPointDelete,
+                "deleteAuthorInText",
+                "Try delete text with id {}");
     }
+    /**
+     * This is aspect of all text method find.
+     * @param joinPointFindAll  point of enter
+     * @return restore object
+     */
     @Around("PointCuts.allFindMethodsText()")
-    public Object aroundFindAllAdvice(final ProceedingJoinPoint joinPointFindAll) {
-        return processMethod(joinPointFindAll, "findAllText", "Try find all article");
+    public Object aroundFindAllAdvice(
+            final ProceedingJoinPoint joinPointFindAll) {
+        return processMethod(joinPointFindAll,
+                "findAllText",
+                "Try find all article");
     }
+    /**
+     * This is aspect of text method save bulk text.
+     * @param joinPoint  point of enter
+     * @return restore object
+     */
     @Around("PointCuts.saveMethodsText()")
-    public Object aroundSaveBulkTextAdvice(final ProceedingJoinPoint joinPoint) {
+    public Object aroundSaveBulkTextAdvice(
+            final ProceedingJoinPoint joinPoint) {
         MethodSignature methodSignature =
                 (MethodSignature) joinPoint.getSignature();
         Object[] arguments = joinPoint.getArgs();
@@ -50,19 +71,44 @@ public class TextAspect {
         }
         return result;
     }
+    /**
+     * This is aspect of all text method save.
+     * @param joinPointSave  point of enter
+     * @return restore object
+     */
     @Around("PointCuts.saveMethodsText()")
-    public Object aroundSaveAdvice(final ProceedingJoinPoint joinPointSave) {
-        return processMethod(joinPointSave, "saveText", "Try add text with information {}");
+    public Object aroundSaveAdvice(
+            final ProceedingJoinPoint joinPointSave) {
+        return processMethod(joinPointSave,
+                "saveText",
+                "Try add text with information {}");
     }
 
-
+    /**
+     * This is aspect of all text method change.
+     * @param joinPointChange  point of enter
+     * @return restore object
+     */
     @Around("PointCuts.changeMethodsText()")
-    public Object aroundChangeAdvice(final ProceedingJoinPoint joinPointChange) {
-        return processMethod(joinPointChange, "changeByText", "Try change by text {}");
+    public Object aroundChangeAdvice(
+            final ProceedingJoinPoint joinPointChange) {
+        return processMethod(joinPointChange,
+                "changeByText",
+                "Try change by text {}");
     }
-
-    private Object processMethod(ProceedingJoinPoint joinPointGeneral, String methodName, String logMessage) {
-        MethodSignature methodSignature = (MethodSignature) joinPointGeneral.getSignature();
+    /**
+     * This is method of process.
+     *
+     * @param joinPointGeneral  point of enter
+     * @param logMessage log message
+     * @param methodName name method for
+     * @return restore result
+     */
+    private Object processMethod(final ProceedingJoinPoint joinPointGeneral,
+                                 final String methodName,
+                                 final String logMessage) {
+        MethodSignature methodSignature =
+                (MethodSignature) joinPointGeneral.getSignature();
         Object result;
         try {
             if (methodSignature.getName().equals(methodName)) {

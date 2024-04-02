@@ -23,7 +23,13 @@ import org.apache.logging.log4j.LogManager;
 @RequestMapping("/api/v1/text")
 @AllArgsConstructor
 public class TextController {
+    /**
+     * This is html page.
+     */
     private static final String ERROR_METHOD = "errorMethod";
+    /**
+     * This is html page.
+     */
     private static final String SUCCESS_METHOD = "successMethod";
     /**
      * This is a server.

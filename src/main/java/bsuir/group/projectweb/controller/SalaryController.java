@@ -2,6 +2,7 @@ package bsuir.group.projectweb.controller;
 
 import bsuir.group.projectweb.model.Salary;
 import bsuir.group.projectweb.service.SalaryService;
+import bsuir.group.projectweb.service.impl.CounterServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -69,6 +70,9 @@ public class SalaryController {
     public ResponseEntity<String> saveSalary(
             @RequestBody final Salary salary) {
         LOGGER.info("start save a salary");
+        CounterServiceImpl.enhanceCounter();
+        int numberOfRequest = CounterServiceImpl.getCounter();
+        LOGGER.info("number of access to service is {}", numberOfRequest);
         boolean checkError = service.saveSalary(salary);
         if (checkError) {
             return new ResponseEntity<>("salary is save", HttpStatus.OK);
