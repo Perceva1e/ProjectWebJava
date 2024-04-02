@@ -17,8 +17,8 @@ import org.springframework.stereotype.Component;
 public class TextAspect {
 
     @Around("PointCuts.deleteMethodsText()")
-    public Object aroundDeleteAdvice(final ProceedingJoinPoint joinPoint) {
-        return processMethod(joinPoint, "deleteAuthorInText", "Try delete text with id {}");
+    public Object aroundDeleteAdvice(final ProceedingJoinPoint joinPointDelete) {
+        return processMethod(joinPointDelete, "deleteAuthorInText", "Try delete text with id {}");
     }
     @Around("PointCuts.saveMethodsText()")
     public Object aroundSaveBulkTextAdvice(final ProceedingJoinPoint joinPoint) {
@@ -47,29 +47,29 @@ public class TextAspect {
         return result;
     }
     @Around("PointCuts.saveMethodsText()")
-    public Object aroundSaveAdvice(final ProceedingJoinPoint joinPoint) {
-        return processMethod(joinPoint, "saveText", "Try add text with information {}");
+    public Object aroundSaveAdvice(final ProceedingJoinPoint joinPointSave) {
+        return processMethod(joinPointSave, "saveText", "Try add text with information {}");
     }
 
 
     @Around("PointCuts.changeMethodsText()")
-    public Object aroundChangeAdvice(final ProceedingJoinPoint joinPoint) {
-        return processMethod(joinPoint, "changeByText", "Try change by text {}");
+    public Object aroundChangeAdvice(final ProceedingJoinPoint joinPointChange) {
+        return processMethod(joinPointChange, "changeByText", "Try change by text {}");
     }
 
-    private Object processMethod(ProceedingJoinPoint joinPoint, String methodName, String logMessage) {
-        MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
+    private Object processMethod(ProceedingJoinPoint joinPointGeneral, String methodName, String logMessage) {
+        MethodSignature methodSignature = (MethodSignature) joinPointGeneral.getSignature();
         Object result;
         try {
             if (methodSignature.getName().equals(methodName)) {
-                Object[] arguments = joinPoint.getArgs();
+                Object[] arguments = joinPointGeneral.getArgs();
                 for (Object arg : arguments) {
                     if (arg instanceof Text text) {
                         log.info(logMessage, text.getInformation());
                     }
                 }
             }
-            result = joinPoint.proceed();
+            result = joinPointGeneral.proceed();
         } catch (Throwable e) {
             log.error(e.getMessage(), e);
             result = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
