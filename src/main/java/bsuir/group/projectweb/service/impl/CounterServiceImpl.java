@@ -35,7 +35,7 @@ public final class CounterServiceImpl {
     }
 
     /**
-     * This method get number of counter .
+     * This method gets number of counter .
      *
      * @return number of counter
      */
