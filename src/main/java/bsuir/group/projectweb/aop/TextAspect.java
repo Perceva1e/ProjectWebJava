@@ -20,6 +20,10 @@ public class TextAspect {
     public Object aroundDeleteAdvice(final ProceedingJoinPoint joinPointDelete) {
         return processMethod(joinPointDelete, "deleteAuthorInText", "Try delete text with id {}");
     }
+    @Around("PointCuts.allFindMethodsText()")
+    public Object aroundFindAllAdvice(final ProceedingJoinPoint joinPointFindAll) {
+        return processMethod(joinPointFindAll, "findAllText", "Try find all article");
+    }
     @Around("PointCuts.saveMethodsText()")
     public Object aroundSaveBulkTextAdvice(final ProceedingJoinPoint joinPoint) {
         MethodSignature methodSignature =
