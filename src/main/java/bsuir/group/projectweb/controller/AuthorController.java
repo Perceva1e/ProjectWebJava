@@ -4,6 +4,8 @@ import bsuir.group.projectweb.model.Author;
 import bsuir.group.projectweb.service.AuthorService;
 
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -11,13 +13,14 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static bsuir.group.projectweb.controller.TextController.LOGGER;
+
 
 @Controller
 @RequestMapping("/api/v1/text")
 @AllArgsConstructor
 public class AuthorController {
-
+    private static final Logger LOGGER = LoggerFactory.getLogger(
+            AuthorController.class);
     /**
      * This is a server.
      */

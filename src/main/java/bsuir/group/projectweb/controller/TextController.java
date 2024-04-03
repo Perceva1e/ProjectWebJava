@@ -6,7 +6,8 @@ import bsuir.group.projectweb.model.Text;
 import bsuir.group.projectweb.service.TextService;
 import bsuir.group.projectweb.service.impl.CounterServiceImpl;
 import lombok.AllArgsConstructor;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -17,7 +18,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.logging.log4j.LogManager;
+
 
 @Controller
 @RequestMapping("/api/v1/text")
@@ -38,8 +39,8 @@ public class TextController {
     /**
      * This logger for info.
      */
-    static final Logger LOGGER = LogManager.getLogger(TextController.class);
-
+    private static final Logger LOGGER = LoggerFactory.getLogger(
+            TextController.class);
     /**
      * This method find all text.
      *
