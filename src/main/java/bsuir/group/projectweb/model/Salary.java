@@ -1,8 +1,12 @@
 package bsuir.group.projectweb.model;
 
-import jakarta.persistence.*;
-import lombok.Data;
 
+import lombok.Data;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.Column;
 @Data
 @Entity
 @Table(name = "salary")

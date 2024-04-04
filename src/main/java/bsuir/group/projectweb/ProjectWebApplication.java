@@ -7,7 +7,11 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 @SpringBootApplication
 @EnableAspectJAutoProxy
 public class ProjectWebApplication {
-    public static void main(String[] args) {
+    /**
+     * This is a main of project.
+     * @param args params of command console
+     */
+    public static void main(final String[] args) {
         SpringApplication.run(ProjectWebApplication.class, args);
     }
 

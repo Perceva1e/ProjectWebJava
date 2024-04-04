@@ -24,6 +24,18 @@ import java.util.Set;
 @AllArgsConstructor
 public class TextServiceImpl implements TextService {
     /**
+     * This is max size of hash.
+     */
+    private static final Integer MAXSIZEHASH = 20;
+    /**
+     * This is max length of number.
+     */
+    private static final Integer MAXLENGTHOFNUMBER = 12;
+    /**
+     * This is max length of email.
+     */
+    private static final Integer MAXLENGTHOFEMAIL = 9;
+    /**
      * This cache for text.
      */
     private final TextDataCache cache;
@@ -55,7 +67,7 @@ public class TextServiceImpl implements TextService {
             text = repositoryText.findAll();
             cache.putText("text", text);
         } else {
-            if (text.size() == 20) {
+            if (text.size() == MAXSIZEHASH) {
                 text = repositoryText.findAll();
                 cache.clearText();
             }
@@ -109,10 +121,10 @@ public class TextServiceImpl implements TextService {
             if (ifNumber(charArray[i])) {
                 countForArray++;
             }
-            if (!ifNumber(charArray[i]) && countForArray < 12) {
+            if (!ifNumber(charArray[i]) && countForArray < MAXLENGTHOFNUMBER) {
                 return false;
             }
-            if (countForArray == 12) {
+            if (countForArray == MAXLENGTHOFNUMBER) {
                 return true;
             }
         }
@@ -139,7 +151,7 @@ public class TextServiceImpl implements TextService {
             } else {
                 return false;
             }
-            if (countForArray == 9) {
+            if (countForArray == MAXLENGTHOFEMAIL) {
                 return true;
             }
         }
@@ -202,7 +214,7 @@ public class TextServiceImpl implements TextService {
                 return information;
             }
         }
-        int endIndexAt = firstIndexAt + 9;
+        int endIndexAt = firstIndexAt + MAXLENGTHOFEMAIL;
         char[] charArrayEmail = new char[endIndexAt - firstIndexAt + 2];
         for (int j = firstIndexAt - 1; j <= endIndexAt; j++) {
             charArrayEmail[countForArray] = charArray[j];
@@ -326,13 +338,14 @@ public class TextServiceImpl implements TextService {
     /**
      * This method find Number Phone And Email.
      *
-     * @param information is an entity for hard code
+     * @param informations is an entity for hard code
      * @return restore text after hard code
      */
     @Override
-    public Text findNumberPhoneAndEmail(Text information) {
+    public Text findNumberPhoneAndEmail(final Text informations) {
         cache.clearText();
         String stringForCompare;
+        Text information = informations;
         stringForCompare = information.getInformation();
         information = findNumberPhone(stringForCompare, information);
         stringForCompare = information.getInformation();
