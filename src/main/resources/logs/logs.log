@@ -25,3 +25,107 @@
 2024-04-05 21:24:36 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
 2024-04-05 21:24:36 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
 2024-04-05 21:24:36 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2024-04-05 21:59:45 [main] INFO  b.g.p.s.impl.AuthorServiceImplTest - Starting AuthorServiceImplTest using Java 21.0.2 with PID 2332 (started by denis in C:\Users\denis\IdeaProjects\projectWebJava)
+2024-04-05 21:59:45 [main] INFO  b.g.p.s.impl.AuthorServiceImplTest - No active profile set, falling back to 1 default profile: "default"
+2024-04-05 21:59:47 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-04-05 21:59:47 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 73 ms. Found 3 JPA repository interfaces.
+2024-04-05 21:59:50 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-04-05 21:59:50 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.1.Final
+2024-04-05 21:59:50 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2024-04-05 21:59:51 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-04-05 21:59:51 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2024-04-05 21:59:51 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@2ab7f649
+2024-04-05 21:59:51 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2024-04-05 21:59:53 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-04-05 21:59:53 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-04-05 21:59:54 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-04-05 21:59:55 [main] INFO  b.g.p.s.impl.AuthorServiceImplTest - Started AuthorServiceImplTest in 10.473 seconds (process running for 12.622)
+2024-04-05 21:59:55 [main] INFO  b.group.projectweb.aop.AuthorAspect - Try delete connection author with id 1
+2024-04-05 21:59:55 [main] INFO  b.group.projectweb.aop.AuthorAspect - Try delete connection author in text with id 1
+2024-04-05 21:59:55 [main] INFO  b.group.projectweb.aop.AuthorAspect - author connection was delete
+2024-04-05 21:59:55 [main] INFO  b.group.projectweb.aop.AuthorAspect - Try delete connection author with id 1
+2024-04-05 21:59:55 [main] INFO  b.group.projectweb.aop.AuthorAspect - Try delete connection author in text with id 1
+2024-04-05 21:59:55 [main] INFO  b.group.projectweb.aop.AuthorAspect - author connection was delete
+2024-04-05 21:59:55 [main] INFO  b.group.projectweb.aop.AuthorAspect - Try add author with name denis
+2024-04-05 21:59:55 [main] INFO  b.group.projectweb.aop.AuthorAspect - author with name denis add
+2024-04-05 21:59:55 [main] INFO  b.group.projectweb.aop.AuthorAspect - Try add author with name denis
+2024-04-05 21:59:56 [main] INFO  b.group.projectweb.aop.AuthorAspect - author was add in text
+2024-04-05 21:59:56 [main] INFO  b.group.projectweb.aop.AuthorAspect - Try add author with name denis
+2024-04-05 21:59:56 [main] INFO  b.group.projectweb.aop.AuthorAspect - author was add in text
+2024-04-05 21:59:56 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-04-05 21:59:56 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2024-04-05 21:59:56 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2024-04-05 22:00:24 [main] INFO  b.g.p.s.impl.AuthorServiceImplTest - Starting AuthorServiceImplTest using Java 21.0.2 with PID 12320 (started by denis in C:\Users\denis\IdeaProjects\projectWebJava)
+2024-04-05 22:00:24 [main] INFO  b.g.p.s.impl.AuthorServiceImplTest - No active profile set, falling back to 1 default profile: "default"
+2024-04-05 22:00:25 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-04-05 22:00:25 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 67 ms. Found 3 JPA repository interfaces.
+2024-04-05 22:00:28 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-04-05 22:00:28 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.1.Final
+2024-04-05 22:00:28 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2024-04-05 22:00:28 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-04-05 22:00:28 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2024-04-05 22:00:29 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@5296f00c
+2024-04-05 22:00:29 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2024-04-05 22:00:30 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-04-05 22:00:30 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-04-05 22:00:31 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-04-05 22:00:32 [main] INFO  b.g.p.s.impl.AuthorServiceImplTest - Started AuthorServiceImplTest in 9.254 seconds (process running for 11.031)
+2024-04-05 22:00:32 [main] INFO  b.group.projectweb.aop.AuthorAspect - Try add author with name denis
+2024-04-05 22:00:32 [main] INFO  b.group.projectweb.aop.AuthorAspect - author with name denis add
+2024-04-05 22:00:33 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-04-05 22:00:33 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2024-04-05 22:00:33 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2024-04-05 22:01:56 [main] INFO  b.g.p.s.impl.AuthorServiceImplTest - Starting AuthorServiceImplTest using Java 21.0.2 with PID 15092 (started by denis in C:\Users\denis\IdeaProjects\projectWebJava)
+2024-04-05 22:01:56 [main] INFO  b.g.p.s.impl.AuthorServiceImplTest - No active profile set, falling back to 1 default profile: "default"
+2024-04-05 22:01:57 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-04-05 22:01:57 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 68 ms. Found 3 JPA repository interfaces.
+2024-04-05 22:02:00 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-04-05 22:02:00 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.1.Final
+2024-04-05 22:02:00 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2024-04-05 22:02:00 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-04-05 22:02:00 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2024-04-05 22:02:01 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@3e5c7588
+2024-04-05 22:02:01 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2024-04-05 22:02:02 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-04-05 22:02:02 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-04-05 22:02:03 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-04-05 22:02:04 [main] INFO  b.g.p.s.impl.AuthorServiceImplTest - Started AuthorServiceImplTest in 8.648 seconds (process running for 10.465)
+2024-04-05 22:02:04 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-04-05 22:02:04 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2024-04-05 22:02:04 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2024-04-05 22:07:03 [main] INFO  b.g.p.s.impl.AuthorServiceImplTest - Starting AuthorServiceImplTest using Java 21.0.2 with PID 7200 (started by denis in C:\Users\denis\IdeaProjects\projectWebJava)
+2024-04-05 22:07:03 [main] INFO  b.g.p.s.impl.AuthorServiceImplTest - No active profile set, falling back to 1 default profile: "default"
+2024-04-05 22:07:04 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-04-05 22:07:04 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 76 ms. Found 3 JPA repository interfaces.
+2024-04-05 22:07:07 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-04-05 22:07:07 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.1.Final
+2024-04-05 22:07:07 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2024-04-05 22:07:07 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-04-05 22:07:08 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2024-04-05 22:07:08 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@23dff243
+2024-04-05 22:07:08 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2024-04-05 22:07:09 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-04-05 22:07:09 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-04-05 22:07:11 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-04-05 22:07:12 [main] INFO  b.g.p.s.impl.AuthorServiceImplTest - Started AuthorServiceImplTest in 9.133 seconds (process running for 10.974)
+2024-04-05 22:07:12 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-04-05 22:07:12 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2024-04-05 22:07:12 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2024-04-05 22:07:33 [main] INFO  b.g.p.s.impl.AuthorServiceImplTest - Starting AuthorServiceImplTest using Java 21.0.2 with PID 11296 (started by denis in C:\Users\denis\IdeaProjects\projectWebJava)
+2024-04-05 22:07:33 [main] INFO  b.g.p.s.impl.AuthorServiceImplTest - No active profile set, falling back to 1 default profile: "default"
+2024-04-05 22:07:34 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-04-05 22:07:34 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 66 ms. Found 3 JPA repository interfaces.
+2024-04-05 22:07:37 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-04-05 22:07:37 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.1.Final
+2024-04-05 22:07:37 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2024-04-05 22:07:37 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-04-05 22:07:37 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2024-04-05 22:07:38 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@379b4e86
+2024-04-05 22:07:38 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2024-04-05 22:07:39 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-04-05 22:07:39 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-04-05 22:07:40 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-04-05 22:07:41 [main] INFO  b.g.p.s.impl.AuthorServiceImplTest - Started AuthorServiceImplTest in 8.879 seconds (process running for 10.74)
+2024-04-05 22:07:42 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-04-05 22:07:42 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2024-04-05 22:07:42 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
