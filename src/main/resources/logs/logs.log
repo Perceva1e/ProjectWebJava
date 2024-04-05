@@ -289,3 +289,33 @@
 2024-04-05 20:16:11 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
 2024-04-05 20:16:11 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
 2024-04-05 20:16:11 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2024-04-05 20:23:29 [main] INFO  b.g.p.s.impl.AuthorServiceImplTest - Starting AuthorServiceImplTest using Java 21.0.2 with PID 9592 (started by denis in C:\Users\denis\IdeaProjects\projectWebJava)
+2024-04-05 20:23:29 [main] INFO  b.g.p.s.impl.AuthorServiceImplTest - No active profile set, falling back to 1 default profile: "default"
+2024-04-05 20:23:31 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-04-05 20:23:31 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 72 ms. Found 3 JPA repository interfaces.
+2024-04-05 20:23:34 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-04-05 20:23:34 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.1.Final
+2024-04-05 20:23:34 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2024-04-05 20:23:34 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-04-05 20:23:34 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2024-04-05 20:23:35 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@2ab7f649
+2024-04-05 20:23:35 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2024-04-05 20:23:36 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-04-05 20:23:37 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-04-05 20:23:38 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-04-05 20:23:39 [main] INFO  b.g.p.s.impl.AuthorServiceImplTest - Started AuthorServiceImplTest in 10.235 seconds (process running for 11.994)
+2024-04-05 20:23:39 [main] INFO  b.group.projectweb.aop.AuthorAspect - Try delete connection author with id 1
+2024-04-05 20:23:39 [main] INFO  b.group.projectweb.aop.AuthorAspect - Try delete connection author in text with id 1
+2024-04-05 20:23:39 [main] INFO  b.group.projectweb.aop.AuthorAspect - author connection was delete
+2024-04-05 20:23:39 [main] INFO  b.group.projectweb.aop.AuthorAspect - Try delete connection author with id 1
+2024-04-05 20:23:39 [main] INFO  b.group.projectweb.aop.AuthorAspect - Try delete connection author in text with id 1
+2024-04-05 20:23:39 [main] INFO  b.group.projectweb.aop.AuthorAspect - author connection was delete
+2024-04-05 20:23:39 [main] INFO  b.group.projectweb.aop.AuthorAspect - Try add author with name denis
+2024-04-05 20:23:39 [main] INFO  b.group.projectweb.aop.AuthorAspect - author with name denis add
+2024-04-05 20:23:39 [main] INFO  b.group.projectweb.aop.AuthorAspect - Try add author with name denis
+2024-04-05 20:23:39 [main] INFO  b.group.projectweb.aop.AuthorAspect - author was add in text
+2024-04-05 20:23:39 [main] INFO  b.group.projectweb.aop.AuthorAspect - Try add author with name denis
+2024-04-05 20:23:39 [main] INFO  b.group.projectweb.aop.AuthorAspect - author was add in text
+2024-04-05 20:23:39 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-04-05 20:23:39 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2024-04-05 20:23:39 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
