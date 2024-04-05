@@ -1,6 +1,7 @@
 HELP.md
 /target/
 mvnw
+src/main/resources/logs/
 mvnw.cmd
 .mvn/
 !**/src/main/**/target/
