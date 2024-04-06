@@ -23,8 +23,12 @@ import java.util.Set;
 @Service
 @AllArgsConstructor
 public class TextServiceImpl implements TextService {
-    public void setCache(TextDataCache cache) {
-        this.cache = cache;
+    /**
+     * This is setter for cache.
+     * @param cacheText cache for set
+     */
+    public void setCache(final TextDataCache cacheText) {
+        this.cache = cacheText;
     }
     /**
      * This is max size of hash.

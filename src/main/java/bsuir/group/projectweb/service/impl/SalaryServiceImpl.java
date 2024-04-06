@@ -12,12 +12,21 @@ import org.springframework.stereotype.Service;
 @Service
 @AllArgsConstructor
 public class SalaryServiceImpl implements SalaryService {
-    public void setRepositorySalary(SalaryRepositoryDAO repositorySalary) {
-        this.repositorySalary = repositorySalary;
+    /**
+     * This is setter for repository of salary.
+     * @param repositorySalarySet repository for set
+     */
+    public void setRepositorySalary(
+            final SalaryRepositoryDAO repositorySalarySet) {
+        this.repositorySalary = repositorySalarySet;
     }
-
-    public void setRepositoryAuthor(AuthorRepositoryDAO repositoryAuthor) {
-        this.repositoryAuthor = repositoryAuthor;
+    /**
+     * This is setter for repository of author.
+     * @param repositoryAuthorSet repository for set
+     */
+    public void setRepositoryAuthor(
+            final AuthorRepositoryDAO repositoryAuthorSet) {
+        this.repositoryAuthor = repositoryAuthorSet;
     }
 
     /**

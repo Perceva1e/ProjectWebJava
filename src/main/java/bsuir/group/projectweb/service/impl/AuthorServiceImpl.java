@@ -17,13 +17,20 @@ import java.util.Set;
 @Service
 @AllArgsConstructor
 public class AuthorServiceImpl implements AuthorService {
-
-    public void setRepositoryText(TextRepositoryDAO repositoryText) {
-        this.repositoryText = repositoryText;
+    /**
+     * This is setter for repository of text.
+     * @param repositoryTextSet repository for set
+     */
+    public void setRepositoryText(final TextRepositoryDAO repositoryTextSet) {
+        this.repositoryText = repositoryTextSet;
     }
-
-    public void setRepositoryAuthor(AuthorRepositoryDAO repositoryAuthor) {
-        this.repositoryAuthor = repositoryAuthor;
+    /**
+     * This is setter for repository of author.
+     * @param repositoryAuthorSet repository for set
+     */
+    public void setRepositoryAuthor(
+            final AuthorRepositoryDAO repositoryAuthorSet) {
+        this.repositoryAuthor = repositoryAuthorSet;
     }
     /**
      * This cache for text.
