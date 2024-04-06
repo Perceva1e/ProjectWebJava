@@ -210,6 +210,7 @@ class TextServiceImplTest {
         Assertions.assertTrue(isFindByText);
     }
 
+
 //    @Test
 //    void findAllText() {
 //        List<Text> texts = new ArrayList<>();
