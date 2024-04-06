@@ -7,7 +7,6 @@ import bsuir.group.projectweb.model.Text;
 import bsuir.group.projectweb.repository.AuthorRepositoryDAO;
 import bsuir.group.projectweb.repository.SalaryRepositoryDAO;
 import bsuir.group.projectweb.repository.TextRepositoryDAO;
-import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -209,5 +208,31 @@ class TextServiceImplTest {
                 .findFirstByInformation(stringForCompare);
         isFindByText = serviceText.findTextByInformation(stringForCompare);
         Assertions.assertTrue(isFindByText);
+    }
+
+//    @Test
+//    void findAllText() {
+//        List<Text> texts = new ArrayList<>();
+//        Text textForCheck = new Text();
+//        Salary salary = new Salary();
+//        salary.setId(1L);
+//        salary.setPrice(1200);
+//        Author author = new Author();
+//        author.setId(1L);
+//        author.setFirstName("denis");
+//        author.setLastName("shagun");
+//        author.setSalaries(salary);
+//        Set<Author> authors = new HashSet<>();
+//        authors.add(author);
+//        textForCheck.setAuthors(authors);
+//        texts.add(textForCheck);
+//        cache.putText("text",texts);
+//        serviceText.setCache(cache);
+//        List<Text> isFindAllText = serviceText.findAllText();
+//        Assertions.assertEquals(isFindAllText,texts);
+//    }
+
+    @Test
+    void saveBulkText() {
     }
 }

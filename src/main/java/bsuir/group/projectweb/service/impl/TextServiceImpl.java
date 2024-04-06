@@ -23,6 +23,9 @@ import java.util.Set;
 @Service
 @AllArgsConstructor
 public class TextServiceImpl implements TextService {
+    public void setCache(TextDataCache cache) {
+        this.cache = cache;
+    }
     /**
      * This is max size of hash.
      */
@@ -38,7 +41,7 @@ public class TextServiceImpl implements TextService {
     /**
      * This cache for text.
      */
-    private final TextDataCache cache;
+    private TextDataCache cache;
 
     /**
      * This is a repository of entity text.
