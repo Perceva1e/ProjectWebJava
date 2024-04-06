@@ -1,19 +1,19 @@
 package bsuir.group.projectweb.service.impl;
 
+import bsuir.group.projectweb.cache.TextDataCache;
 import bsuir.group.projectweb.model.Author;
 import bsuir.group.projectweb.model.Salary;
 import bsuir.group.projectweb.model.Text;
 import bsuir.group.projectweb.repository.AuthorRepositoryDAO;
+import bsuir.group.projectweb.repository.SalaryRepositoryDAO;
 import bsuir.group.projectweb.repository.TextRepositoryDAO;
-import bsuir.group.projectweb.service.TextService;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -21,16 +21,19 @@ import java.util.List;
 import java.util.Set;
 
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
+@ExtendWith(MockitoExtension.class)
 class TextServiceImplTest {
-    @Autowired
-    private TextService serviceText;
-    @MockBean
-    private TextRepositoryDAO repositoryText;
-    @MockBean
+    @Mock
+    private TextDataCache cache = new TextDataCache();
+    @Mock
+    private SalaryRepositoryDAO repositorySalary;
+    @Mock
     private AuthorRepositoryDAO repositoryAuthor;
+    @Mock
+    private TextRepositoryDAO repositoryText;
 
+    @InjectMocks
+    private TextServiceImpl serviceText = new TextServiceImpl(cache,repositoryText,repositoryAuthor,repositorySalary);
 
     @Test
     void checkId() {
