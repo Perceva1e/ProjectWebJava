@@ -33,7 +33,7 @@ class TextServiceImplTest {
     private TextRepositoryDAO repositoryText;
 
     @InjectMocks
-    private TextServiceImpl serviceText = new TextServiceImpl(cache,repositoryText,repositoryAuthor,repositorySalary);
+    private TextServiceImpl serviceText = new TextServiceImpl(cache, repositoryText, repositoryAuthor, repositorySalary);
 
     @Test
     void checkId() {
