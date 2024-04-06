@@ -1,6 +1,8 @@
 package bsuir.group.projectweb.service.impl;
 
 import bsuir.group.projectweb.cache.TextDataCache;
+import bsuir.group.projectweb.dto.BulkTextRequestDTO;
+import bsuir.group.projectweb.dto.TextDTO;
 import bsuir.group.projectweb.model.Author;
 import bsuir.group.projectweb.model.Salary;
 import bsuir.group.projectweb.model.Text;
@@ -210,29 +212,77 @@ class TextServiceImplTest {
         Assertions.assertTrue(isFindByText);
     }
 
-//    @Test
-//    void findAllText() {
-//        List<Text> texts = new ArrayList<>();
-//        Text textForCheck = new Text();
-//        Salary salary = new Salary();
-//        salary.setId(1L);
-//        salary.setPrice(1200);
-//        Author author = new Author();
-//        author.setId(1L);
-//        author.setFirstName("denis");
-//        author.setLastName("shagun");
-//        author.setSalaries(salary);
-//        Set<Author> authors = new HashSet<>();
-//        authors.add(author);
-//        textForCheck.setAuthors(authors);
-//        texts.add(textForCheck);
-//        cache.putText("text",texts);
-//        serviceText.setCache(cache);
-//        List<Text> isFindAllText = serviceText.findAllText();
-//        Assertions.assertEquals(isFindAllText,texts);
-//    }
+    @Test
+    void findAllText() {
+        List<Text> texts = new ArrayList<>();
+        Text textForCheck = new Text();
+        Salary salary = new Salary();
+        salary.setId(1L);
+        salary.setPrice(1200);
+        Author author = new Author();
+        author.setId(1L);
+        author.setFirstName("denis");
+        author.setLastName("shagun");
+        author.setSalaries(salary);
+        Set<Author> authors = new HashSet<>();
+        authors.add(author);
+        textForCheck.setAuthors(authors);
+        textForCheck.setId(1L);
+        textForCheck.setInformation("impotent informations");
+        textForCheck.setEmail("denis@gmail.com");
+        textForCheck.setNumberOfPhone("+375295297796");
+        texts.add(textForCheck);
+        Mockito.when(cache.getText("text"))
+                .thenReturn(null, texts);
+        Mockito.when(repositoryText.findAll()).thenReturn(texts);
+        List<Text> isFindAllText = serviceText.findAllText();
+        Assertions.assertEquals(texts,isFindAllText);
+    }
 
     @Test
     void saveBulkText() {
+
+        BulkTextRequestDTO bulkTextRequestDTO = new BulkTextRequestDTO();
+        List<TextDTO> textDTOs = new ArrayList<>();
+        TextDTO textDTO = new TextDTO();
+        textDTO.setInformation("information");
+        textDTO.setEmail("email@example.com");
+        textDTO.setNumberOfPhone("+1234567890");
+        Set<Author> authors = new HashSet<>();
+        authors.add(new Author());
+        textDTO.setAuthors(authors);
+        textDTOs.add(textDTO);
+        bulkTextRequestDTO.setTexts(textDTOs);
+
+        // Настраиваем поведение макетов
+        Mockito.when(repositorySalary.save(Mockito.any())).thenReturn(new Salary());
+        Mockito.when(repositoryText.save(Mockito.any())).thenReturn(new Text());
+
+        // Вызываем метод, который хотим протестировать
+        boolean result = serviceText.saveBulkText(bulkTextRequestDTO);
+
+        // Проверяем результат
+        Assertions.assertTrue(result);
+
+    }
+
+    @Test
+    void findNumberPhoneAndEmail() {
+        String stringForCompare = "denis@gmail.com +375295297796";
+        Text text = new Text();
+        Salary salary = new Salary();
+        salary.setId(1L);
+        salary.setPrice(1200);
+        Author author = new Author();
+        author.setId(1L);
+        author.setFirstName("denis");
+        author.setLastName("shagun");
+        author.setSalaries(salary);
+        Set<Author> authors = new HashSet<>();
+        authors.add(author);
+        text.setInformation(stringForCompare);
+        text.setAuthors(authors);
+        Text isFindNumberPhoneAndEmail = serviceText.findNumberPhoneAndEmail(text);
+        Assertions.assertEquals(isFindNumberPhoneAndEmail,text);
     }
 }
