@@ -8,6 +8,7 @@ import bsuir.group.projectweb.repository.AuthorRepositoryDAO;
 import bsuir.group.projectweb.repository.SalaryRepositoryDAO;
 import bsuir.group.projectweb.repository.TextRepositoryDAO;
 import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -42,10 +43,10 @@ class TextServiceImplTest {
         Text textLastCheck = new Text();
         textLastCheck.setId(1L);
         boolean isCheckId = serviceText.checkId(textFirstCheck, textLastCheck);
-        Assert.assertFalse(isCheckId);
+        Assertions.assertFalse(isCheckId);
         textLastCheck.setId(2L);
         isCheckId = serviceText.checkId(textFirstCheck, textLastCheck);
-        Assert.assertTrue(isCheckId);
+        Assertions.assertTrue(isCheckId);
     }
 
     @Test
@@ -63,10 +64,10 @@ class TextServiceImplTest {
         authors.add(author);
         textForCheck.setAuthors(authors);
         boolean isTextSave = serviceText.saveText(textForCheck);
-        Assert.assertTrue(isTextSave);
+        Assertions.assertTrue(isTextSave);
         textForCheck.setId(1L);
         isTextSave = serviceText.saveText(textForCheck);
-        Assert.assertFalse(isTextSave);
+        Assertions.assertFalse(isTextSave);
     }
 
     @Test
@@ -82,7 +83,7 @@ class TextServiceImplTest {
                 .when(repositoryText)
                 .findByInformation("Hi");
         boolean isChangeByText = serviceText.changeByText(informationExist, information);
-        Assert.assertTrue(isChangeByText);
+        Assertions.assertTrue(isChangeByText);
     }
 
     @Test
@@ -109,22 +110,22 @@ class TextServiceImplTest {
                 .when(repositoryText)
                 .findTextByAuthors(author);
         boolean isDeleteText = serviceText.deleteAuthorInText(author.getId());
-        Assert.assertTrue(isDeleteText);
+        Assertions.assertTrue(isDeleteText);
         Mockito.doReturn(false)
                 .when(repositoryAuthor)
                 .existsById(author.getId());
         isDeleteText = serviceText.deleteAuthorInText(author.getId());
-        Assert.assertFalse(isDeleteText);
+        Assertions.assertFalse(isDeleteText);
     }
 
     @Test
     void ifNumber() {
         char number = '4';
         boolean isIfNumber = serviceText.ifNumber(number);
-        Assert.assertTrue(isIfNumber);
+        Assertions.assertTrue(isIfNumber);
         char letters = 'a';
         isIfNumber = serviceText.ifNumber(letters);
-        Assert.assertFalse(isIfNumber);
+        Assertions.assertFalse(isIfNumber);
     }
 
     @Test
@@ -132,8 +133,8 @@ class TextServiceImplTest {
         String stringForCompare = "da+375295297796net";
         int firstFindIndex = 2;
         int isEndFindIndex = serviceText.endFindIndex(stringForCompare, firstFindIndex);
-        Assert.assertEquals(14, isEndFindIndex);
-        Assert.assertNotEquals(15, isEndFindIndex);
+        Assertions.assertEquals(14, isEndFindIndex);
+        Assertions.assertNotEquals(15, isEndFindIndex);
     }
 
     @Test
@@ -141,10 +142,10 @@ class TextServiceImplTest {
         String stringForCompare = "da+375295297796net";
         int firstFindIndex = 2;
         boolean isCheckNumber = serviceText.checkNumber(stringForCompare, firstFindIndex);
-        Assert.assertTrue(isCheckNumber);
+        Assertions.assertTrue(isCheckNumber);
         firstFindIndex = 3;
         isCheckNumber = serviceText.checkNumber(stringForCompare, firstFindIndex);
-        Assert.assertFalse(isCheckNumber);
+        Assertions.assertFalse(isCheckNumber);
     }
 
     @Test
@@ -152,10 +153,10 @@ class TextServiceImplTest {
         String stringForCompare = "denis@gmail.com +375295297796";
         int firstFindIndex = 5;
         boolean isCheckEmail = serviceText.checkEmail(stringForCompare, firstFindIndex);
-        Assert.assertTrue(isCheckEmail);
+        Assertions.assertTrue(isCheckEmail);
         firstFindIndex = 6;
         isCheckEmail = serviceText.checkEmail(stringForCompare, firstFindIndex);
-        Assert.assertFalse(isCheckEmail);
+        Assertions.assertFalse(isCheckEmail);
     }
 
     @Test
@@ -165,7 +166,7 @@ class TextServiceImplTest {
         text.setInformation(stringForCompare);
         Text isFindNumberPhone = serviceText.findNumberPhone(stringForCompare, text);
         text.setNumberOfPhone("+375295297796");
-        Assert.assertEquals(isFindNumberPhone.getNumberOfPhone(), text.getNumberOfPhone());
+        Assertions.assertEquals(isFindNumberPhone.getNumberOfPhone(), text.getNumberOfPhone());
     }
 
     @Test
@@ -175,7 +176,7 @@ class TextServiceImplTest {
         text.setInformation(stringForCompare);
         Text isFindEmail = serviceText.findEmail(stringForCompare, text);
         text.setEmail("s@gmail.com");
-        Assert.assertEquals(isFindEmail.getEmail(), text.getEmail());
+        Assertions.assertEquals(isFindEmail.getEmail(), text.getEmail());
     }
 
     @Test
@@ -197,7 +198,7 @@ class TextServiceImplTest {
                 .when(repositoryText)
                 .findFirstByInformation(stringForCompare);
         boolean isFindByText = serviceText.findTextByInformation(stringForCompare);
-        Assert.assertFalse(isFindByText);
+        Assertions.assertFalse(isFindByText);
         stringForCompare = "denis@gmail.com +3752952977965";
         textForCheckFirst.setInformation(stringForCompare);
         Mockito.doReturn(ListText)
@@ -207,6 +208,6 @@ class TextServiceImplTest {
                 .when(repositoryText)
                 .findFirstByInformation(stringForCompare);
         isFindByText = serviceText.findTextByInformation(stringForCompare);
-        Assert.assertTrue(isFindByText);
+        Assertions.assertTrue(isFindByText);
     }
 }

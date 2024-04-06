@@ -16,8 +16,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 
 @ExtendWith(MockitoExtension.class)
@@ -42,8 +41,10 @@ class AuthorServiceImplTest {
         Author author = new Author();
         author.setFirstName("denis");
         author.setLastName("shagun");
-        author.setId(1L);
         boolean isSavePerson = serviceAuthor.savePerson(author);
+        Assertions.assertTrue(isSavePerson);
+        author.setId(1L);
+        isSavePerson = serviceAuthor.savePerson(author);
         Assertions.assertFalse(isSavePerson);
     }
 
@@ -94,10 +95,12 @@ class AuthorServiceImplTest {
         salary.setId(1L);
         salary.setPrice(1200);
         Author author = new Author();
+        Set<Author> authors = new HashSet<>();
         author.setId(1L);
         author.setFirstName("denis");
         author.setLastName("shagun");
         author.setSalaries(salary);
+        authors.add(author);
         textForCheck.setAuthors(null);
         Mockito.doReturn(true)
                 .when(repositoryText)
@@ -107,10 +110,37 @@ class AuthorServiceImplTest {
                 .findByInformation(textForCheck.getInformation());
         boolean isAddAuthorInText = serviceAuthor.addAuthorInText(textForCheck.getInformation(), author);
         Assertions.assertTrue(isAddAuthorInText);
+        textForCheck.setAuthors(authors);
+        Mockito.doReturn(true)
+                .when(repositoryText)
+                .existsByInformation(textForCheck.getInformation());
+        Mockito.doReturn(textForCheck)
+                .when(repositoryText)
+                .findByInformation(textForCheck.getInformation());
+        isAddAuthorInText = serviceAuthor.addAuthorInText(textForCheck.getInformation(), author);
+        Assertions.assertTrue(isAddAuthorInText);
         Mockito.doReturn(false)
                 .when(repositoryText)
                 .existsByInformation(textForCheck.getInformation());
         isAddAuthorInText = serviceAuthor.addAuthorInText(textForCheck.getInformation(), author);
         Assertions.assertFalse(isAddAuthorInText);
     }
+
+    @Test
+    void findAuthorByParameters() {
+        String lastName = "shagun";
+        List<String> nameList = new ArrayList<>();
+        nameList.add("denis");
+        Author authorForCheck = new Author();
+        authorForCheck.setLastName("shagun");
+        authorForCheck.setFirstName("denis");
+        List<Author> listAuthorForCheck = new ArrayList<>();
+        listAuthorForCheck.add(authorForCheck);
+        Mockito.doReturn(listAuthorForCheck)
+                .when(repositoryAuthor)
+                .findAuthorByParameters(lastName,nameList);
+        List<Author> isFindAuthorByParameters = serviceAuthor.findAuthorByParameters(lastName,nameList);
+        Assertions.assertEquals(isFindAuthorByParameters,listAuthorForCheck);
+    }
+
 }

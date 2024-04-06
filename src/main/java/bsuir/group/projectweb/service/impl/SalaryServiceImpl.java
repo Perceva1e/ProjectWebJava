@@ -15,9 +15,11 @@ public class SalaryServiceImpl implements SalaryService {
     public void setRepositorySalary(SalaryRepositoryDAO repositorySalary) {
         this.repositorySalary = repositorySalary;
     }
+
     public void setRepositoryAuthor(AuthorRepositoryDAO repositoryAuthor) {
         this.repositoryAuthor = repositoryAuthor;
     }
+
     /**
      * This cache for text.
      */

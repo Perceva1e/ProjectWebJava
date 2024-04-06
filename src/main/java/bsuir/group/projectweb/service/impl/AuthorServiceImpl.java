@@ -17,12 +17,11 @@ import java.util.Set;
 @Service
 @AllArgsConstructor
 public class AuthorServiceImpl implements AuthorService {
-    public void setRepositorySalary(SalaryRepositoryDAO repositorySalary) {
-        this.repositorySalary = repositorySalary;
-    }
+
     public void setRepositoryText(TextRepositoryDAO repositoryText) {
         this.repositoryText = repositoryText;
     }
+
     public void setRepositoryAuthor(AuthorRepositoryDAO repositoryAuthor) {
         this.repositoryAuthor = repositoryAuthor;
     }

@@ -23,15 +23,6 @@ import java.util.Set;
 @Service
 @AllArgsConstructor
 public class TextServiceImpl implements TextService {
-    public void setRepositorySalary(SalaryRepositoryDAO repositorySalary) {
-        this.repositorySalary = repositorySalary;
-    }
-    public void setRepositoryText(TextRepositoryDAO repositoryText) {
-        this.repositoryText = repositoryText;
-    }
-    public void setRepositoryAuthor(AuthorRepositoryDAO repositoryAuthor) {
-        this.repositoryAuthor = repositoryAuthor;
-    }
     /**
      * This is max size of hash.
      */
