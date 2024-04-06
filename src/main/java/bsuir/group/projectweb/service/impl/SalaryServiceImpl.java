@@ -12,6 +12,12 @@ import org.springframework.stereotype.Service;
 @Service
 @AllArgsConstructor
 public class SalaryServiceImpl implements SalaryService {
+    public void setRepositorySalary(SalaryRepositoryDAO repositorySalary) {
+        this.repositorySalary = repositorySalary;
+    }
+    public void setRepositoryAuthor(AuthorRepositoryDAO repositoryAuthor) {
+        this.repositoryAuthor = repositoryAuthor;
+    }
     /**
      * This cache for text.
      */
@@ -20,11 +26,11 @@ public class SalaryServiceImpl implements SalaryService {
     /**
      * This is a repository of entity text.
      */
-    private final AuthorRepositoryDAO repositoryAuthor;
+    private AuthorRepositoryDAO repositoryAuthor;
     /**
      * This method is a repository of entity salary.
      */
-    private final SalaryRepositoryDAO repositorySalary;
+    private SalaryRepositoryDAO repositorySalary;
 
     /**
      * This method save Salary.
@@ -32,6 +38,7 @@ public class SalaryServiceImpl implements SalaryService {
      * @param salaries is an entity for save
      * @return restore salary after save
      */
+
     @Override
     public Boolean saveSalary(final Salary salaries) {
         if (salaries.getId() == null) {
