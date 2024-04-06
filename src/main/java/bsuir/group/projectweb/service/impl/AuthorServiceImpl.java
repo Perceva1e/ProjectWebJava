@@ -17,6 +17,15 @@ import java.util.Set;
 @Service
 @AllArgsConstructor
 public class AuthorServiceImpl implements AuthorService {
+    public void setRepositorySalary(SalaryRepositoryDAO repositorySalary) {
+        this.repositorySalary = repositorySalary;
+    }
+    public void setRepositoryText(TextRepositoryDAO repositoryText) {
+        this.repositoryText = repositoryText;
+    }
+    public void setRepositoryAuthor(AuthorRepositoryDAO repositoryAuthor) {
+        this.repositoryAuthor = repositoryAuthor;
+    }
     /**
      * This cache for text.
      */
@@ -24,15 +33,15 @@ public class AuthorServiceImpl implements AuthorService {
     /**
      * This is a repository of entity text.
      */
-    private final TextRepositoryDAO repositoryText;
+    private TextRepositoryDAO repositoryText;
     /**
      * This is a repository of entity author.
      */
-    private final AuthorRepositoryDAO repositoryAuthor;
+    private AuthorRepositoryDAO repositoryAuthor;
     /**
      * This is a repository of entity salary.
      */
-    private final SalaryRepositoryDAO repositorySalary;
+    private SalaryRepositoryDAO repositorySalary;
 
     /**
      * This savePerson.
