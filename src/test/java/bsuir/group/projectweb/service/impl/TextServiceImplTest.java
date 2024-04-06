@@ -127,6 +127,7 @@ class TextServiceImplTest {
         char letters = 'a';
         isIfNumber = serviceText.ifNumber(letters);
         Assertions.assertFalse(isIfNumber);
+
     }
 
     @Test
@@ -232,38 +233,35 @@ class TextServiceImplTest {
         textForCheck.setEmail("denis@gmail.com");
         textForCheck.setNumberOfPhone("+375295297796");
         texts.add(textForCheck);
-        Mockito.when(cache.getText("text"))
-                .thenReturn(null, texts);
+        Mockito.when(cache.getText("text")).thenReturn(texts);
         Mockito.when(repositoryText.findAll()).thenReturn(texts);
         List<Text> isFindAllText = serviceText.findAllText();
-        Assertions.assertEquals(texts,isFindAllText);
+        Assertions.assertEquals(texts, isFindAllText);
+        Mockito.when(cache.getText("text")).thenReturn(null);
+        Mockito.when(repositoryText.findAll()).thenReturn(texts);
+        isFindAllText = serviceText.findAllText();
+        Assertions.assertEquals(texts, isFindAllText);
     }
 
     @Test
     void saveBulkText() {
-
         BulkTextRequestDTO bulkTextRequestDTO = new BulkTextRequestDTO();
         List<TextDTO> textDTOs = new ArrayList<>();
         TextDTO textDTO = new TextDTO();
-        textDTO.setInformation("information");
-        textDTO.setEmail("email@example.com");
-        textDTO.setNumberOfPhone("+1234567890");
+        textDTO.setInformation("impotent informations");
+        textDTO.setEmail("denis@gmail.com");
+        textDTO.setNumberOfPhone("+375295297796");
         Set<Author> authors = new HashSet<>();
         authors.add(new Author());
         textDTO.setAuthors(authors);
         textDTOs.add(textDTO);
         bulkTextRequestDTO.setTexts(textDTOs);
-
-        // Настраиваем поведение макетов
         Mockito.when(repositorySalary.save(Mockito.any())).thenReturn(new Salary());
         Mockito.when(repositoryText.save(Mockito.any())).thenReturn(new Text());
-
-        // Вызываем метод, который хотим протестировать
         boolean result = serviceText.saveBulkText(bulkTextRequestDTO);
-
-        // Проверяем результат
         Assertions.assertTrue(result);
-
+        result = serviceText.saveBulkText(null);
+        Assertions.assertFalse(result);
     }
 
     @Test
@@ -283,6 +281,6 @@ class TextServiceImplTest {
         text.setInformation(stringForCompare);
         text.setAuthors(authors);
         Text isFindNumberPhoneAndEmail = serviceText.findNumberPhoneAndEmail(text);
-        Assertions.assertEquals(isFindNumberPhoneAndEmail,text);
+        Assertions.assertEquals(isFindNumberPhoneAndEmail, text);
     }
 }
