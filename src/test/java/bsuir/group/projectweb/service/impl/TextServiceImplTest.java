@@ -9,6 +9,7 @@ import bsuir.group.projectweb.model.Text;
 import bsuir.group.projectweb.repository.AuthorRepositoryDAO;
 import bsuir.group.projectweb.repository.SalaryRepositoryDAO;
 import bsuir.group.projectweb.repository.TextRepositoryDAO;
+import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -85,6 +86,11 @@ class TextServiceImplTest {
                 .findByInformation("Hi");
         boolean isChangeByText = serviceText.changeByText(informationExist, information);
         Assertions.assertTrue(isChangeByText);
+        Mockito.doReturn(false)
+                .when(repositoryText)
+                .existsByInformation("Hi");
+        isChangeByText = serviceText.changeByText(informationExist, information);
+        Assertions.assertFalse(isChangeByText);
     }
 
     @Test
@@ -164,9 +170,12 @@ class TextServiceImplTest {
     @Test
     void findNumberPhone() {
         String stringForCompare = "denis@gmail.com +375295297796";
+        String stringForFalseCompare = "denis@gmail.com 375295297796";
         Text text = new Text();
-        text.setInformation(stringForCompare);
-        Text isFindNumberPhone = serviceText.findNumberPhone(stringForCompare, text);
+        text.setInformation(stringForFalseCompare);
+        Text isFindNumberPhone = serviceText.findEmail(stringForFalseCompare, text);
+        Assertions.assertEquals(isFindNumberPhone,text);
+        isFindNumberPhone = serviceText.findNumberPhone(stringForCompare, text);
         text.setNumberOfPhone("+375295297796");
         Assertions.assertEquals(isFindNumberPhone.getNumberOfPhone(), text.getNumberOfPhone());
     }
@@ -174,9 +183,12 @@ class TextServiceImplTest {
     @Test
     void findEmail() {
         String stringForCompare = "denis@gmail.com +375295297796";
+        String stringForFalseCompare = "denisgmail.com +375295297796";
         Text text = new Text();
-        text.setInformation(stringForCompare);
-        Text isFindEmail = serviceText.findEmail(stringForCompare, text);
+        Text isFindEmail = serviceText.findEmail(stringForFalseCompare, text);
+        text.setInformation(stringForFalseCompare);
+        Assertions.assertEquals(isFindEmail,text);
+        isFindEmail = serviceText.findEmail(stringForCompare, text);
         text.setEmail("s@gmail.com");
         Assertions.assertEquals(isFindEmail.getEmail(), text.getEmail());
     }
@@ -200,6 +212,14 @@ class TextServiceImplTest {
                 .when(repositoryText)
                 .findFirstByInformation(stringForCompare);
         boolean isFindByText = serviceText.findTextByInformation(stringForCompare);
+        Assertions.assertFalse(isFindByText);
+        Mockito.doReturn(ListText)
+                .when(repositoryText)
+                .findAll();
+        Mockito.doReturn(null)
+                .when(repositoryText)
+                .findFirstByInformation(stringForCompare);
+        isFindByText = serviceText.findTextByInformation(stringForCompare);
         Assertions.assertFalse(isFindByText);
         stringForCompare = "denis@gmail.com +3752952977965";
         textForCheckFirst.setInformation(stringForCompare);
