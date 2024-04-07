@@ -60,11 +60,18 @@ public class AuthorController {
         LOGGER.info("start save a author");
         boolean checkError = service.savePerson(author);
         if (checkError) {
-            return new ResponseEntity<>("save a author", HttpStatus.OK);
+            return new ResponseEntity<>(
+                    """
+                            {
+                            save a author
+                            }""", HttpStatus.OK);
         } else {
             LOGGER.error("author yet save ");
             return new ResponseEntity<>(
-                    "author yet save in db", HttpStatus.INTERNAL_SERVER_ERROR);
+                    """
+                            {
+                            author yet save in db
+                            }""", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -83,11 +90,16 @@ public class AuthorController {
         boolean checkError = service.addAuthorInText(
                 informationExist, authorAdd);
         if (checkError) {
-            return new ResponseEntity<>("add author in text", HttpStatus.OK);
+            return new ResponseEntity<>("""
+                    {
+                    add author in text
+                    }""", HttpStatus.OK);
         } else {
             LOGGER.error("text not found");
-            return new ResponseEntity<>(
-                    "add author in text not complete", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("""
+                    {
+                    add author in text not complete
+                    }""", HttpStatus.NOT_FOUND);
         }
     }
 
@@ -105,11 +117,16 @@ public class AuthorController {
         LOGGER.info("start delete author");
         boolean checkError = service.deleteAuthorConnection(idAuthor, idText);
         if (checkError) {
-            return new ResponseEntity<>("Delete author", HttpStatus.OK);
+            return new ResponseEntity<>("""
+                    {
+                    Delete author
+                    }""", HttpStatus.OK);
         } else {
             LOGGER.error("author not found by id");
-            return new ResponseEntity<>(
-                    "author not found", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("""
+                    {
+                    author not found
+                    }""", HttpStatus.NOT_FOUND);
         }
     }
 }

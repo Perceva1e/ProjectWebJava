@@ -50,6 +50,7 @@ public class TextController {
      */
     private static final Logger LOGGER = LoggerFactory.getLogger(
             TextController.class);
+
     /**
      * This method find all text.
      *
@@ -100,7 +101,7 @@ public class TextController {
         if (checkError) {
             return SUCCESS_METHOD;
         } else {
-            LOGGER.error("text yet save ");
+            LOGGER.error("text yet save");
             return ERROR_METHOD;
         }
     }
@@ -164,11 +165,16 @@ public class TextController {
         LOGGER.info("start find information");
         boolean checkError = service.findTextByInformation(information);
         if (checkError) {
-            return new ResponseEntity<>("information is find", HttpStatus.OK);
+            return new ResponseEntity<>("""
+                    {
+                    information is find
+                    }""", HttpStatus.OK);
         } else {
             LOGGER.error("information not found");
-            return new ResponseEntity<>(
-                    "information not found",
+            return new ResponseEntity<>("""
+                    {
+                    information not found
+                    }""",
                     HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -217,12 +223,16 @@ public class TextController {
         LOGGER.info("start bulk insert text");
         boolean checkError = service.saveBulkText(bulkTextRequestDTO);
         if (checkError) {
-            return new ResponseEntity<>(
-                    "Bulk insert information", HttpStatus.OK);
+            return new ResponseEntity<>("""
+                    {
+                    Bulk insert information
+                    }""", HttpStatus.OK);
         } else {
             LOGGER.error("error Bulk insert information");
-            return new ResponseEntity<>(
-                    "Bulk insert information not execute",
+            return new ResponseEntity<>("""
+                    {
+                    Bulk insert information not execute
+                    }""",
                     HttpStatus.NOT_FOUND);
         }
     }

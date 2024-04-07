@@ -17,8 +17,6 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 
 
-
-
 @Controller
 @RequestMapping("/api/v1/text")
 @AllArgsConstructor
@@ -32,6 +30,7 @@ public class SalaryController {
      * This is a server.
      */
     private SalaryService service;
+
     /**
      * This method delete salary.
      *
@@ -44,11 +43,16 @@ public class SalaryController {
         LOGGER.info("start delete salary");
         boolean checkError = service.deleteSalaryInAuthor(id);
         if (checkError) {
-            return new ResponseEntity<>("Delete salary", HttpStatus.OK);
+            return new ResponseEntity<>("""
+                    {
+                    Delete salary
+                    }""", HttpStatus.OK);
         } else {
             LOGGER.error("salary not found by id");
-            return new ResponseEntity<>(
-                    "salary not found", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("""
+                    {
+                    salary not found
+                    }""", HttpStatus.NOT_FOUND);
         }
     }
 
@@ -65,10 +69,16 @@ public class SalaryController {
         LOGGER.info("start change salary");
         boolean checkError = service.changeSalaryByIdInAuthor(id, price);
         if (checkError) {
-            return new ResponseEntity<>("salary is change", HttpStatus.OK);
+            return new ResponseEntity<>("""
+                    {
+                    salary is change
+                    }""", HttpStatus.OK);
         } else {
             LOGGER.error("id not find");
-            return new ResponseEntity<>("id not find", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("""
+                    {
+                    id not find
+                    }""", HttpStatus.NOT_FOUND);
         }
     }
 
@@ -87,11 +97,16 @@ public class SalaryController {
         LOGGER.info("number of access to service is {}", numberOfRequest);
         boolean checkError = service.saveSalary(salary);
         if (checkError) {
-            return new ResponseEntity<>("salary is save", HttpStatus.OK);
+            return new ResponseEntity<>("""
+                    {
+                    salary is save
+                    }""", HttpStatus.OK);
         } else {
             LOGGER.error("salary is yet save");
-            return new ResponseEntity<>(
-                    "salary is yet save in bd",
+            return new ResponseEntity<>("""
+                    {
+                    salary is yet save in bd
+                    }""",
                     HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
