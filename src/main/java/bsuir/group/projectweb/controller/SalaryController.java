@@ -21,6 +21,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 @AllArgsConstructor
 public class SalaryController {
     /**
+     * This is a SUCCESSSTATUS.
+     */
+    private static final String SUCCESSSTATUS = "Method success";
+    /**
      * This is a logger.
      */
     private static final Logger LOGGER = LoggerFactory.getLogger(
@@ -40,13 +44,12 @@ public class SalaryController {
     public ResponseEntity<Message> deleteSalaryInAuthor(
             @PathVariable final Long id) {
         LOGGER.info("start delete salary");
-        String successMessage = "Success";
         String errorMessage = "Error 404: Not Found";
         boolean checkError = service.deleteSalaryInAuthor(id);
         if (checkError) {
             return ResponseEntity.
                     status(HttpStatus.OK).
-                    body(new Message(successMessage));
+                    body(new Message(SUCCESSSTATUS));
         } else {
             LOGGER.error("bad request");
             return ResponseEntity.
@@ -66,13 +69,12 @@ public class SalaryController {
     public ResponseEntity<Message> changeSalaryByIdInAuthor(
             @PathVariable final Long id, @PathVariable final Integer price) {
         LOGGER.info("start change salary");
-        String successMessage = "Success";
         String errorMessage = "Error 404: Not Found";
         boolean checkError = service.changeSalaryByIdInAuthor(id, price);
         if (checkError) {
             return ResponseEntity.
                     status(HttpStatus.OK).
-                    body(new Message(successMessage));
+                    body(new Message(SUCCESSSTATUS));
         } else {
             LOGGER.error("id not find");
             return ResponseEntity.
@@ -91,7 +93,6 @@ public class SalaryController {
     public ResponseEntity<Message> saveSalary(
             @RequestBody final Salary salary) {
         LOGGER.info("start save a salary");
-        String successMessage = "Success";
         String errorMessage = "Error 400: Bad request";
         CounterServiceImpl.enhanceCounter();
         int numberOfRequest = CounterServiceImpl.getCounter();
@@ -100,7 +101,7 @@ public class SalaryController {
         if (checkError) {
             return ResponseEntity.
                     status(HttpStatus.OK).
-                    body(new Message(successMessage));
+                    body(new Message(SUCCESSSTATUS));
         } else {
             return ResponseEntity.
                     status(HttpStatus.BAD_REQUEST).

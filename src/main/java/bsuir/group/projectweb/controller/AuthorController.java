@@ -24,6 +24,15 @@ import java.util.List;
 @RequestMapping("/api/v1/text")
 @AllArgsConstructor
 public class AuthorController {
+
+    /**
+     * This is a BADREQUEST.
+     */
+    private static final String BADREQUEST = "Error 404: Not Found";
+    /**
+     * This is a SUCCESSSTATUS.
+     */
+    private static final String SUCCESSSTATUS = "Method success";
     /**
      * This is a logger.
      */
@@ -59,17 +68,15 @@ public class AuthorController {
     public ResponseEntity<Message> saveAuthor(
             @RequestBody final Author author) {
         LOGGER.info("start save a author");
-        String successMessage = "Success";
-        String errorMessage = "Error 404: Not Found";
         boolean checkError = service.savePerson(author);
         if (checkError) {
             return ResponseEntity.
                     status(HttpStatus.OK).
-                    body(new Message(successMessage));
+                    body(new Message(SUCCESSSTATUS));
         } else {
             return ResponseEntity.
                     status(HttpStatus.BAD_REQUEST).
-                    body(new Message(errorMessage));
+                    body(new Message(BADREQUEST));
         }
     }
 
@@ -85,19 +92,17 @@ public class AuthorController {
             @PathVariable final String informationExist,
             @RequestBody final Author authorAdd) {
         LOGGER.info("start add author in text");
-        String successMessage = "Success";
-        String errorMessage = "Error 404: Not Found";
         boolean checkError = service.addAuthorInText(
                 informationExist, authorAdd);
         if (checkError) {
             return ResponseEntity.
                     status(HttpStatus.OK).
-                    body(new Message(successMessage));
+                    body(new Message(SUCCESSSTATUS));
         } else {
             LOGGER.error("text not found");
             return ResponseEntity.
                     status(HttpStatus.BAD_REQUEST).
-                    body(new Message(errorMessage));
+                    body(new Message(BADREQUEST));
         }
     }
 
@@ -113,18 +118,16 @@ public class AuthorController {
             @PathVariable final Long idAuthor,
             @PathVariable final Long idText) {
         LOGGER.info("start delete author");
-        String successMessage = "Success";
-        String errorMessage = "Error 404: Not Found";
         boolean checkError = service.deleteAuthorConnection(idAuthor, idText);
         if (checkError) {
             return ResponseEntity.
                     status(HttpStatus.OK).
-                    body(new Message(successMessage));
+                    body(new Message(SUCCESSSTATUS));
         } else {
             LOGGER.error("author not found by id");
             return ResponseEntity.
                     status(HttpStatus.NOT_FOUND).
-                    body(new Message(errorMessage));
+                    body(new Message(BADREQUEST));
         }
     }
     private record Message(String massage) {

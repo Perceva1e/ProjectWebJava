@@ -34,6 +34,11 @@ import java.util.Set;
 @AllArgsConstructor
 public class TextController {
     /**
+     * This is a SUCCESSSTATUS.
+     */
+    private static final String SUCCESSSTATUS = "Method success";
+
+    /**
      * This is html page.
      */
     private static final String ERROR_METHOD = "errorMethod";
@@ -163,13 +168,12 @@ public class TextController {
     public ResponseEntity<Message> findTextByInformation(
             @PathVariable final String information) {
         LOGGER.info("start find information");
-        String successMessage = "method proceed";
         String errorMessage = "Error 500: Runtime Exception";
         boolean checkError = service.findTextByInformation(information);
         if (checkError) {
             return ResponseEntity.
                     status(HttpStatus.OK).
-                    body(new Message(successMessage));
+                    body(new Message(SUCCESSSTATUS));
         } else {
             LOGGER.error("information not found");
             return ResponseEntity.
@@ -220,13 +224,12 @@ public class TextController {
     public ResponseEntity<Message> bulkInsertText(
             @RequestBody final BulkTextRequestDTO bulkTextRequestDTO) {
         LOGGER.info("start bulk insert text");
-        String successMessage = "method proceed";
         String errorMessage = "Error 500: Runtime Exception";
         boolean checkError = service.saveBulkText(bulkTextRequestDTO);
         if (checkError) {
             return ResponseEntity.
                     status(HttpStatus.OK).
-                    body(new Message(successMessage));
+                    body(new Message(SUCCESSSTATUS));
         } else {
             LOGGER.error("error Bulk insert information");
             return ResponseEntity.
