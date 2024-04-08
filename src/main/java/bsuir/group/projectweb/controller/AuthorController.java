@@ -56,22 +56,20 @@ public class AuthorController {
      * @return restore author after save
      */
     @PostMapping("/save_people")
-    public ResponseEntity<String> saveAuthor(@RequestBody final Author author) {
+    public ResponseEntity<Message> saveAuthor(
+            @RequestBody final Author author) {
         LOGGER.info("start save a author");
+        String successMessage = "Success";
+        String errorMessage = "Error 404: Not Found";
         boolean checkError = service.savePerson(author);
         if (checkError) {
-            return new ResponseEntity<>(
-                    """
-                            {
-                            save a author
-                            }""", HttpStatus.OK);
+            return ResponseEntity.
+                    status(HttpStatus.OK).
+                    body(new Message(successMessage));
         } else {
-            LOGGER.error("author yet save ");
-            return new ResponseEntity<>(
-                    """
-                            {
-                            author yet save in db
-                            }""", HttpStatus.INTERNAL_SERVER_ERROR);
+            return ResponseEntity.
+                    status(HttpStatus.BAD_REQUEST).
+                    body(new Message(errorMessage));
         }
     }
 
@@ -83,23 +81,23 @@ public class AuthorController {
      * @return restore http status
      */
     @PutMapping("add_author_text/{informationExist}")
-    public ResponseEntity<String> addAuthorInText(
+    public ResponseEntity<Message> addAuthorInText(
             @PathVariable final String informationExist,
             @RequestBody final Author authorAdd) {
         LOGGER.info("start add author in text");
+        String successMessage = "Success";
+        String errorMessage = "Error 404: Not Found";
         boolean checkError = service.addAuthorInText(
                 informationExist, authorAdd);
         if (checkError) {
-            return new ResponseEntity<>("""
-                    {
-                    add author in text
-                    }""", HttpStatus.OK);
+            return ResponseEntity.
+                    status(HttpStatus.OK).
+                    body(new Message(successMessage));
         } else {
             LOGGER.error("text not found");
-            return new ResponseEntity<>("""
-                    {
-                    add author in text not complete
-                    }""", HttpStatus.NOT_FOUND);
+            return ResponseEntity.
+                    status(HttpStatus.BAD_REQUEST).
+                    body(new Message(errorMessage));
         }
     }
 
@@ -111,22 +109,24 @@ public class AuthorController {
      * @return restore http status
      */
     @DeleteMapping("delete_author_connection/{idAuthor}/{idText}")
-    public ResponseEntity<String> deleteAuthorConnection(
+    public ResponseEntity<Message> deleteAuthorConnection(
             @PathVariable final Long idAuthor,
             @PathVariable final Long idText) {
         LOGGER.info("start delete author");
+        String successMessage = "Success";
+        String errorMessage = "Error 404: Not Found";
         boolean checkError = service.deleteAuthorConnection(idAuthor, idText);
         if (checkError) {
-            return new ResponseEntity<>("""
-                    {
-                    Delete author
-                    }""", HttpStatus.OK);
+            return ResponseEntity.
+                    status(HttpStatus.OK).
+                    body(new Message(successMessage));
         } else {
             LOGGER.error("author not found by id");
-            return new ResponseEntity<>("""
-                    {
-                    author not found
-                    }""", HttpStatus.NOT_FOUND);
+            return ResponseEntity.
+                    status(HttpStatus.NOT_FOUND).
+                    body(new Message(errorMessage));
         }
+    }
+    private record Message(String massage) {
     }
 }

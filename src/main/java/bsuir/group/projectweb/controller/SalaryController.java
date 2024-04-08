@@ -9,13 +9,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
-
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 @RequestMapping("/api/v1/text")
@@ -38,21 +37,21 @@ public class SalaryController {
      * @return restore http status
      */
     @DeleteMapping("delete_salary_in_author/{id}")
-    public ResponseEntity<String> deleteSalaryInAuthor(
+    public ResponseEntity<Message> deleteSalaryInAuthor(
             @PathVariable final Long id) {
         LOGGER.info("start delete salary");
+        String successMessage = "Success";
+        String errorMessage = "Error 404: Not Found";
         boolean checkError = service.deleteSalaryInAuthor(id);
         if (checkError) {
-            return new ResponseEntity<>("""
-                    {
-                    Delete salary
-                    }""", HttpStatus.OK);
+            return ResponseEntity.
+                    status(HttpStatus.OK).
+                    body(new Message(successMessage));
         } else {
-            LOGGER.error("salary not found by id");
-            return new ResponseEntity<>("""
-                    {
-                    salary not found
-                    }""", HttpStatus.NOT_FOUND);
+            LOGGER.error("bad request");
+            return ResponseEntity.
+                    status(HttpStatus.NOT_FOUND).
+                    body(new Message(errorMessage));
         }
     }
 
@@ -64,21 +63,21 @@ public class SalaryController {
      * @return restore http status
      */
     @PutMapping("change_salary_in_author/{id}/{price}")
-    public ResponseEntity<String> changeSalaryByIdInAuthor(
+    public ResponseEntity<Message> changeSalaryByIdInAuthor(
             @PathVariable final Long id, @PathVariable final Integer price) {
         LOGGER.info("start change salary");
+        String successMessage = "Success";
+        String errorMessage = "Error 404: Not Found";
         boolean checkError = service.changeSalaryByIdInAuthor(id, price);
         if (checkError) {
-            return new ResponseEntity<>("""
-                    {
-                    salary is change
-                    }""", HttpStatus.OK);
+            return ResponseEntity.
+                    status(HttpStatus.OK).
+                    body(new Message(successMessage));
         } else {
             LOGGER.error("id not find");
-            return new ResponseEntity<>("""
-                    {
-                    id not find
-                    }""", HttpStatus.NOT_FOUND);
+            return ResponseEntity.
+                    status(HttpStatus.NOT_FOUND).
+                    body(new Message(errorMessage));
         }
     }
 
@@ -89,25 +88,25 @@ public class SalaryController {
      * @return restore text after save
      */
     @PostMapping("/save_salary")
-    public ResponseEntity<String> saveSalary(
+    public ResponseEntity<Message> saveSalary(
             @RequestBody final Salary salary) {
         LOGGER.info("start save a salary");
+        String successMessage = "Success";
+        String errorMessage = "Error 400: Bad request";
         CounterServiceImpl.enhanceCounter();
         int numberOfRequest = CounterServiceImpl.getCounter();
         LOGGER.info("number of access to service is {}", numberOfRequest);
         boolean checkError = service.saveSalary(salary);
         if (checkError) {
-            return new ResponseEntity<>("""
-                    {
-                    salary is save
-                    }""", HttpStatus.OK);
+            return ResponseEntity.
+                    status(HttpStatus.OK).
+                    body(new Message(successMessage));
         } else {
-            LOGGER.error("salary is yet save");
-            return new ResponseEntity<>("""
-                    {
-                    salary is yet save in bd
-                    }""",
-                    HttpStatus.INTERNAL_SERVER_ERROR);
+            return ResponseEntity.
+                    status(HttpStatus.BAD_REQUEST).
+                    body(new Message(errorMessage));
         }
+    }
+    private record Message(String message) {
     }
 }

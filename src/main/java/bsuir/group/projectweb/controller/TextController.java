@@ -11,18 +11,18 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+
+
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import org.springframework.ui.Model;
-
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.HashSet;
 import java.util.List;
@@ -160,22 +160,21 @@ public class TextController {
      * @return restore http status
      */
     @GetMapping("/{information}")
-    public ResponseEntity<String> findTextByInformation(
+    public ResponseEntity<Message> findTextByInformation(
             @PathVariable final String information) {
         LOGGER.info("start find information");
+        String successMessage = "method proceed";
+        String errorMessage = "Error 500: Runtime Exception";
         boolean checkError = service.findTextByInformation(information);
         if (checkError) {
-            return new ResponseEntity<>("""
-                    {
-                    information is find
-                    }""", HttpStatus.OK);
+            return ResponseEntity.
+                    status(HttpStatus.OK).
+                    body(new Message(successMessage));
         } else {
             LOGGER.error("information not found");
-            return new ResponseEntity<>("""
-                    {
-                    information not found
-                    }""",
-                    HttpStatus.INTERNAL_SERVER_ERROR);
+            return ResponseEntity.
+                    status(HttpStatus.INTERNAL_SERVER_ERROR).
+                    body(new Message(errorMessage));
         }
     }
 
@@ -218,22 +217,23 @@ public class TextController {
      * @return restore http status
      */
     @PostMapping("bulk_insert_text")
-    public ResponseEntity<String> bulkInsertText(
+    public ResponseEntity<Message> bulkInsertText(
             @RequestBody final BulkTextRequestDTO bulkTextRequestDTO) {
         LOGGER.info("start bulk insert text");
+        String successMessage = "method proceed";
+        String errorMessage = "Error 500: Runtime Exception";
         boolean checkError = service.saveBulkText(bulkTextRequestDTO);
         if (checkError) {
-            return new ResponseEntity<>("""
-                    {
-                    Bulk insert information
-                    }""", HttpStatus.OK);
+            return ResponseEntity.
+                    status(HttpStatus.OK).
+                    body(new Message(successMessage));
         } else {
             LOGGER.error("error Bulk insert information");
-            return new ResponseEntity<>("""
-                    {
-                    Bulk insert information not execute
-                    }""",
-                    HttpStatus.NOT_FOUND);
+            return ResponseEntity.
+                    status(HttpStatus.BAD_REQUEST).
+                    body(new Message(errorMessage));
         }
+    }
+    private record Message(String massage) {
     }
 }
