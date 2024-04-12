@@ -1,4 +1,3 @@
-FROM  openjdk as builder
-WORKDIR /opt/app
-COPY pom.xml ./
-
+FROM openjdk:21
+COPY target/*.jar app.jar
+ENTRYPOINT ["java", "-jar", "/app.jar"]

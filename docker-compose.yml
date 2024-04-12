@@ -1,27 +1,33 @@
-version: "3.1"
-
-volumes:
-  pg_text:
+version: '3.9'
 
 services:
   text_db:
     image: postgres
+    container_name: text_db_java
     restart: always
     environment:
-      - POSTGRES_USER = postgres
-      - POSTGRES_PASSWORD = 12345
-      - POSTGRES_DB = text_db
-    volumes:
-      - pg_text:/var/lib/postgresql/data
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 12345
+      POSTGRES_DB: text_db
     ports:
-      - "127.0.0.1:5432:5432"
+      - '5432:5432'
+    networks:
+      - text-network
+
   app:
-    restart: always
-    build: .
+    image: textjava
     ports:
       - "8080:8080"
+    environment:
+      DB_USER: postgres
+      DB_PASSWORD: 12345
+      DB_NAME: text_db
+      DB_HOST: text_db:5432
     depends_on:
       - text_db
-    environment:
-      SPRING_DATASOURCE_URL: 'jdbc:postgresql://text_db:5432/text_db'
-      JAVA_OPTS: '-Xmx512'
+    networks:
+      - text-network
+
+networks:
+  text-network:
+    driver: bridge
